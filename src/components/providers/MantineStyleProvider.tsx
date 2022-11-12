@@ -18,7 +18,7 @@ const MantineProvider = ({ children }: Props) => {
           background: ["#FFF"],
           primary: [
             "#830f3e",
-            "#690c32",
+            "#8f2751",
             "#da8b05",
             "#5c0b2b",
             "#4f0925",

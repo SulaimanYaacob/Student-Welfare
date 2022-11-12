@@ -1,4 +1,11 @@
-import { ActionIcon, Group, Title, createStyles, Header } from "@mantine/core";
+import {
+  ActionIcon,
+  Group,
+  Title,
+  createStyles,
+  Header,
+  Menu,
+} from "@mantine/core";
 import React from "react";
 import {
   MdLogout,
@@ -23,18 +30,25 @@ function HeaderBar() {
       <Group position="apart" align="center" py="md" mx={"xl"}>
         <Title order={3}>STUDENT WELFARE SYSTEM / NAME</Title>
         <Group>
-          <ActionIcon>
-            <MdOutlineSettings size={75} />
-          </ActionIcon>
           <ActionIcon component="a" href="/">
             <MdOutlineHome size={75} />
           </ActionIcon>
           <ActionIcon>
             <MdPersonOutline size={75} />
           </ActionIcon>
-          <ActionIcon component="a" href="/login">
-            <MdLogout size={75} />
-          </ActionIcon>
+          <Menu position="top-start" offset={18} radius={0}>
+            <Menu.Target>
+              <ActionIcon>
+                <MdOutlineSettings size={75} />
+              </ActionIcon>
+            </Menu.Target>
+            <Menu.Dropdown>
+              <Menu.Label>Settings</Menu.Label>
+              <Menu.Item component="a" href="/login" icon={<MdLogout />}>
+                Logout
+              </Menu.Item>
+            </Menu.Dropdown>
+          </Menu>
         </Group>
       </Group>
     </Header>

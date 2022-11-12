@@ -7,7 +7,7 @@ import {
   TbReport,
   TbWriting,
 } from "react-icons/tb";
-import { Fade, Slide } from "react-awesome-reveal";
+import { Slide } from "react-awesome-reveal";
 
 const useStyle = createStyles((theme) => ({
   buttonManager: {
@@ -16,6 +16,7 @@ const useStyle = createStyles((theme) => ({
       height: "175px",
       color: theme.colors.dark[5],
       background: theme.colors.gray?.[0],
+      border: "solid 3px black",
       fontWeight: 700,
       "&:hover": {
         border: "solid 5px gold",
