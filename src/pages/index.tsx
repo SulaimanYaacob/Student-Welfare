@@ -1,6 +1,6 @@
 import { Button } from "@mantine/core";
 import { type NextPage } from "next";
-import Banner from "../components/Login/Banner";
+import Banner from "../components/Login";
 import { trpc } from "../utils/trpc";
 
 const Home: NextPage = () => {

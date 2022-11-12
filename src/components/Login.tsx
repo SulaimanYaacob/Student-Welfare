@@ -29,7 +29,7 @@ const useStyle = createStyles((theme) => ({
   },
 }));
 
-function Banner() {
+function Login() {
   const { classes } = useStyle();
   const { push } = useRouter();
 
@@ -54,11 +54,11 @@ function Banner() {
           <Title order={2}>Login to your Account</Title>
           <TextInput label="Email address" />
           <PasswordInput label="Password" />
-          <Checkbox label="Remember me" color="primary.0" />
-          <Button color="primary.0">Sign In</Button>
+          <Checkbox label="Remember me" color="primary" />
+          <Button color="primary">Sign In</Button>
           <Button
             onClick={() =>
-              signIn("google", { callbackUrl: "http://localhost:3000" })
+              signIn("google", { callbackUrl: "http://localhost:3000/home" })
             }
             color="dark.5"
             leftIcon={<FcGoogle size={"25px"} />}
@@ -67,7 +67,7 @@ function Banner() {
           </Button>
           <Group position="center" noWrap spacing={"xs"}>
             <Text>Don't have an account? </Text>
-            <Anchor href="/" underline={false}>
+            <Anchor href="/home" underline={false}>
               Sign Up
             </Anchor>
           </Group>
@@ -77,4 +77,4 @@ function Banner() {
   );
 }
 
-export default Banner;
+export default Login;
