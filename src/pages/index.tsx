@@ -1,17 +1,16 @@
-import { Button } from "@mantine/core";
+import { Button, Group } from "@mantine/core";
 import { type NextPage } from "next";
-import Banner from "../components/Login";
 import { trpc } from "../utils/trpc";
 
 const Home: NextPage = () => {
   const hello = trpc.example.hello.useQuery({ text: "from tRPC" });
 
   return (
-    <>
-      <Button component="a" href="/login">
+    <Group position="center">
+      <Button component="a" href="/login" radius={0}>
         {hello.data?.greeting}
       </Button>
-    </>
+    </Group>
   );
 };
 

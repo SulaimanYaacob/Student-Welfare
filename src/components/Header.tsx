@@ -21,18 +21,18 @@ function HeaderBar() {
   return (
     <Header height={"70"} className={classes.headerContainer}>
       <Group position="apart" align="center" py="md" mx={"xl"}>
-        <Title order={3}>STUDENT WELFARE SYSTEM</Title>
+        <Title order={3}>STUDENT WELFARE SYSTEM / NAME</Title>
         <Group>
           <ActionIcon>
             <MdOutlineSettings size={75} />
           </ActionIcon>
-          <ActionIcon>
+          <ActionIcon component="a" href="/">
             <MdOutlineHome size={75} />
           </ActionIcon>
           <ActionIcon>
             <MdPersonOutline size={75} />
           </ActionIcon>
-          <ActionIcon>
+          <ActionIcon component="a" href="/login">
             <MdLogout size={75} />
           </ActionIcon>
         </Group>

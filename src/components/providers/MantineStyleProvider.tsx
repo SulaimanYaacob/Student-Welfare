@@ -12,7 +12,7 @@ const MantineProvider = ({ children }: Props) => {
       withNormalizeCSS
       theme={{
         /** Put your mantine theme override here */
-        primaryShade: { light: 0 },
+        primaryShade: { light: 5 },
         colorScheme: "light",
         colors: {
           background: ["#FFF"],

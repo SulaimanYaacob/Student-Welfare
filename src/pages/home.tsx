@@ -6,7 +6,7 @@ import LandingLayout from "../components/LandingLayout";
 function home() {
   return (
     <LandingLayout>
-      {/* <EventCarousel /> */}
+      <EventCarousel />
       <HomeContent />
     </LandingLayout>
   );

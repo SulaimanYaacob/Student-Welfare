@@ -54,8 +54,8 @@ function Login() {
           <Title order={2}>Login to your Account</Title>
           <TextInput label="Email address" />
           <PasswordInput label="Password" />
-          <Checkbox label="Remember me" color="primary" />
-          <Button color="primary">Sign In</Button>
+          <Checkbox label="Remember me" color="primary.0" />
+          <Button color="primary.0">Sign In</Button>
           <Button
             onClick={() =>
               signIn("google", { callbackUrl: "http://localhost:3000/home" })
