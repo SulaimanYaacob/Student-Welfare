@@ -16,6 +16,7 @@ import Image from "next/image";
 import { FcGoogle } from "react-icons/fc";
 import { signIn } from "next-auth/react";
 import { useState } from "react";
+import Register from "./Register";
 
 const useStyle = createStyles((theme) => ({
   appShell: {
@@ -32,17 +33,11 @@ const useStyle = createStyles((theme) => ({
 
 function Login() {
   const { classes } = useStyle();
-  const [opened, setOpened] = useState(false);
+  const [opened, setOpened] = useState<boolean>(false);
 
   return (
     <AppShell className={classes.appShell} padding="xl">
-      <Modal
-        opened={opened}
-        onClose={() => setOpened(false)}
-        title="Introduce yourself!"
-      >
-        {/* RegisterComponent Here */}
-      </Modal>
+      <Register opened={opened} setOpened={setOpened} />
       <Group className={classes.borderContainer} spacing={0} noWrap>
         <Stack sx={{ width: "60%" }} align="center" spacing={"xl"}>
           <Title color="gray.0">STUDENT WELFARE SYSTEM</Title>
