@@ -10,11 +10,12 @@ import {
   Button,
   AppShell,
   Anchor,
+  Modal,
 } from "@mantine/core";
 import Image from "next/image";
 import { FcGoogle } from "react-icons/fc";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/router";
+import { useState } from "react";
 
 const useStyle = createStyles((theme) => ({
   appShell: {
@@ -31,10 +32,17 @@ const useStyle = createStyles((theme) => ({
 
 function Login() {
   const { classes } = useStyle();
-  const { push } = useRouter();
+  const [opened, setOpened] = useState(false);
 
   return (
     <AppShell className={classes.appShell} padding="xl">
+      <Modal
+        opened={opened}
+        onClose={() => setOpened(false)}
+        title="Introduce yourself!"
+      >
+        {/* RegisterComponent Here */}
+      </Modal>
       <Group className={classes.borderContainer} spacing={0} noWrap>
         <Stack sx={{ width: "60%" }} align="center" spacing={"xl"}>
           <Title color="gray.0">STUDENT WELFARE SYSTEM</Title>
@@ -67,7 +75,13 @@ function Login() {
           </Button>
           <Group position="center" noWrap spacing={"xs"}>
             <Text>Don't have an account? </Text>
-            <Anchor href="/home" underline={false}>
+
+            <Anchor
+              onClick={() => {
+                setOpened(true);
+              }}
+              underline={false}
+            >
               Sign Up
             </Anchor>
           </Group>

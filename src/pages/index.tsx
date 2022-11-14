@@ -7,7 +7,7 @@ const Home: NextPage = () => {
 
   return (
     <Group position="center">
-      <Button component="a" href="/login" radius={0}>
+      <Button component="a" href="/auth/login" radius={0}>
         {hello.data?.greeting}
       </Button>
     </Group>

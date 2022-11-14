@@ -13,6 +13,7 @@ import {
   MdOutlineHome,
   MdPersonOutline,
 } from "react-icons/md";
+import { signOut, useSession } from "next-auth/react";
 
 const useStyle = createStyles((theme) => ({
   headerContainer: {
@@ -24,11 +25,12 @@ const useStyle = createStyles((theme) => ({
 
 function HeaderBar() {
   const { classes } = useStyle();
+  const { data: session } = useSession();
 
   return (
     <Header height={"70"} className={classes.headerContainer}>
       <Group position="apart" align="center" py="md" mx={"xl"}>
-        <Title order={3}>STUDENT WELFARE SYSTEM / NAME</Title>
+        <Title order={3}>STUDENT WELFARE SYSTEM</Title>
         <Group>
           <ActionIcon component="a" href="/">
             <MdOutlineHome size={75} />
@@ -44,7 +46,12 @@ function HeaderBar() {
             </Menu.Target>
             <Menu.Dropdown>
               <Menu.Label>Settings</Menu.Label>
-              <Menu.Item component="a" href="/login" icon={<MdLogout />}>
+              <Menu.Item
+                onClick={() =>
+                  signOut({ callbackUrl: "http://localhost:3000/auth/login" })
+                }
+                icon={<MdLogout />}
+              >
                 Logout
               </Menu.Item>
             </Menu.Dropdown>
