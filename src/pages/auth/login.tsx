@@ -1,12 +1,27 @@
-import { type NextPage } from "next";
 import Login from "../../components/Login";
-import { trpc } from "../../utils/trpc";
+import { getSession, GetSessionParams } from "next-auth/react";
 
-const LoginPage: NextPage = () => {
-  const hello = trpc.example.hello.useQuery({ text: "from tRPC" });
-  console.log(hello.data);
-
+const LoginPage = () => {
   return <Login />;
 };
 
 export default LoginPage;
+
+export async function getServerSideProps(
+  context: GetSessionParams | undefined
+) {
+  const session = await getSession(context);
+
+  if (session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: { session },
+  };
+}

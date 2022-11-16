@@ -51,6 +51,7 @@ model User {
   id            String    @id @default(cuid())
   name          String
   email         String    @unique
+  role          Role      @default(STUDENT)
   emailVerified DateTime?
   password      String?
   image         String?
@@ -64,4 +65,9 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+enum Role {
+  STUDENT
+  MPP
 }
