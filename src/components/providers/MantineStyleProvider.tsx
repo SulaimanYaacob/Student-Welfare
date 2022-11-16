@@ -29,6 +29,7 @@ const MantineProvider = ({ children }: Props) => {
             "#f3e7ec",
           ],
           secondary: [
+            "#ffd700",
             "#da8b05",
             "#de971e",
             "#e1a237",
@@ -38,7 +39,6 @@ const MantineProvider = ({ children }: Props) => {
             "#f0d19b",
             "#f4dcb4",
             "#f8e8cd",
-            "#fbf3e6",
           ],
         },
         components: {

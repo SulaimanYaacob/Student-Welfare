@@ -21,7 +21,7 @@ const useStyle = createStyles((theme) => ({
       "&:hover": {
         border: "solid 5px gold",
         color: theme.colors.background?.[0],
-        background: theme.colors.secondary?.[0],
+        background: theme.colors.secondary?.[1],
       },
     },
   },
