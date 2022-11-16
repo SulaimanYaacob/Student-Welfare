@@ -54,7 +54,7 @@ function Login() {
           </Title>
           <Button
             onClick={() =>
-              signIn("google", { callbackUrl: "http://localhost:3000/home" })
+              signIn("google", { callbackUrl: "http://localhost:3000" })
             }
             color="red.7"
             leftIcon={<FaGoogle size={"25px"} />}
@@ -63,7 +63,7 @@ function Login() {
           </Button>
           <Button
             onClick={() =>
-              signIn("discord", { callbackUrl: "http://localhost:3000/home" })
+              signIn("discord", { callbackUrl: "http://localhost:3000" })
             }
             color="violet.7"
             leftIcon={<FaDiscord size={"25px"} />}

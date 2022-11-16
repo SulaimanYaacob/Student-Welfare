@@ -9,6 +9,7 @@ import { prisma } from "../../../server/db/client";
 
 export const authOptions: NextAuthOptions = {
   // Include user.id on session
+
   callbacks: {
     session({ session, user }) {
       if (session.user) {
@@ -28,6 +29,7 @@ export const authOptions: NextAuthOptions = {
       clientId: env.DISCORD_CLIENT_ID,
       clientSecret: env.DISCORD_CLIENT_SECRET,
     }),
+
     // ...add more providers here
   ],
   secret: env.NEXTAUTH_SECRET,

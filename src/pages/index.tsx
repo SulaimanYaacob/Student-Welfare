@@ -1,17 +1,18 @@
-import { Button, Group } from "@mantine/core";
-import { type NextPage } from "next";
-import { trpc } from "../utils/trpc";
+import React from "react";
+import EventCarousel from "../components/Home/EventCarousel";
+import HomeContent from "../components/Home/HomeContent";
+import LandingLayout from "../components/LandingLayout";
+import getServerSideProps from "../utils/protectedRoute";
 
-const Home: NextPage = () => {
-  const hello = trpc.example.hello.useQuery({ text: "from tRPC" });
-
+function Home() {
   return (
-    <Group position="center">
-      <Button component="a" href="/auth/login" radius={0}>
-        {hello.data?.greeting}
-      </Button>
-    </Group>
+    <LandingLayout>
+      <EventCarousel />
+      <HomeContent />
+    </LandingLayout>
   );
-};
+}
 
 export default Home;
+
+export { getServerSideProps };
