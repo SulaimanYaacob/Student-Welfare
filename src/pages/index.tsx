@@ -6,10 +6,10 @@ import getServerSideProps from "../utils/protectedRoute";
 
 function Home() {
   return (
-    <LandingLayout>
+    <>
       <EventCarousel />
       <HomeContent />
-    </LandingLayout>
+    </>
   );
 }
 

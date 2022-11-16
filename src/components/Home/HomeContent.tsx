@@ -38,7 +38,7 @@ function HomeContent() {
     >
       <Slide direction="left">
         <Group spacing={"xl"}>
-          <Button>
+          <Button component="a" href="/event">
             <Stack spacing={"xs"} align={"center"}>
               <TbConfetti size={"100px"} />
               <Text>Event</Text>
