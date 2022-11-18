@@ -10,11 +10,10 @@ function EventTab() {
         <Tabs.Tab px="xl" ml={"auto"} value="allEvent">
           ALL EVENT
         </Tabs.Tab>
-        <Tabs.Tab px="xl" mr={"auto"} value="myEvent">
+        <Tabs.Tab px="xl" mr={"auto"} value="myEvent" disabled>
           MY EVENT
         </Tabs.Tab>
       </Tabs.List>
-
       <Tabs.Panel value="allEvent">
         <AllEventPanel />
       </Tabs.Panel>
