@@ -1,4 +1,4 @@
-import z from "zod";
+import z, { unknown } from "zod";
 
 export const createEventPostSchema = z.object({
   title: z.string(),

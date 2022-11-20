@@ -1,4 +1,5 @@
 import { MantineProvider as Provider } from "@mantine/core";
+import { NotificationsProvider } from "@mantine/notifications";
 import { ReactNode } from "react";
 
 type Props = {
@@ -51,7 +52,9 @@ const MantineProvider = ({ children }: Props) => {
         },
       }}
     >
-      {children}
+      <NotificationsProvider autoClose={1000} position="top-center">
+        {children}
+      </NotificationsProvider>
     </Provider>
   );
 };

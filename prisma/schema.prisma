@@ -55,7 +55,6 @@ model User {
   email         String      @unique
   role          Role        @default(STUDENT)
   emailVerified DateTime?
-  password      String?
   image         String?
   accounts      Account[]
   sessions      Session[]
@@ -65,8 +64,8 @@ model User {
 model EventPost {
   id          String   @id @default(cuid())
   title       String
-  description String?
   venue       String
+  description String?
   image       String?
   date        DateTime
   timeStart   DateTime

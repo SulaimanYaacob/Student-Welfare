@@ -6,13 +6,16 @@ export const eventPost = router({
   createPost: protectedProcedure
     .input(
       z.object({
-        title: z.string(),
-        description: z.string().max(400, "Max description is 400"),
-        venue: z.string(),
+        description: z.string().max(400, "Max description is 400").optional(),
         image: z.string().optional(),
-        date: z.date(),
-        timeStart: z.date(),
         timeEnd: z.date(),
+        timeStart: z.date(),
+        date: z.date(),
+        venue: z.string().min(1, "venue is missing"),
+        title: z
+          .string()
+          .min(1, "title is missing")
+          .max(50, "title is too long!"),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -28,7 +31,7 @@ export const eventPost = router({
           },
         });
         return posts;
-      } catch (error) {
+      } catch (error: any) {
         if (!ctx.session?.user)
           throw new TRPCError({
             message: "Unauthorized to create",
