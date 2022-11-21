@@ -1,12 +1,12 @@
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
-import { router, protectedProcedure } from "../trpc";
+import { router, protectedProcedure, publicProcedure } from "../trpc";
 
 export const eventPost = router({
   createPost: protectedProcedure
     .input(
       z.object({
-        description: z.string().max(400, "Max description is 400").optional(),
+        description: z.string().max(400, "Max character is 400").optional(),
         image: z.string().optional(),
         timeEnd: z.date(),
         timeStart: z.date(),
@@ -51,7 +51,7 @@ export const eventPost = router({
         where: { id: input.eventPostId },
       });
     }),
-  getAll: protectedProcedure.query(({ ctx }) => {
+  getAll: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.eventPost.findMany();
   }),
 });

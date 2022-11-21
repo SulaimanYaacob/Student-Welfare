@@ -11,13 +11,14 @@ import {
   Paper,
 } from "@mantine/core";
 import { DatePicker, TimeInput } from "@mantine/dates";
-import React from "react";
+import { FileWithPath } from "@mantine/dropzone";
+import React, { Dispatch, SetStateAction } from "react";
 import useCreateEvent from "../../hooks/useCreateEvent";
 import FileDropzone from "./Dropzone";
 
 const useStyle = createStyles((theme) => ({
   container: {
-    margin: "0 15vw",
+    margin: "0 10vw",
     border: "1px solid",
     borderRadius: "10px",
     borderColor: theme.colors.dark?.[9],
@@ -29,9 +30,15 @@ const useStyle = createStyles((theme) => ({
   },
 }));
 
-function CreateEvent() {
+type Props = {
+  setFiles: Dispatch<SetStateAction<FileWithPath[]>>;
+};
+
+function CreateEvent({ setFiles }: Props) {
   const { classes } = useStyle();
-  const { submit, getInputProps } = useCreateEvent();
+  const { submit, getInputProps, values } = useCreateEvent();
+
+  console.log(values);
 
   return (
     <Paper shadow={"xs"} p={"xl"} className={classes.container}>
@@ -93,7 +100,7 @@ function CreateEvent() {
               {...getInputProps("timeEnd")}
             />
           </Group>
-          <FileDropzone {...getInputProps("image")} />
+          <FileDropzone setFiles={setFiles} {...getInputProps("image")} />
           <Button type="submit" color={"primary.0"}>
             Create Event
           </Button>

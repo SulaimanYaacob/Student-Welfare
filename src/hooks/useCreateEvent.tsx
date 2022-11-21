@@ -8,7 +8,7 @@ import { trpc } from "../utils/trpc";
 
 const useCreateEvent = () => {
   const { push } = useRouter();
-  const { getInputProps, onSubmit } = useForm<CreateEventPostInput>();
+  const { getInputProps, onSubmit, values } = useForm<CreateEventPostInput>();
   const { mutate: createMutation } = trpc.eventPost.createPost.useMutation({
     onMutate: (data) => {
       showNotification({
@@ -37,7 +37,7 @@ const useCreateEvent = () => {
         updateNotification({
           id: "create-event",
           title: "Error Occured",
-          message: `Missing input ${item.path[0]} `,
+          message: `Input ${item.path[0]}, ${item.message}`,
           color: "red",
           autoClose: 2000,
           icon: <TbX />,
@@ -52,7 +52,7 @@ const useCreateEvent = () => {
     });
   };
 
-  return { getInputProps, submit };
+  return { getInputProps, submit, values };
 };
 
 export default useCreateEvent;

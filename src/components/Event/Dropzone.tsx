@@ -1,10 +1,11 @@
 import { Group, Text } from "@mantine/core";
-import { Dropzone } from "@mantine/dropzone";
+import { Dropzone, FileWithPath, IMAGE_MIME_TYPE } from "@mantine/dropzone";
+import { Dispatch, SetStateAction } from "react";
 import { TbPhoto, TbUpload, TbX } from "react-icons/tb";
 
-function FileDropzone() {
+function FileDropzone({ setFiles }: any) {
   return (
-    <Dropzone onDrop={(files) => console.log({ files })}>
+    <Dropzone name="image" onDrop={setFiles} accept={IMAGE_MIME_TYPE}>
       <Group
         position="center"
         spacing="xl"
@@ -22,7 +23,7 @@ function FileDropzone() {
 
         <div>
           <Text size="xl" inline>
-            Drag images here or click to select files
+            Drag images here
           </Text>
           <Text size="sm" color="dimmed" inline mt={7}>
             Attach as many files as you like, each file should not exceed 5mb

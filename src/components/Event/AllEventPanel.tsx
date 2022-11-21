@@ -6,10 +6,11 @@ import {
   Text,
   Button,
   createStyles,
+  Loader,
 } from "@mantine/core";
 import Image from "next/image";
 import React from "react";
-import { allEvents } from "../../data/events";
+import { trpc } from "../../utils/trpc";
 
 const useStyle = createStyles((theme) => ({
   customDivider: {
@@ -36,14 +37,27 @@ const useStyle = createStyles((theme) => ({
 }));
 
 function AllEventPanel() {
+  const { data, isLoading } = trpc.eventPost.getAll.useQuery();
   const { classes } = useStyle();
+  console.log(data);
+
+  if (isLoading) {
+    return (
+      <Group position="center" m="10vw">
+        <Loader size={"xl"} variant="oval" color={"gold"} />
+        <Title order={2} color={"gold"}>
+          Loading Events
+        </Title>
+      </Group>
+    );
+  }
 
   return (
     <>
-      {allEvents.map(({ id, description, title }, index) => {
+      {data?.map(({ id, description, title }, index) => {
         return (
           <Stack key={id} m={"xl"} spacing="xl">
-            {index % 2 !== 0 ? (
+            {index % 2 === 0 ? (
               <>
                 <Stack className={classes.customDivider}>
                   <Divider size={"xl"} color={"white"} />
