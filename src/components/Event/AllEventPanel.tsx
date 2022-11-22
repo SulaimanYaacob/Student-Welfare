@@ -37,6 +37,9 @@ const useStyle = createStyles((theme) => ({
     right: "0",
     rotate: "45deg",
   },
+  overWrappingText: {
+    wordBreak: "break-all",
+  },
 }));
 
 function AllEventPanel() {
@@ -75,8 +78,12 @@ function AllEventPanel() {
                     height="180"
                   />
                   <Stack className={classes.customWidth}>
-                    <Title order={3}>{title}</Title>
-                    <Text>{description}</Text>
+                    <Title className={classes.overWrappingText} order={3}>
+                      {title}
+                    </Title>
+                    <Text className={classes.overWrappingText}>
+                      {description}
+                    </Text>
                     <Button color={"primary.2"} sx={{ width: "200px" }}>
                       LEARN MORE
                     </Button>
@@ -91,8 +98,12 @@ function AllEventPanel() {
                 </Stack>
                 <Group position="right" spacing={"xl"} noWrap>
                   <Stack className={classes.customWidth} align={"flex-end"}>
-                    <Title order={3}>{title}</Title>
-                    <Text>{description}</Text>
+                    <Title className={classes.overWrappingText} order={3}>
+                      {title}
+                    </Title>
+                    <Text className={classes.overWrappingText}>
+                      {description}
+                    </Text>
                     <Button color={"primary.2"} sx={{ width: "200px" }}>
                       LEARN MORE
                     </Button>

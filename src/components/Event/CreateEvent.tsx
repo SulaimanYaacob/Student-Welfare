@@ -12,7 +12,7 @@ import {
   FileInput,
 } from "@mantine/core";
 import { DatePicker, TimeInput } from "@mantine/dates";
-import { FileWithPath, IMAGE_MIME_TYPE } from "@mantine/dropzone";
+import { FileWithPath } from "@mantine/dropzone";
 import { GetInputProps } from "@mantine/form/lib/types";
 import React, { Dispatch, FormEventHandler, SetStateAction } from "react";
 import { CreateEventPostInput } from "../../schema/eventPost.schema";
