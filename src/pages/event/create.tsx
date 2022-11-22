@@ -16,7 +16,7 @@ function createEvent() {
   });
 
   return (
-    <Group position="center" spacing={0} grow noWrap>
+    <Group sx={{ height: "100%" }} position="center" spacing={0} grow noWrap>
       <CreateEvent
         setFiles={setFiles}
         getInputProps={getInputProps}

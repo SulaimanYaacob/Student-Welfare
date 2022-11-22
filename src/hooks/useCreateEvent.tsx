@@ -31,7 +31,6 @@ const useCreateEvent = () => {
           push("/event");
         },
       });
-      push("/event");
     },
     onError: ({ message }) => {
       const data = JSON.parse(message);
