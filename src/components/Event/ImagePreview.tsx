@@ -1,21 +1,20 @@
 import { FileWithPath } from "@mantine/dropzone";
-import { Image, Box, Title } from "@mantine/core";
-import { GetInputProps } from "@mantine/form/lib/types";
+import { Image, Box } from "@mantine/core";
+import { fileBase64Conversion } from "../../utils/fileConversion";
+import { useState } from "react";
 
 type Props = {
   files: FileWithPath[];
+  baseImage: string;
 };
 
-const ImagePreview = ({ files }: Props) => {
+const ImagePreview = ({ files, baseImage }: Props) => {
   const previews = files.map((file, index) => {
-    const imageUrl = URL.createObjectURL(file);
-    console.log(file);
-
     return (
       <Image
         key={index}
-        src={imageUrl}
-        imageProps={{ onLoad: () => URL.revokeObjectURL(imageUrl) }}
+        src={baseImage}
+        imageProps={{ onLoad: () => URL.revokeObjectURL(baseImage) }}
         fit="fill"
         width="400px"
         height="250px"

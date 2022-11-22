@@ -54,7 +54,7 @@ const MantineProvider = ({ children }: Props) => {
     >
       <NotificationsProvider
         style={{ margin: "0 10px 10px 0 " }}
-        autoClose={3000}
+        autoClose={5000}
       >
         {children}
       </NotificationsProvider>
