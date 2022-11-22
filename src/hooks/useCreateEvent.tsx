@@ -1,12 +1,13 @@
 import { useForm } from "@mantine/form";
 import { showNotification, updateNotification } from "@mantine/notifications";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useState } from "react";
 import { TbCheck, TbX } from "react-icons/tb";
 import { CreateEventPostInput } from "../schema/eventPost.schema";
 import { trpc } from "../utils/trpc";
 
 const useCreateEvent = () => {
+  const [disable, setDisable] = useState(false);
   const { push } = useRouter();
   const { getInputProps, onSubmit, values } = useForm<CreateEventPostInput>();
   const { mutate: createMutation } = trpc.eventPost.createPost.useMutation({
@@ -17,6 +18,7 @@ const useCreateEvent = () => {
         message: "Setting up new event",
         loading: true,
       });
+      setDisable(true);
     },
     onSuccess: (data: any) => {
       updateNotification({
@@ -37,12 +39,13 @@ const useCreateEvent = () => {
         updateNotification({
           id: "create-event",
           title: "Error Occured",
-          message: `Input ${item.path[0]}, ${item.message}`,
+          message: `Input ${item.path[0]} ${item.message}`,
           color: "red",
           autoClose: 2000,
           icon: <TbX />,
         });
       });
+      setDisable(false);
     },
   });
 
@@ -52,7 +55,7 @@ const useCreateEvent = () => {
     });
   };
 
-  return { getInputProps, submit, values };
+  return { getInputProps, submit, values, disable };
 };
 
 export default useCreateEvent;

@@ -52,7 +52,7 @@ const MantineProvider = ({ children }: Props) => {
         },
       }}
     >
-      <NotificationsProvider autoClose={1000} position="top-center">
+      <NotificationsProvider autoClose={2000} position="top-center">
         {children}
       </NotificationsProvider>
     </Provider>

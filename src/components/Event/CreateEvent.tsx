@@ -9,16 +9,18 @@ import {
   Button,
   Divider,
   Paper,
+  FileInput,
 } from "@mantine/core";
 import { DatePicker, TimeInput } from "@mantine/dates";
-import { FileWithPath } from "@mantine/dropzone";
-import React, { Dispatch, SetStateAction } from "react";
-import useCreateEvent from "../../hooks/useCreateEvent";
+import { FileWithPath, IMAGE_MIME_TYPE } from "@mantine/dropzone";
+import { GetInputProps } from "@mantine/form/lib/types";
+import React, { Dispatch, FormEventHandler, SetStateAction } from "react";
+import { CreateEventPostInput } from "../../schema/eventPost.schema";
 import FileDropzone from "./Dropzone";
 
 const useStyle = createStyles((theme) => ({
   container: {
-    margin: "0 10vw",
+    marginLeft: "10vw",
     border: "1px solid",
     borderRadius: "10px",
     borderColor: theme.colors.dark?.[9],
@@ -32,11 +34,28 @@ const useStyle = createStyles((theme) => ({
 
 type Props = {
   setFiles: Dispatch<SetStateAction<FileWithPath[]>>;
+  getInputProps: GetInputProps<{
+    image?: string | undefined;
+    title: string;
+    description: string;
+    venue: string;
+    date: Date;
+    timeStart: Date;
+    timeEnd: Date;
+  }>;
+  submit: () => FormEventHandler<HTMLFormElement> | undefined;
+  values: CreateEventPostInput;
+  disable: boolean;
 };
 
-function CreateEvent({ setFiles }: Props) {
+function CreateEvent({
+  setFiles,
+  submit,
+  getInputProps,
+  values,
+  disable,
+}: Props) {
   const { classes } = useStyle();
-  const { submit, getInputProps, values } = useCreateEvent();
 
   console.log(values);
 
@@ -100,8 +119,8 @@ function CreateEvent({ setFiles }: Props) {
               {...getInputProps("timeEnd")}
             />
           </Group>
-          <FileDropzone setFiles={setFiles} {...getInputProps("image")} />
-          <Button type="submit" color={"primary.0"}>
+          <FileDropzone setFiles={setFiles} getInputProps={getInputProps} />
+          <Button type="submit" color={"primary.0"} disabled={disable}>
             Create Event
           </Button>
         </Stack>

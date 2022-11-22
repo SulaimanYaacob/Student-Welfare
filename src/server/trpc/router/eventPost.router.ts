@@ -6,16 +6,13 @@ export const eventPost = router({
   createPost: protectedProcedure
     .input(
       z.object({
-        description: z.string().max(400, "Max character is 400").optional(),
+        description: z.string().max(400, "max character is 400").optional(),
         image: z.string().optional(),
         timeEnd: z.date(),
         timeStart: z.date(),
         date: z.date(),
-        venue: z.string().min(1, "venue is missing"),
-        title: z
-          .string()
-          .min(1, "title is missing")
-          .max(50, "title is too long!"),
+        venue: z.string().min(1, "is missing"),
+        title: z.string().min(1, "is missing").max(50, "is too long!"),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -40,7 +37,7 @@ export const eventPost = router({
         return error;
       }
     }),
-  getSingle: protectedProcedure
+  getSingle: publicProcedure
     .input(
       z.object({
         eventPostId: z.string().cuid(),

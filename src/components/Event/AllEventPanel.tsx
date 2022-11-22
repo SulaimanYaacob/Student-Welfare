@@ -17,6 +17,9 @@ const useStyle = createStyles((theme) => ({
     width: "100%",
     position: "relative",
   },
+  customWidth: {
+    width: "60%",
+  },
   diamondEdgeLeft: {
     background: theme.colors.background?.[0],
     width: "25px",
@@ -39,7 +42,6 @@ const useStyle = createStyles((theme) => ({
 function AllEventPanel() {
   const { data, isLoading } = trpc.eventPost.getAll.useQuery();
   const { classes } = useStyle();
-  console.log(data);
 
   if (isLoading) {
     return (
@@ -54,7 +56,7 @@ function AllEventPanel() {
 
   return (
     <>
-      {data?.map(({ id, description, title }, index) => {
+      {data?.map(({ id, description, title, image }, index) => {
         return (
           <Stack key={id} m={"xl"} spacing="xl">
             {index % 2 === 0 ? (
@@ -64,8 +66,13 @@ function AllEventPanel() {
                   <Text className={classes.diamondEdgeLeft}></Text>
                 </Stack>
                 <Group spacing={"xl"} noWrap>
-                  <Image src={""} alt={""} width="300" height="150" />
-                  <Stack>
+                  <Image
+                    src={image ? image : ""}
+                    alt={title}
+                    width="300"
+                    height="150"
+                  />
+                  <Stack className={classes.customWidth}>
                     <Title order={3}>{title}</Title>
                     <Text>{description}</Text>
                     <Button color={"primary.2"} sx={{ width: "200px" }}>
@@ -81,14 +88,19 @@ function AllEventPanel() {
                   <Text className={classes.diamondEdgeRight}></Text>
                 </Stack>
                 <Group position="right" spacing={"xl"} noWrap>
-                  <Stack align={"flex-end"}>
+                  <Stack className={classes.customWidth} align={"flex-end"}>
                     <Title order={3}>{title}</Title>
                     <Text>{description}</Text>
                     <Button color={"primary.2"} sx={{ width: "200px" }}>
                       LEARN MORE
                     </Button>
                   </Stack>
-                  <Image src={""} alt={""} width="300" height="150" />
+                  <Image
+                    src={image ? image : ""}
+                    alt={title}
+                    width="300"
+                    height="150"
+                  />
                 </Group>
               </>
             )}

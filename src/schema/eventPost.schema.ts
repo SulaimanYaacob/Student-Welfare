@@ -1,13 +1,13 @@
-import z, { unknown } from "zod";
+import z from "zod";
 
 export const createEventPostSchema = z.object({
-  title: z.string(),
-  description: z.string().max(400, "Max description is 400"),
-  venue: z.string(),
+  description: z.string().max(400, "max character is 400").optional(),
   image: z.string().optional(),
-  date: z.date(),
-  timeStart: z.date(),
   timeEnd: z.date(),
+  timeStart: z.date(),
+  date: z.date(),
+  venue: z.string().min(1, "is missing"),
+  title: z.string().min(1, "is missing").max(50, "title is too long!"),
 });
 
 export const getSinglePostSchema = z.object({

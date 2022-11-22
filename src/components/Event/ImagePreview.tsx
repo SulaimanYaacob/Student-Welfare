@@ -1,14 +1,15 @@
 import { FileWithPath } from "@mantine/dropzone";
 import { Image, Box, Title } from "@mantine/core";
+import { GetInputProps } from "@mantine/form/lib/types";
 
 type Props = {
   files: FileWithPath[];
 };
 
 const ImagePreview = ({ files }: Props) => {
-  console.log(files);
   const previews = files.map((file, index) => {
     const imageUrl = URL.createObjectURL(file);
+    console.log(file);
 
     return (
       <Image
@@ -16,8 +17,8 @@ const ImagePreview = ({ files }: Props) => {
         src={imageUrl}
         imageProps={{ onLoad: () => URL.revokeObjectURL(imageUrl) }}
         fit="fill"
-        width="300px"
-        height="150px"
+        width="400px"
+        height="250px"
       />
     );
   });
@@ -25,8 +26,8 @@ const ImagePreview = ({ files }: Props) => {
   return (
     <Box
       sx={{
-        width: "300px",
-        height: "150px",
+        width: "400px",
+        height: "250px",
         border: "3px dotted gray",
         boxSizing: "unset",
       }}
