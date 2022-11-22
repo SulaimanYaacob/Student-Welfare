@@ -20,19 +20,22 @@ function createEvent() {
   });
 
   return (
-    <Group sx={{ height: "100%" }} position="center" spacing={0} grow noWrap>
-      <CreateEvent
-        setFiles={setFiles}
-        getInputProps={getInputProps}
-        submit={submit}
-        values={values}
-        disable={disable}
-      />
-      <Stack spacing={"xl"} align={"center"} mx="5vw">
-        <Title color={"background.0"}>Image Preview</Title>
-        <ImagePreview files={files} baseImage={baseImage as string} />
-      </Stack>
-    </Group>
+    <>
+      <title>Create Event</title>
+      <Group sx={{ height: "100%" }} position="center" spacing={0} grow noWrap>
+        <CreateEvent
+          setFiles={setFiles}
+          getInputProps={getInputProps}
+          submit={submit}
+          values={values}
+          disable={disable}
+        />
+        <Stack spacing={"xl"} align={"center"} mx="5vw">
+          <Title color={"background.0"}>Image Preview</Title>
+          <ImagePreview files={files} baseImage={baseImage as string} />
+        </Stack>
+      </Group>
+    </>
   );
 }
 

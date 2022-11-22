@@ -40,6 +40,8 @@ const useStyle = createStyles((theme) => ({
 }));
 
 function AllEventPanel() {
+  const defaultImage =
+    "https://t4.ftcdn.net/jpg/03/85/61/45/360_F_385614508_K1aFSB0lhI17ZaW8lsNLQeP09xNA43gF.jpg";
   const { data, isLoading } = trpc.eventPost.getAll.useQuery();
   const { classes } = useStyle();
 
@@ -62,15 +64,15 @@ function AllEventPanel() {
             {index % 2 === 0 ? (
               <>
                 <Stack className={classes.customDivider}>
-                  <Divider size={"xl"} color={"white"} />
                   <Text className={classes.diamondEdgeLeft}></Text>
+                  <Divider size={"xl"} color={"white"} />
                 </Stack>
                 <Group spacing={"xl"} noWrap>
                   <Image
-                    src={image ? image : ""}
+                    src={image ? image : defaultImage}
                     alt={title}
-                    width="300"
-                    height="150"
+                    width="340"
+                    height="180"
                   />
                   <Stack className={classes.customWidth}>
                     <Title order={3}>{title}</Title>
@@ -96,10 +98,10 @@ function AllEventPanel() {
                     </Button>
                   </Stack>
                   <Image
-                    src={image ? image : ""}
+                    src={image ? image : defaultImage}
                     alt={title}
-                    width="300"
-                    height="150"
+                    width="340"
+                    height="180"
                   />
                 </Group>
               </>

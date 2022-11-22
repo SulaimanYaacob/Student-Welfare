@@ -27,10 +27,13 @@ const useStyle = createStyles((theme) => ({
 function EventPage() {
   const { classes } = useStyle();
   return (
-    <Stack className={classes.container}>
-      <Title align="center">~We Create Wonderful Events~</Title>
-      <EventTab />
-    </Stack>
+    <>
+      <title>Events</title>
+      <Stack className={classes.container}>
+        <Title align="center">~We Create Wonderful Events~</Title>
+        <EventTab />
+      </Stack>
+    </>
   );
 }
 
