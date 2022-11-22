@@ -21,7 +21,7 @@ const useStyle = createStyles((theme) => ({
       "&:hover": {
         border: "solid 5px gold",
         color: theme.colors.background?.[0],
-        background: theme.colors.secondary?.[0],
+        background: theme.colors.secondary?.[1],
       },
     },
   },
@@ -38,7 +38,7 @@ function HomeContent() {
     >
       <Slide direction="left">
         <Group spacing={"xl"}>
-          <Button>
+          <Button component="a" href="/event">
             <Stack spacing={"xs"} align={"center"}>
               <TbConfetti size={"100px"} />
               <Text>Event</Text>

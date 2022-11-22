@@ -1,4 +1,5 @@
 import { MantineProvider as Provider } from "@mantine/core";
+import { NotificationsProvider } from "@mantine/notifications";
 import { ReactNode } from "react";
 
 type Props = {
@@ -29,6 +30,7 @@ const MantineProvider = ({ children }: Props) => {
             "#f3e7ec",
           ],
           secondary: [
+            "#ffd700",
             "#da8b05",
             "#de971e",
             "#e1a237",
@@ -38,7 +40,6 @@ const MantineProvider = ({ children }: Props) => {
             "#f0d19b",
             "#f4dcb4",
             "#f8e8cd",
-            "#fbf3e6",
           ],
         },
         components: {
@@ -51,7 +52,9 @@ const MantineProvider = ({ children }: Props) => {
         },
       }}
     >
-      {children}
+      <NotificationsProvider autoClose={2000} position="top-center">
+        {children}
+      </NotificationsProvider>
     </Provider>
   );
 };

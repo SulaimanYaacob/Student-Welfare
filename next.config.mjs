@@ -13,5 +13,8 @@ const config = {
     locales: ["en"],
     defaultLocale: "en",
   },
+  images: {
+    domains: ["media.contentapi.ea.com", "www.orissapost.com"],
+  },
 };
 export default config;

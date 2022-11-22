@@ -13,6 +13,7 @@ export default async function getServerSideProps(
       },
     };
   }
+
   return {
     props: { session },
   };
