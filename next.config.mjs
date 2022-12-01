@@ -14,7 +14,7 @@ const config = {
     defaultLocale: "en",
   },
   images: {
-    domains: ["media.contentapi.ea.com", "www.orissapost.com"],
+    domains: ["media.contentapi.ea.com", "www.orissapost.com", "t4.ftcdn.net"],
   },
 };
 export default config;

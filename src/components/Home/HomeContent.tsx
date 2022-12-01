@@ -36,7 +36,7 @@ function HomeContent() {
       className={classes.buttonManager}
       align="center"
     >
-      <Slide direction="left">
+      <Slide direction="left" triggerOnce>
         <Group spacing={"xl"}>
           <Button component="a" href="/event">
             <Stack spacing={"xs"} align={"center"}>
@@ -59,7 +59,7 @@ function HomeContent() {
         </Group>
       </Slide>
 
-      <Slide direction="right" cascade>
+      <Slide direction="right" triggerOnce>
         <Group spacing={"xl"}>
           <Button>
             <Stack spacing={"xs"} align={"center"}>

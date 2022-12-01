@@ -27,7 +27,7 @@ function EventCarousel() {
   const { classes } = useStyles();
 
   return (
-    <Fade duration={3000}>
+    <Fade duration={3000} triggerOnce>
       <Carousel
         p={"xl"}
         classNames={classes}
