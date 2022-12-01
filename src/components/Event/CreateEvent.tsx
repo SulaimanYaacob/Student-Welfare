@@ -15,6 +15,7 @@ import { DatePicker, TimeInput } from "@mantine/dates";
 import { FileWithPath } from "@mantine/dropzone";
 import { GetInputProps } from "@mantine/form/lib/types";
 import React, { Dispatch, FormEventHandler, SetStateAction } from "react";
+import { allVenues } from "../../data/venues";
 import { CreateEventPostInput } from "../../schema/eventPost.schema";
 import FileDropzone from "./Dropzone";
 
@@ -57,7 +58,7 @@ function CreateEvent({
 }: Props) {
   const { classes } = useStyle();
 
-  console.log(values);
+
 
   return (
     <Paper shadow={"xs"} p={"xl"} className={classes.container}>
@@ -83,8 +84,14 @@ function CreateEvent({
           />
           <Group grow>
             <Select
+              searchable
               label={"Venue"}
-              data={[{ value: "tango", label: "Tango" }]}
+              data={
+                allVenues?.map(({venue}) => ({
+                  label: venue,
+                  value: venue
+                })) || []
+              }
               withAsterisk
               {...getInputProps("venue")}
             />
