@@ -47,6 +47,7 @@ function EventTab() {
       <Tabs.Panel value="myEvent">
         <MyEventPanel />
       </Tabs.Panel>
+
       <Affix position={{ bottom: 20, right: 20 }}>
         <Transition transition="slide-up" mounted={scroll.y > 500}>
           {(transitionStyles) => (
@@ -61,6 +62,7 @@ function EventTab() {
           )}
         </Transition>
       </Affix>
+
       <Affix
         className={classes.createButton}
         position={{ bottom: 20, left: 20 }}

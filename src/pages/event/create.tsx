@@ -13,7 +13,7 @@ function createEvent() {
   const { submit, getInputProps, values, disable } = useCreateEvent();
   console.log(values);
 
-  files.map(async (file, index) => {
+  files.map(async (file) => {
     const base64 = await fileBase64Conversion(file);
     setBaseImage(base64);
     values.image = baseImage as string;
