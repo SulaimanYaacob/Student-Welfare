@@ -7,11 +7,9 @@ import {
   Button,
   createStyles,
   Loader,
-  Modal,
 } from "@mantine/core";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
-import { allEvents } from "../../data/events";
 import { defaultEventImage } from "../../types/constant";
 import { trpc } from "../../utils/trpc";
 import EventDetailModal from "./EventDetailModal";
@@ -76,10 +74,7 @@ function AllEventPanel() {
           index
         ) => {
           return (
-            //TODO get dates / hours / day etc..
-
             <div key={id}>
-              {/* {console.log(date.getMonth())} */}
               {id === detailEventId ? (
                 <EventDetailModal
                   setOpened={setOpened}

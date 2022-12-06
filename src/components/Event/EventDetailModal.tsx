@@ -6,12 +6,23 @@ import {
   Title,
   Text,
   Table,
+  Button,
+  ScrollArea,
 } from "@mantine/core";
 import Image from "next/image";
 import React, { Dispatch, SetStateAction } from "react";
 import { defaultEventImage } from "../../types/constant";
+import { getDuration, getFormattedDate } from "../../utils/timeFormatter";
 
-const useStyle = createStyles((theme) => ({}));
+const useStyle = createStyles((theme) => ({
+  modalContainer: {
+    ".mantine-Modal-modal": {
+      color: theme.colors.background?.[0],
+      background: theme.colors.primary?.[0],
+      border: `solid 2px ${theme.colors.background?.[0]}`,
+    },
+  },
+}));
 
 type Props = {
   setOpened: Dispatch<SetStateAction<boolean>>;
@@ -36,26 +47,10 @@ function EventDetailModal({
   venue,
   image,
 }: Props) {
-  const getDate = (date: Date) => {
-    const dateDay = date.getDate();
-    const dateMonth = date.getMonth() + 1;
-    const dateYear = date.getFullYear();
-
-    return `${dateDay}/${dateMonth}/${dateYear}`;
-  };
-
-  const getDuration = (start: Date, end: Date) => {
-    const startHour = start.getHours();
-    const startMinutes = start.getMinutes();
-    const endHour = end.getHours();
-    return `${startHour}:${startMinutes} - ${endHour}`;
-  };
-
-  // getDuration(timeStart, timeEnd);
-
-  // console.log(getDate(date));
+  const { classes } = useStyle();
   return (
     <Modal
+      className={classes.modalContainer}
       withCloseButton={false}
       centered
       size={"60%"}
@@ -71,34 +66,50 @@ function EventDetailModal({
           width={400}
           height={400}
         />
-        <Stack>
-          <Title order={2}>{title}</Title>
-          {description}
+        <Stack justify={"space-between"} sx={{ height: 400 }}>
+          <ScrollArea type="never">
+            <Stack spacing={"xl"}>
+              <Stack spacing={"xs"}>
+                <Title order={2}>{title}</Title>
+                <Text>
+                  {description
+                    ? description
+                    : "This person is not creative enough to explain the details of the event. I suggest not to attend this event"}
+                </Text>
+              </Stack>
 
-          <Table>
-            <tbody>
-              <tr>
-                <td>Venue</td>
-                <td>: {venue}</td>
-              </tr>
-              <tr>
-                <td>Date</td>
-                <td>: {getDate(date)}</td>
-              </tr>
-              <tr>
-                <td>Time</td>
-                <td>: {getDuration(timeStart, timeEnd)}</td>
-              </tr>
-            </tbody>
-          </Table>
-          {/* <Group>
-            <Text>Venue</Text>
-            <Text>: {venue}</Text>
-          </Group>
-          <Group>
-            <Text>Date</Text>
-            <Text>: {getDate(date)}</Text>
-          </Group> */}
+              <Table
+                sx={{ color: "white" }}
+                withBorder={true}
+                withColumnBorders={true}
+              >
+                <tbody>
+                  <tr>
+                    <td>Venue</td>
+                    <td>{venue}</td>
+                  </tr>
+                  <tr>
+                    <td>Date</td>
+                    <td>{getFormattedDate(date)}</td>
+                  </tr>
+                  <tr>
+                    <td>Time</td>
+                    <td>{getDuration(timeStart, timeEnd)}</td>
+                  </tr>
+                </tbody>
+              </Table>
+            </Stack>
+          </ScrollArea>
+
+          <Stack align={"center"}>
+            <Button
+              onClick={() => setOpened(false)}
+              color={"primary.2"}
+              sx={{ width: "150px" }}
+            >
+              Close
+            </Button>
+          </Stack>
         </Stack>
       </Group>
     </Modal>

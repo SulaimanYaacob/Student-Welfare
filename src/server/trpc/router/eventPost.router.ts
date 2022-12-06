@@ -37,17 +37,11 @@ export const eventPost = router({
         return error;
       }
     }),
-  getSingle: publicProcedure
-    .input(
-      z.object({
-        eventPostId: z.string().cuid(),
-      })
-    )
-    .query(({ ctx, input }) => {
-      return ctx.prisma.eventPost.findUnique({
-        where: { id: input.eventPostId },
-      });
-    }),
+  getMyEvent: publicProcedure.query(({ ctx }) => {
+    return ctx.prisma.eventPost.findMany({
+      where: { authorId: ctx.session?.user?.id },
+    });
+  }),
   getAll: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.eventPost.findMany();
   }),
