@@ -66,17 +66,15 @@ function EventDetailModal({
           width={400}
           height={400}
         />
-        <Stack justify={"space-between"} sx={{ height: 400 }}>
+        <Stack spacing={"xs"} justify={"space-between"} sx={{ height: 400 }}>
+          <Title order={2}>{title}</Title>
           <ScrollArea type="never">
-            <Stack spacing={"xl"}>
-              <Stack spacing={"xs"}>
-                <Title order={2}>{title}</Title>
-                <Text>
-                  {description
-                    ? description
-                    : "This person is not creative enough to explain the details of the event. I suggest not to attend this event"}
-                </Text>
-              </Stack>
+            <Stack spacing={"xs"}>
+              <Text>
+                {description
+                  ? description
+                  : "This person is not creative enough to explain the details of the event. I suggest not to attend this event"}
+              </Text>
 
               <Table
                 sx={{ color: "white" }}

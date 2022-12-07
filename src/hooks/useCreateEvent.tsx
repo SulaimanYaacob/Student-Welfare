@@ -36,7 +36,7 @@ const useCreateEvent = () => {
     },
   });
   const { mutate: createMutation } = trpc.eventPost.createPost.useMutation({
-    onMutate: (data) => {
+    onMutate: () => {
       showNotification({
         id: "create-event",
         title: "Create",
