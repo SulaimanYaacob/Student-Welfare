@@ -7,6 +7,7 @@ import {
   Button,
   createStyles,
   Loader,
+  Spoiler,
 } from "@mantine/core";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
@@ -19,8 +20,9 @@ const useStyle = createStyles((theme) => ({
     width: "100%",
     position: "relative",
   },
-  customWidth: {
+  customSize: {
     width: "60%",
+    height: "220px",
   },
   diamondEdgeLeft: {
     background: theme.colors.background?.[0],
@@ -67,6 +69,7 @@ function AllEventPanel() {
   }
 
   return (
+    //TODO May need to refactor this code in the future
     <>
       {data?.map(
         (
@@ -97,20 +100,29 @@ function AllEventPanel() {
                       <Text className={classes.diamondEdgeLeft}></Text>
                       <Divider size={"xl"} color={"white"} />
                     </Stack>
-                    <Group spacing={"xl"} mx="sm" noWrap>
+                    <Group spacing={"xl"} mx="5vw" noWrap>
                       <Image
                         src={image ? image : defaultEventImage}
                         alt={title}
                         width="340"
-                        height="180"
+                        height="220"
                       />
-                      <Stack className={classes.customWidth}>
-                        <Title className={classes.overWrappingText} order={3}>
-                          {title}
-                        </Title>
-                        <Text className={classes.overWrappingText}>
-                          {description}
-                        </Text>
+                      <Stack
+                        justify="space-between"
+                        className={classes.customSize}
+                      >
+                        <Stack>
+                          <Title className={classes.overWrappingText} order={3}>
+                            {title}
+                          </Title>
+                          <Text className={classes.overWrappingText}>
+                            {description
+                              ? description?.length < 400
+                                ? description
+                                : `${description?.substring(0, 400)}...`
+                              : "Description is undefined"}
+                          </Text>
+                        </Stack>
                         <Button
                           onClick={() => handleOnClick(id)}
                           color={"primary.2"}
@@ -127,14 +139,29 @@ function AllEventPanel() {
                       <Divider size={"xl"} color={"white"} />
                       <Text className={classes.diamondEdgeRight}></Text>
                     </Stack>
-                    <Group position="right" mx="sm" spacing={"xl"} noWrap>
-                      <Stack className={classes.customWidth} align={"flex-end"}>
-                        <Title className={classes.overWrappingText} order={3}>
-                          {title}
-                        </Title>
-                        <Text className={classes.overWrappingText}>
-                          {description}
-                        </Text>
+                    <Group position="right" mx="5vw" spacing={"xl"} noWrap>
+                      <Stack
+                        justify="space-between"
+                        className={classes.customSize}
+                        align={"flex-end"}
+                      >
+                        <Stack>
+                          <Title
+                            align="end"
+                            className={classes.overWrappingText}
+                            order={3}
+                          >
+                            {title}
+                          </Title>
+
+                          <Text className={classes.overWrappingText}>
+                            {description
+                              ? description?.length < 400
+                                ? description
+                                : `${description?.substring(0, 400)}...`
+                              : "Description is undefined"}
+                          </Text>
+                        </Stack>
                         <Button
                           onClick={() => handleOnClick(id)}
                           color={"primary.2"}
@@ -147,7 +174,7 @@ function AllEventPanel() {
                         src={image ? image : defaultEventImage}
                         alt={title}
                         width="340"
-                        height="180"
+                        height="220"
                       />
                     </Group>
                   </>

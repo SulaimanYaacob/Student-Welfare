@@ -9,7 +9,32 @@ import { trpc } from "../utils/trpc";
 const useCreateEvent = () => {
   const [disable, setDisable] = useState(false);
   const { push } = useRouter();
-  const { getInputProps, onSubmit, values } = useForm<CreateEventPostInput>();
+  const { getInputProps, onSubmit, values } = useForm<CreateEventPostInput>({
+    validate: {
+      title: (value: string) =>
+        value
+          ? value.length <= 50
+            ? null
+            : "Title cannot be more than 50 character"
+          : "Title field is required",
+      venue: (value) => {
+        return value ? null : "Venue field is required";
+      },
+      date: (value: Date) => {
+        return value
+          ? value > new Date()
+            ? null
+            : "Date must be after today"
+          : "Date field is required";
+      },
+      timeStart: (value: Date) => {
+        return value ? null : "Start time field is required";
+      },
+      timeEnd: (value: Date) => {
+        return value ? null : "End time field is required";
+      },
+    },
+  });
   const { mutate: createMutation } = trpc.eventPost.createPost.useMutation({
     onMutate: (data) => {
       showNotification({

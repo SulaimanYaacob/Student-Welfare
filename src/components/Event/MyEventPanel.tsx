@@ -5,6 +5,8 @@ import {
   createStyles,
   Group,
   ActionIcon,
+  Loader,
+  Title,
 } from "@mantine/core";
 import { getDuration, getFormattedDate } from "../../utils/timeFormatter";
 import { trpc } from "../../utils/trpc";
@@ -34,6 +36,17 @@ function MyEventPanel() {
   const { classes } = useStyles();
   const { data, isLoading } = trpc.eventPost.getMyEvent.useQuery();
 
+  if (isLoading) {
+    return (
+      <Group position="center" m="10vw">
+        <Loader size={"xl"} variant="oval" color={"gold"} />
+        <Title order={2} color={"gold"}>
+          Loading Events
+        </Title>
+      </Group>
+    );
+  }
+
   const rows = data?.map((event, index) => {
     return (
       <tr key={event.id}>
@@ -61,10 +74,10 @@ function MyEventPanel() {
         <td>{getDuration(event.timeStart, event.timeEnd)}</td>
         <td>
           <Group noWrap>
-            <ActionIcon color="green">
+            <ActionIcon variant="transparent" color="green">
               <MdEdit size={50} />
             </ActionIcon>
-            <ActionIcon color="red">
+            <ActionIcon variant="transparent" color="red">
               <MdOutlineDelete size={50} />
             </ActionIcon>
           </Group>
