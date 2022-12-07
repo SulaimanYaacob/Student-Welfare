@@ -67,9 +67,9 @@ function EventDetailModal({
           height={400}
         />
         <Stack spacing={"xs"} justify={"space-between"} sx={{ height: 400 }}>
-          <Title order={2}>{title}</Title>
           <ScrollArea type="never">
             <Stack spacing={"xs"}>
+              <Title order={2}>{title}</Title>
               <Text>
                 {description
                   ? description
