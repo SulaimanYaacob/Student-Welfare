@@ -57,6 +57,7 @@ function AllEventPanel() {
     setOpened(true);
   };
 
+  //TODO create a loading component for reusability
   if (isLoading) {
     return (
       <Group position="center" m="10vw">
