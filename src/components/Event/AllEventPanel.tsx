@@ -7,20 +7,22 @@ import {
   Button,
   createStyles,
   Loader,
-  Modal,
+  Spoiler,
 } from "@mantine/core";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
-import { allEvents } from "../../data/events";
+import { defaultEventImage } from "../../types/constant";
 import { trpc } from "../../utils/trpc";
+import EventDetailModal from "./EventDetailModal";
 
 const useStyle = createStyles((theme) => ({
   customDivider: {
     width: "100%",
     position: "relative",
   },
-  customWidth: {
+  customSize: {
     width: "60%",
+    height: "220px",
   },
   diamondEdgeLeft: {
     background: theme.colors.background?.[0],
@@ -46,8 +48,6 @@ const useStyle = createStyles((theme) => ({
 
 function AllEventPanel() {
   const { classes } = useStyle();
-  const defaultImage =
-    "https://t4.ftcdn.net/jpg/03/85/61/45/360_F_385614508_K1aFSB0lhI17ZaW8lsNLQeP09xNA43gF.jpg";
   const [opened, setOpened] = useState(false);
   const [detailEventId, setDetailEventId] = useState<string>();
   const { data, isLoading } = trpc.eventPost.getAll.useQuery();
@@ -57,101 +57,134 @@ function AllEventPanel() {
     setOpened(true);
   };
 
-  // if (isLoading) {
-  //   return (
-  //     <Group position="center" m="10vw">
-  //       <Loader size={"xl"} variant="oval" color={"gold"} />
-  //       <Title order={2} color={"gold"}>
-  //         Loading Events
-  //       </Title>
-  //     </Group>
-  //   );
-  // }
+  //TODO create a loading component for reusability
+  if (isLoading) {
+    return (
+      <Group position="center" m="10vw">
+        <Loader size={"xl"} variant="oval" color={"gold"} />
+        <Title order={2} color={"gold"}>
+          Loading Events
+        </Title>
+      </Group>
+    );
+  }
 
   return (
-    //! Replace events with data from trpc
+    //TODO May need to refactor this code in the future
     <>
-      {data?.map(({ id, description, title, image }, index) => {
-        return (
-          <>
-            {id === detailEventId ? (
-              <Modal
-                centered
-                title={title}
-                opened={opened}
-                onClose={() => setOpened(false)}
-              >
-                {description}
-              </Modal>
-            ) : (
-              <></>
-            )}
-            <Stack key={id} m={"xl"} spacing="xl">
-              {index % 2 === 0 ? (
-                <>
-                  <Stack className={classes.customDivider}>
-                    <Text className={classes.diamondEdgeLeft}></Text>
-                    <Divider size={"xl"} color={"white"} />
-                  </Stack>
-                  <Group spacing={"xl"} noWrap>
-                    <Image
-                      src={image ? image : defaultImage}
-                      alt={title}
-                      width="340"
-                      height="180"
-                    />
-                    <Stack className={classes.customWidth}>
-                      <Title className={classes.overWrappingText} order={3}>
-                        {title}
-                      </Title>
-                      <Text className={classes.overWrappingText}>
-                        {description}
-                      </Text>
-                      <Button
-                        onClick={() => handleOnClick(id)}
-                        color={"primary.2"}
-                        sx={{ width: "200px" }}
-                      >
-                        LEARN MORE
-                      </Button>
-                    </Stack>
-                  </Group>
-                </>
+      {data?.map(
+        (
+          { id, description, title, image, date, timeStart, timeEnd, venue },
+          index
+        ) => {
+          return (
+            <div key={id}>
+              {id === detailEventId ? (
+                <EventDetailModal
+                  setOpened={setOpened}
+                  opened={opened}
+                  title={title}
+                  description={description}
+                  image={image}
+                  venue={venue}
+                  date={date}
+                  timeStart={timeStart}
+                  timeEnd={timeEnd}
+                />
               ) : (
-                <>
-                  <Stack className={classes.customDivider}>
-                    <Divider size={"xl"} color={"white"} />
-                    <Text className={classes.diamondEdgeRight}></Text>
-                  </Stack>
-                  <Group position="right" spacing={"xl"} noWrap>
-                    <Stack className={classes.customWidth} align={"flex-end"}>
-                      <Title className={classes.overWrappingText} order={3}>
-                        {title}
-                      </Title>
-                      <Text className={classes.overWrappingText}>
-                        {description}
-                      </Text>
-                      <Button
-                        onClick={() => handleOnClick(id)}
-                        color={"primary.2"}
-                        sx={{ width: "200px" }}
-                      >
-                        LEARN MORE
-                      </Button>
-                    </Stack>
-                    <Image
-                      src={image ? image : defaultImage}
-                      alt={title}
-                      width="340"
-                      height="180"
-                    />
-                  </Group>
-                </>
+                <></>
               )}
-            </Stack>
-          </>
-        );
-      })}
+              <Stack m={"xl"} spacing="xl">
+                {index % 2 === 0 ? (
+                  <>
+                    <Stack className={classes.customDivider}>
+                      <Text className={classes.diamondEdgeLeft}></Text>
+                      <Divider size={"xl"} color={"white"} />
+                    </Stack>
+                    <Group spacing={"xl"} mx="5vw" noWrap>
+                      <Image
+                        src={image ? image : defaultEventImage}
+                        alt={title}
+                        width="340"
+                        height="220"
+                      />
+                      <Stack
+                        justify="space-between"
+                        className={classes.customSize}
+                      >
+                        <Stack>
+                          <Title className={classes.overWrappingText} order={3}>
+                            {title}
+                          </Title>
+                          <Text className={classes.overWrappingText}>
+                            {description
+                              ? description?.length < 400
+                                ? description
+                                : `${description?.substring(0, 400)}...`
+                              : "Description is undefined"}
+                          </Text>
+                        </Stack>
+                        <Button
+                          onClick={() => handleOnClick(id)}
+                          color={"primary.2"}
+                          sx={{ width: "200px" }}
+                        >
+                          LEARN MORE
+                        </Button>
+                      </Stack>
+                    </Group>
+                  </>
+                ) : (
+                  <>
+                    <Stack className={classes.customDivider}>
+                      <Divider size={"xl"} color={"white"} />
+                      <Text className={classes.diamondEdgeRight}></Text>
+                    </Stack>
+                    <Group position="right" mx="5vw" spacing={"xl"} noWrap>
+                      <Stack
+                        justify="space-between"
+                        className={classes.customSize}
+                        align={"flex-end"}
+                      >
+                        <Stack>
+                          <Title
+                            align="end"
+                            className={classes.overWrappingText}
+                            order={3}
+                          >
+                            {title}
+                          </Title>
+
+                          <Text className={classes.overWrappingText}>
+                            {description
+                              ? description?.length < 400
+                                ? description
+                                : `${description?.substring(0, 400)}...`
+                              : "Description is undefined"}
+                          </Text>
+                        </Stack>
+                        <Button
+                          onClick={() => handleOnClick(id)}
+                          color={"primary.2"}
+                          sx={{ width: "200px" }}
+                        >
+                          LEARN MORE
+                        </Button>
+                      </Stack>
+                      <Image
+                        src={image ? image : defaultEventImage}
+                        alt={title}
+                        width="340"
+                        height="220"
+                      />
+                    </Group>
+                  </>
+                )}
+              </Stack>
+            </div>
+          );
+        }
+      )}
     </>
   );
 }

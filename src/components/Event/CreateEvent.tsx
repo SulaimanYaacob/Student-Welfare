@@ -58,8 +58,6 @@ function CreateEvent({
 }: Props) {
   const { classes } = useStyle();
 
-
-
   return (
     <Paper shadow={"xs"} p={"xl"} className={classes.container}>
       <form onSubmit={submit()}>
@@ -87,9 +85,9 @@ function CreateEvent({
               searchable
               label={"Venue"}
               data={
-                allVenues?.map(({venue}) => ({
+                allVenues?.map(({ venue }) => ({
                   label: venue,
-                  value: venue
+                  value: venue,
                 })) || []
               }
               withAsterisk
@@ -126,7 +124,7 @@ function CreateEvent({
               {...getInputProps("timeEnd")}
             />
           </Group>
-          <FileDropzone setFiles={setFiles} getInputProps={getInputProps} />
+          <FileDropzone setFiles={setFiles} />
           <Button type="submit" color={"primary.0"} disabled={disable}>
             Create Event
           </Button>

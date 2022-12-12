@@ -6,7 +6,7 @@ export const eventPost = router({
   createPost: protectedProcedure
     .input(
       z.object({
-        description: z.string().max(400, "max character is 400").optional(),
+        description: z.string().max(1000, "max character is 1000").optional(),
         image: z.string().optional(),
         timeEnd: z.date(),
         timeStart: z.date(),
@@ -37,17 +37,18 @@ export const eventPost = router({
         return error;
       }
     }),
-  getSingle: publicProcedure
-    .input(
-      z.object({
-        eventPostId: z.string().cuid(),
-      })
-    )
-    .query(({ ctx, input }) => {
-      return ctx.prisma.eventPost.findUnique({
-        where: { id: input.eventPostId },
+  deleteEvent: publicProcedure
+    .input(z.object({ id: z.string().cuid() }))
+    .mutation(({ ctx, input: { id } }) => {
+      return ctx.prisma.eventPost.delete({
+        where: { id },
       });
     }),
+  getMyEvent: publicProcedure.query(({ ctx }) => {
+    return ctx.prisma.eventPost.findMany({
+      where: { authorId: ctx.session?.user?.id },
+    });
+  }),
   getAll: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.eventPost.findMany();
   }),

@@ -37,7 +37,7 @@ function EventTab() {
         <Tabs.Tab px="xl" ml={"auto"} value="allEvent">
           ALL EVENT
         </Tabs.Tab>
-        <Tabs.Tab px="xl" mr={"auto"} value="myEvent" disabled>
+        <Tabs.Tab px="xl" mr={"auto"} value="myEvent">
           MY EVENT
         </Tabs.Tab>
       </Tabs.List>

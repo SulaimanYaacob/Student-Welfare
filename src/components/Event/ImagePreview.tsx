@@ -1,7 +1,5 @@
 import { FileWithPath } from "@mantine/dropzone";
 import { Image, Box } from "@mantine/core";
-import { fileBase64Conversion } from "../../utils/fileConversion";
-import { useState } from "react";
 
 type Props = {
   files: FileWithPath[];
