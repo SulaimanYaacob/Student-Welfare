@@ -2,6 +2,7 @@ import { Stack, Title, createStyles } from "@mantine/core";
 import React from "react";
 import getServerSideProps from "../../utils/protectedRoute";
 import EventTab from "../../components/Event/EventTab";
+import LandingLayout from "../../components/LandingLayout";
 
 const useStyle = createStyles((theme) => ({
   container: {
@@ -27,6 +28,7 @@ const useStyle = createStyles((theme) => ({
 function EventPage() {
   const { classes } = useStyle();
   return (
+    //! Remove LandingLayout Once Railway is available to use
     <>
       <title>Events</title>
       <Stack className={classes.container}>
