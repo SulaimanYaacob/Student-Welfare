@@ -7,11 +7,12 @@ import {
   Button,
   createStyles,
   Loader,
-  Spoiler,
+  Badge,
 } from "@mantine/core";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import { defaultEventImage } from "../../types/constant";
+import { getDaysLeft } from "../../utils/timeFormatter";
 import { trpc } from "../../utils/trpc";
 import EventDetailModal from "./EventDetailModal";
 
@@ -44,6 +45,28 @@ const useStyle = createStyles((theme) => ({
   overWrappingText: {
     wordBreak: "break-all",
   },
+  leftEStatus: {
+    position: "relative",
+    width: "340",
+    height: "220",
+    div: {
+      position: "absolute",
+      right: 0,
+      bottom: 0,
+      margin: "10px",
+    },
+  },
+  rightEStatus: {
+    position: "relative",
+    width: "340",
+    height: "220",
+    div: {
+      position: "absolute",
+      left: 0,
+      bottom: 0,
+      margin: "10px",
+    },
+  },
 }));
 
 function AllEventPanel() {
@@ -70,13 +93,14 @@ function AllEventPanel() {
   }
 
   return (
-    //TODO May need to refactor this code in the future
+    //TODO May need to refactor this code in the future to prevent performance issue
     <>
       {data?.map(
         (
           { id, description, title, image, date, timeStart, timeEnd, venue },
           index
         ) => {
+          const daysLeft = getDaysLeft(date);
           return (
             <div key={id}>
               {id === detailEventId ? (
@@ -102,12 +126,23 @@ function AllEventPanel() {
                       <Divider size={"xl"} color={"white"} />
                     </Stack>
                     <Group spacing={"xl"} mx="5vw" noWrap>
-                      <Image
-                        src={image ? image : defaultEventImage}
-                        alt={title}
-                        width="340"
-                        height="220"
-                      />
+                      <div className={classes.leftEStatus}>
+                        <Image
+                          src={image ? image : defaultEventImage}
+                          alt={title}
+                          width="340"
+                          height="220"
+                        />
+                        {daysLeft > 0 ? (
+                          daysLeft === 0 ? (
+                            <Badge color="teal">LIVE</Badge>
+                          ) : (
+                            <Badge color="indigo">{daysLeft} Days Left</Badge>
+                          )
+                        ) : (
+                          <Badge color="red">EVENT ENDED</Badge>
+                        )}
+                      </div>
                       <Stack
                         justify="space-between"
                         className={classes.customSize}
@@ -171,12 +206,23 @@ function AllEventPanel() {
                           LEARN MORE
                         </Button>
                       </Stack>
-                      <Image
-                        src={image ? image : defaultEventImage}
-                        alt={title}
-                        width="340"
-                        height="220"
-                      />
+                      <div className={classes.rightEStatus}>
+                        <Image
+                          src={image ? image : defaultEventImage}
+                          alt={title}
+                          width="340"
+                          height="220"
+                        />
+                        {daysLeft > 0 ? (
+                          daysLeft === 0 ? (
+                            <Badge color="teal">LIVE</Badge>
+                          ) : (
+                            <Badge color="indigo">{daysLeft} Days Left</Badge>
+                          )
+                        ) : (
+                          <Badge color="red">EVENT ENDED</Badge>
+                        )}
+                      </div>
                     </Group>
                   </>
                 )}
