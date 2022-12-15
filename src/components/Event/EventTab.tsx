@@ -37,7 +37,7 @@ function EventTab() {
         <Tabs.Tab px="xl" ml={"auto"} value="allEvent">
           ALL EVENT
         </Tabs.Tab>
-        <Tabs.Tab px="xl" mr={"auto"} value="myEvent" disabled>
+        <Tabs.Tab px="xl" mr={"auto"} value="myEvent">
           MY EVENT
         </Tabs.Tab>
       </Tabs.List>
@@ -47,6 +47,7 @@ function EventTab() {
       <Tabs.Panel value="myEvent">
         <MyEventPanel />
       </Tabs.Panel>
+
       <Affix position={{ bottom: 20, right: 20 }}>
         <Transition transition="slide-up" mounted={scroll.y > 500}>
           {(transitionStyles) => (
@@ -61,6 +62,7 @@ function EventTab() {
           )}
         </Transition>
       </Affix>
+
       <Affix
         className={classes.createButton}
         position={{ bottom: 20, left: 20 }}
