@@ -6,7 +6,7 @@ import { trpc } from "../utils/trpc";
 
 const useDeleteEvent = () => {
   const [disable, setDisable] = useState(false);
-  const { push } = useRouter();
+  const { push, reload } = useRouter();
 
   const { mutate: deleteMutation } = trpc.eventPost.deleteEvent.useMutation({
     onMutate: () => {
@@ -27,9 +27,11 @@ const useDeleteEvent = () => {
         color: "teal",
         onClose: () => {
           push("/event");
+          reload();
         },
       });
       push("/event");
+      reload();
     },
     onError: ({ message }) => {
       const data = JSON.parse(message);
@@ -48,7 +50,7 @@ const useDeleteEvent = () => {
   });
 
   const deleteEvent = (id: string) => {
-    if (id)
+    id &&
       deleteMutation({
         id,
       });

@@ -9,8 +9,9 @@ import {
   Text,
 } from "@mantine/core";
 import { useWindowScroll } from "@mantine/hooks";
-import React from "react";
+import React, { useState } from "react";
 import { TbArrowUp, TbPlus } from "react-icons/tb";
+import { trpc } from "../../utils/trpc";
 import AllEventPanel from "./AllEventPanel";
 import MyEventPanel from "./MyEventPanel";
 

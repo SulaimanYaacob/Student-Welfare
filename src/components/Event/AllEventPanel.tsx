@@ -92,6 +92,7 @@ function AllEventPanel() {
     );
   }
 
+  //TODO refactor modal like myEventPanel
   return (
     //TODO May need to refactor this code in the future to prevent performance issue
     <>
@@ -101,10 +102,9 @@ function AllEventPanel() {
           index
         ) => {
           const daysLeft = getDaysLeft(date);
-          console.log({ daysLeft });
           return (
             <div key={id}>
-              {id === detailEventId ? (
+              {id === detailEventId && (
                 <EventDetailModal
                   setOpened={setOpened}
                   opened={opened}
@@ -116,8 +116,6 @@ function AllEventPanel() {
                   timeStart={timeStart}
                   timeEnd={timeEnd}
                 />
-              ) : (
-                <></>
               )}
               <Stack m={"xl"} spacing="xl">
                 {index % 2 === 0 ? (
@@ -148,11 +146,9 @@ function AllEventPanel() {
                         justify="space-between"
                         className={classes.customSize}
                       >
-                        <Stack>
-                          <Title className={classes.overWrappingText} order={3}>
-                            {title}
-                          </Title>
-                          <Text className={classes.overWrappingText}>
+                        <Stack className={classes.overWrappingText}>
+                          <Title order={3}>{title}</Title>
+                          <Text>
                             {description
                               ? description?.length < 400
                                 ? description
@@ -182,16 +178,12 @@ function AllEventPanel() {
                         className={classes.customSize}
                         align={"flex-end"}
                       >
-                        <Stack>
-                          <Title
-                            align="end"
-                            className={classes.overWrappingText}
-                            order={3}
-                          >
+                        <Stack className={classes.overWrappingText}>
+                          <Title align="end" order={3}>
                             {title}
                           </Title>
 
-                          <Text className={classes.overWrappingText}>
+                          <Text>
                             {description
                               ? description?.length < 400
                                 ? description

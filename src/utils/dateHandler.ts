@@ -13,7 +13,6 @@ export const getDuration = (start: Date, end: Date) => {
 
 export const getDaysLeft = (eventDate: Date) => {
   const currentDate = new Date().getTime();
-  console.log({ currentDate, eventDate });
 
   let daysLeft = Math.round(
     (eventDate.getTime() - currentDate) / (24 * 60 * 60 * 1000)
