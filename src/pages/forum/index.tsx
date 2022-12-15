@@ -1,4 +1,4 @@
-import { Stack, Title, createStyles } from "@mantine/core";
+import { Stack, Title, createStyles, Group, Button } from "@mantine/core";
 import React from "react";
 import getServerSideProps from "../../utils/protectedRoute";
 import ForumTab from "../../components/Forum/ForumTab";
@@ -30,7 +30,7 @@ const useStyle = createStyles((theme) => ({
       <>
         <title>Forum</title>
         <Stack className={classes.container}>
-          <Title align="center" py="xl">~Discuss Your Problem With Us~</Title>
+          <Title align="center" py="xs">~Discuss Your Problem With Us~</Title>
           <ForumTab />
         </Stack>
       </>

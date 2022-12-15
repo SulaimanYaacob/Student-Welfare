@@ -96,7 +96,7 @@ function TrendingForumPanel() {
                       <BsFillPersonFill />
                     </td>
                     <td>
-                      <Text td="underline">MPP UTM</Text>
+                        <Text td="underline">MPP UTM</Text>
                     </td>
                   </tr>
                 </tbody>
