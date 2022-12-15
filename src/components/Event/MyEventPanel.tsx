@@ -13,6 +13,7 @@ import { trpc } from "../../utils/trpc";
 import { MdEdit, MdOutlineDelete } from "react-icons/md";
 import Image from "next/image";
 import { defaultEventImage } from "../../types/constant";
+import useDeleteEvent from "../../hooks/useDeleteEvent";
 
 const useStyles = createStyles((theme) => ({
   tableContainer: {
@@ -35,6 +36,10 @@ const useStyles = createStyles((theme) => ({
 function MyEventPanel() {
   const { classes } = useStyles();
   const { data, isLoading } = trpc.eventPost.getMyEvent.useQuery();
+  const { deleteEvent, disable } = useDeleteEvent();
+  // const deleteEvent = trpc.eventPost.deleteEvent.useMutation({
+
+  // });
 
   if (isLoading) {
     return (
@@ -77,7 +82,11 @@ function MyEventPanel() {
             <ActionIcon variant="transparent" color="green">
               <MdEdit size={50} />
             </ActionIcon>
-            <ActionIcon variant="transparent" color="red">
+            <ActionIcon
+              onClick={() => deleteEvent(event.id)}
+              variant="transparent"
+              color="red"
+            >
               <MdOutlineDelete size={50} />
             </ActionIcon>
           </Group>

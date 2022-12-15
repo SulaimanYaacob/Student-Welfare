@@ -1,20 +1,11 @@
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
+import { createEventPostSchema } from "../../../schema/eventPost.schema";
 import { router, protectedProcedure, publicProcedure } from "../trpc";
 
 export const eventPost = router({
   createPost: protectedProcedure
-    .input(
-      z.object({
-        description: z.string().max(1000, "max character is 1000").optional(),
-        image: z.string().optional(),
-        timeEnd: z.date(),
-        timeStart: z.date(),
-        date: z.date(),
-        venue: z.string().min(1, "is missing"),
-        title: z.string().min(1, "is missing").max(50, "is too long!"),
-      })
-    )
+    .input(createEventPostSchema)
     .mutation(async ({ ctx, input }) => {
       try {
         const posts = await ctx.prisma.eventPost.create({
