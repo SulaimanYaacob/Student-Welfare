@@ -8,7 +8,7 @@ import {
   Loader,
   Title,
 } from "@mantine/core";
-import { getDuration, getFormattedDate } from "../../utils/timeFormatter";
+import { getDuration, getFormattedDate } from "../../utils/dateHandler";
 import { trpc } from "../../utils/trpc";
 import { MdEdit, MdOutlineDelete } from "react-icons/md";
 import Image from "next/image";

@@ -12,7 +12,7 @@ import {
 import Image from "next/image";
 import React, { Dispatch, SetStateAction } from "react";
 import { defaultEventImage } from "../../types/constant";
-import { getDuration, getFormattedDate } from "../../utils/timeFormatter";
+import { getDuration, getFormattedDate } from "../../utils/dateHandler";
 
 const useStyle = createStyles((theme) => ({
   modalContainer: {

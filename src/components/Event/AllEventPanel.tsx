@@ -12,7 +12,7 @@ import {
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import { defaultEventImage } from "../../types/constant";
-import { getDaysLeft } from "../../utils/timeFormatter";
+import { getDaysLeft } from "../../utils/dateHandler";
 import { trpc } from "../../utils/trpc";
 import EventDetailModal from "./EventDetailModal";
 
@@ -101,6 +101,7 @@ function AllEventPanel() {
           index
         ) => {
           const daysLeft = getDaysLeft(date);
+          console.log({ daysLeft });
           return (
             <div key={id}>
               {id === detailEventId ? (
@@ -133,7 +134,7 @@ function AllEventPanel() {
                           width="340"
                           height="220"
                         />
-                        {daysLeft > 0 ? (
+                        {daysLeft >= 0 ? (
                           daysLeft === 0 ? (
                             <Badge color="teal">LIVE</Badge>
                           ) : (
@@ -213,7 +214,7 @@ function AllEventPanel() {
                           width="340"
                           height="220"
                         />
-                        {daysLeft > 0 ? (
+                        {daysLeft >= 0 ? (
                           daysLeft === 0 ? (
                             <Badge color="teal">LIVE</Badge>
                           ) : (

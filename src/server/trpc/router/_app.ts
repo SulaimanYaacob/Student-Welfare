@@ -1,6 +1,6 @@
 import { router } from "../trpc";
 import { authRouter } from "./auth";
-import { eventPost } from "./eventPost.router";
+import { eventPost as eventRouter } from "./eventPost.router";
 import { exampleRouter } from "./example";
 import { userRouter } from "./user.router";
 
@@ -8,7 +8,7 @@ export const appRouter = router({
   example: exampleRouter,
   auth: authRouter,
   userRouter: userRouter,
-  eventPost: eventPost,
+  eventPost: eventRouter,
 });
 
 // export type definition of API
