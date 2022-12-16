@@ -50,21 +50,21 @@ function EventDetailModal({
   const { classes } = useStyle();
   return (
     <Modal
-      className={classes.modalContainer}
-      withCloseButton={false}
       centered
-      size={"60%"}
-      lockScroll={false}
+      size={"70%"}
       opened={opened}
+      lockScroll={false}
+      withCloseButton={false}
       onClose={() => setOpened(false)}
+      className={classes.modalContainer}
     >
       <Group align={"flex-start"} spacing="xl" grow noWrap>
         <Image
           priority
-          src={image ? image : defaultEventImage}
           alt={title}
           width={400}
           height={400}
+          src={image ? image : defaultEventImage}
         />
         <Stack spacing={"xs"} justify={"space-between"} sx={{ height: 400 }}>
           <ScrollArea type="never">

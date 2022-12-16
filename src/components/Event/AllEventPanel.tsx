@@ -73,8 +73,7 @@ function AllEventPanel() {
   const { classes } = useStyle();
   const [opened, setOpened] = useState(false);
   const [detailEventId, setDetailEventId] = useState<string>();
-  const { data, isLoading, isRefetching, refetch } =
-    trpc.eventPost.getAll.useQuery();
+  const { data, isLoading } = trpc.eventPost.getAll.useQuery();
 
   const handleOnClick = (event_id: string) => {
     setDetailEventId(event_id);
@@ -108,14 +107,14 @@ function AllEventPanel() {
                   timeEnd={timeEnd}
                 />
               )}
-              <Stack m={"xl"} spacing="xl">
+              <Stack mx="5vw" my="xl" spacing="xl">
                 {index % 2 === 0 ? (
                   <>
                     <Stack className={classes.customDivider}>
                       <Text className={classes.diamondEdgeLeft}></Text>
                       <Divider size={"xl"} color={"white"} />
                     </Stack>
-                    <Group spacing={"xl"} mx="5vw" noWrap>
+                    <Group mx="xl" spacing={"xl"} noWrap position="center">
                       <div className={classes.leftEStatus}>
                         <Image
                           src={image ? image : defaultEventImage}
@@ -141,9 +140,9 @@ function AllEventPanel() {
                           <Title order={3}>{title}</Title>
                           <Text>
                             {description
-                              ? description?.length < 400
+                              ? description?.length < 350
                                 ? description
-                                : `${description?.substring(0, 400)}...`
+                                : `${description?.substring(0, 350)}...`
                               : "Description is undefined"}
                           </Text>
                         </Stack>
@@ -163,7 +162,7 @@ function AllEventPanel() {
                       <Divider size={"xl"} color={"white"} />
                       <Text className={classes.diamondEdgeRight}></Text>
                     </Stack>
-                    <Group position="right" mx="5vw" spacing={"xl"} noWrap>
+                    <Group mx="xl" position="center" spacing={"xl"} noWrap>
                       <Stack
                         justify="space-between"
                         className={classes.customSize}
@@ -176,9 +175,9 @@ function AllEventPanel() {
 
                           <Text>
                             {description
-                              ? description?.length < 400
+                              ? description?.length < 350
                                 ? description
-                                : `${description?.substring(0, 400)}...`
+                                : `${description?.substring(0, 350)}...`
                               : "Description is undefined"}
                           </Text>
                         </Stack>

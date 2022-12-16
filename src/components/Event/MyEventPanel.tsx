@@ -43,7 +43,7 @@ const useStyles = createStyles((theme) => ({
 
 function MyEventPanel() {
   const { classes } = useStyles();
-  const { data, isLoading, isRefetching, refetch } =
+  const { data, isLoading, isRefetching } =
     trpc.eventPost.getMyEvent.useQuery();
   const [eventDetail, setDetailEvent] = useState<EventPost>();
   const { deleteEvent, disable, opened, setOpened, isSuccess } =
@@ -52,11 +52,6 @@ function MyEventPanel() {
   const handleOnClick = (eventDetail: EventPost) => {
     setOpened(true);
     setDetailEvent(eventDetail);
-  };
-
-  const handleOnDelete = (eventId: string) => {
-    deleteEvent(eventId);
-    isSuccess && refetch();
   };
 
   if (isLoading || isRefetching) return <Loading />;
@@ -130,7 +125,7 @@ function MyEventPanel() {
               <Group position="center">
                 {eventDetail && (
                   <Button
-                    onClick={() => handleOnDelete(eventDetail.id)}
+                    onClick={() => deleteEvent(eventDetail.id)}
                     disabled={disable}
                     color="red"
                   >
