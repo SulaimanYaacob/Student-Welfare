@@ -8,46 +8,47 @@ const useDeleteEvent = () => {
   const [disable, setDisable] = useState(false);
   const { push, reload } = useRouter();
 
-  const { mutate: deleteMutation } = trpc.eventPost.deleteEvent.useMutation({
-    onMutate: () => {
-      showNotification({
-        id: "delete-event",
-        title: "Delete Event",
-        message: "Removing Event",
-        loading: true,
-      });
-      setDisable(true);
-    },
-    onSuccess: (data: any) => {
-      updateNotification({
-        id: "delete-event",
-        title: "Success!",
-        message: `${data.title} successfully deleted`,
-        icon: <TbCheck />,
-        color: "teal",
-        onClose: () => {
-          push("/event");
-          reload();
-        },
-      });
-      push("/event");
-      reload();
-    },
-    onError: ({ message }) => {
-      const data = JSON.parse(message);
-      data.map((item: any) => {
+  const { mutateAsync: deleteMutation } =
+    trpc.eventPost.deleteEvent.useMutation({
+      onMutate: () => {
+        showNotification({
+          id: "delete-event",
+          title: "Delete Event",
+          message: "Removing Event",
+          loading: true,
+        });
+        setDisable(true);
+      },
+      onSuccess: (data: any) => {
         updateNotification({
           id: "delete-event",
-          title: "Error Occured",
-          message: `Unable to delete ${data.title}`,
-          color: "red",
-          autoClose: 2000,
-          icon: <TbX />,
+          title: "Success!",
+          message: `${data.title} successfully deleted`,
+          icon: <TbCheck />,
+          color: "teal",
+          onClose: () => {
+            push("/event");
+            reload();
+          },
         });
-      });
-      setDisable(false);
-    },
-  });
+        push("/event");
+        reload();
+      },
+      onError: ({ message }) => {
+        const data = JSON.parse(message);
+        data.map((item: any) => {
+          updateNotification({
+            id: "delete-event",
+            title: "Error Occured",
+            message: `Unable to delete ${data.title}`,
+            color: "red",
+            autoClose: 2000,
+            icon: <TbX />,
+          });
+        });
+        setDisable(false);
+      },
+    });
 
   const deleteEvent = (id: string) => {
     id &&

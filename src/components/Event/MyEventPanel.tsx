@@ -22,6 +22,7 @@ import { defaultEventImage } from "../../types/constant";
 import useDeleteEvent from "../../hooks/useDeleteEvent";
 import { useState } from "react";
 import { EventPost } from "@prisma/client";
+import Loading from "../Loading";
 
 const useStyles = createStyles((theme) => ({
   tableContainer: {
@@ -53,16 +54,7 @@ function MyEventPanel() {
   };
   // });
 
-  if (isLoading) {
-    return (
-      <Group position="center" m="10vw">
-        <Loader size={"xl"} variant="oval" color={"gold"} />
-        <Title order={2} color={"gold"}>
-          Loading Events
-        </Title>
-      </Group>
-    );
-  }
+  if (isLoading) return <Loading />;
 
   const rows = data?.map((event, index) => {
     return (
@@ -108,7 +100,6 @@ function MyEventPanel() {
     );
   });
 
-  console.log(data?.length);
   return (
     <>
       {data && data.length ? (

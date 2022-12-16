@@ -14,6 +14,7 @@ import React, { useState, useEffect } from "react";
 import { defaultEventImage } from "../../types/constant";
 import { getDaysLeft } from "../../utils/dateHandler";
 import { trpc } from "../../utils/trpc";
+import Loading from "../Loading";
 import EventDetailModal from "./EventDetailModal";
 
 const useStyle = createStyles((theme) => ({
@@ -80,17 +81,7 @@ function AllEventPanel() {
     setOpened(true);
   };
 
-  //TODO create a loading component for reusability
-  if (isLoading) {
-    return (
-      <Group position="center" m="10vw">
-        <Loader size={"xl"} variant="oval" color={"gold"} />
-        <Title order={2} color={"gold"}>
-          Loading Events
-        </Title>
-      </Group>
-    );
-  }
+  if (isLoading) return <Loading />;
 
   //TODO refactor modal like myEventPanel
   return (
