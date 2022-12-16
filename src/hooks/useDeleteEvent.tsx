@@ -7,8 +7,8 @@ import { trpc } from "../utils/trpc";
 const useDeleteEvent = () => {
   const [opened, setOpened] = useState(false);
   const [disable, setDisable] = useState(false);
-  const { push } = useRouter();
-  const utils = trpc.useContext(); // need to use react-querys
+  const utils = trpc.useContext(); // need to use react-query
+
   const handleModalProcess = (onProcess: boolean) => {
     setOpened(onProcess);
     setDisable(onProcess);
@@ -36,13 +36,8 @@ const useDeleteEvent = () => {
           color: "teal",
           onClose: () => {
             handleModalProcess(false);
-
-            // reload();
           },
         });
-
-        push("/event");
-        // reload();
       },
       onError: ({ message }) => {
         const data = JSON.parse(message);
@@ -53,7 +48,6 @@ const useDeleteEvent = () => {
               title: "Error Occured",
               message: `Unable to delete ${data.title}`,
               color: "red",
-
               autoClose: 2000,
               icon: <TbX />,
             });

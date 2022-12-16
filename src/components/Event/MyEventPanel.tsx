@@ -177,7 +177,7 @@ function MyEventPanel() {
         <Stack m="auto" w="35%" spacing="xl" p="3vw" align="center">
           <MdSentimentDissatisfied color="pink" size={"250"} />
           <Title color="pink.2" order={2} align="center">
-            Uh Oh, It seems you don't have any events running.
+            Uh Oh, It seems you don't have any events running at the moment.
           </Title>
         </Stack>
       )}
