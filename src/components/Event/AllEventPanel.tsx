@@ -6,7 +6,6 @@ import {
   Text,
   Button,
   createStyles,
-  Loader,
   Badge,
 } from "@mantine/core";
 import Image from "next/image";
@@ -74,7 +73,8 @@ function AllEventPanel() {
   const { classes } = useStyle();
   const [opened, setOpened] = useState(false);
   const [detailEventId, setDetailEventId] = useState<string>();
-  const { data, isLoading } = trpc.eventPost.getAll.useQuery();
+  const { data, isLoading, isRefetching, refetch } =
+    trpc.eventPost.getAll.useQuery();
 
   const handleOnClick = (event_id: string) => {
     setDetailEventId(event_id);

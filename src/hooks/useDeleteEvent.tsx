@@ -7,7 +7,7 @@ import { trpc } from "../utils/trpc";
 const useDeleteEvent = () => {
   const [opened, setOpened] = useState(false);
   const [disable, setDisable] = useState(false);
-  const { push, reload } = useRouter();
+  const { push } = useRouter();
   const utils = trpc.useContext(); // need to use react-querys
   const handleModalProcess = (onProcess: boolean) => {
     setOpened(onProcess);
@@ -15,7 +15,8 @@ const useDeleteEvent = () => {
     if (!onProcess) utils.eventPost.invalidate();
   };
 
-  const { mutateAsync: deleteMutation } =
+  //TODO Refactor this code use isLoading this time
+  const { mutateAsync: deleteMutation, isSuccess } =
     trpc.eventPost.deleteEvent.useMutation({
       onMutate: () => {
         handleModalProcess(true),
@@ -35,6 +36,7 @@ const useDeleteEvent = () => {
           color: "teal",
           onClose: () => {
             handleModalProcess(false);
+
             // reload();
           },
         });
@@ -66,7 +68,7 @@ const useDeleteEvent = () => {
       });
   };
 
-  return { deleteEvent, disable, utils, setOpened, opened };
+  return { deleteEvent, disable, setOpened, opened, isSuccess };
 };
 
 export default useDeleteEvent;

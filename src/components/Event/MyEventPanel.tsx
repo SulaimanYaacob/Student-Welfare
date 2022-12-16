@@ -5,7 +5,6 @@ import {
   createStyles,
   Group,
   ActionIcon,
-  Loader,
   Title,
   Modal,
   Button,
@@ -44,18 +43,23 @@ const useStyles = createStyles((theme) => ({
 
 function MyEventPanel() {
   const { classes } = useStyles();
-  const { data, isLoading } = trpc.eventPost.getMyEvent.useQuery();
+  const { data, isLoading, isRefetching, refetch } =
+    trpc.eventPost.getMyEvent.useQuery();
   const [eventDetail, setDetailEvent] = useState<EventPost>();
-  const { deleteEvent, disable, opened, setOpened, utils } = useDeleteEvent();
+  const { deleteEvent, disable, opened, setOpened, isSuccess } =
+    useDeleteEvent();
 
   const handleOnClick = (eventDetail: EventPost) => {
     setOpened(true);
     setDetailEvent(eventDetail);
   };
 
-  // });
+  const handleOnDelete = (eventId: string) => {
+    deleteEvent(eventId);
+    isSuccess && refetch();
+  };
 
-  if (isLoading) return <Loading />;
+  if (isLoading || isRefetching) return <Loading />;
 
   const rows = data?.map((event, index) => {
     return (
@@ -88,7 +92,6 @@ function MyEventPanel() {
               <MdEdit size={50} />
             </ActionIcon>
             <ActionIcon
-              // onClick={() => deleteEvent(event.id)}
               onClick={() => handleOnClick(event)}
               variant="transparent"
               color="red"
@@ -127,7 +130,7 @@ function MyEventPanel() {
               <Group position="center">
                 {eventDetail && (
                   <Button
-                    onClick={() => deleteEvent(eventDetail.id)}
+                    onClick={() => handleOnDelete(eventDetail.id)}
                     disabled={disable}
                     color="red"
                   >
