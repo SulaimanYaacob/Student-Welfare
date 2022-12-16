@@ -50,7 +50,7 @@ function MyEventPanel() {
   };
 
   //! Always uncomment after finishing the changes
-  //if (isLoading || isRefetching) return <Loading />;
+  if (isLoading || isRefetching) return <Loading />;
 
   const rows = data?.map((event, index) => {
     return (
