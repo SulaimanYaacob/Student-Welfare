@@ -15,6 +15,7 @@ import {
   MdEdit,
   MdOutlineDelete,
   MdSentimentDissatisfied,
+  MdOutlineAdd,
 } from "react-icons/md";
 import Image from "next/image";
 import { defaultEventImage } from "../../types/constant";
@@ -41,15 +42,15 @@ function MyEventPanel() {
   const { data, isLoading, isRefetching } =
     trpc.eventPost.getMyEvent.useQuery();
   const [eventDetail, setDetailEvent] = useState<EventPost>();
-  const { deleteEvent, disable, opened, setOpened, isSuccess } =
-    useDeleteEvent();
+  const { deleteEvent, disable, opened, setOpened } = useDeleteEvent();
 
   const handleOnClick = (eventDetail: EventPost) => {
     setOpened(true);
     setDetailEvent(eventDetail);
   };
 
-  if (isLoading || isRefetching) return <Loading />;
+  //! Always uncomment after finishing the changes
+  //if (isLoading || isRefetching) return <Loading />;
 
   const rows = data?.map((event, index) => {
     return (
@@ -139,7 +140,15 @@ function MyEventPanel() {
             </Stack>
           </Modal>
 
-          <Stack mx="5vw" my="xl">
+          <Stack mx="5vw" my="xl" align="flex-end">
+            <Button
+              component="a"
+              href="/event/create"
+              color="teal.6"
+              rightIcon={<MdOutlineAdd size="25" />}
+            >
+              Create Event
+            </Button>
             <Table
               striped
               className={classes.tableContainer}
@@ -168,6 +177,9 @@ function MyEventPanel() {
           <Title color="pink.2" order={2} align="center">
             Uh Oh, It seems you don't have any events running at the moment.
           </Title>
+          <Button component="a" href="/event/create" color="teal.6">
+            Let's Create One!
+          </Button>
         </Stack>
       )}
     </>
