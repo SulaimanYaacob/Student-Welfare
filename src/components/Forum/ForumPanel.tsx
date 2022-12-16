@@ -1,25 +1,20 @@
 import {
-  BackgroundImage,
+  Avatar,
   Button,
-  Drawer,
   Group,
   Paper,
   Stack,
   Table,
   Text,
 } from "@mantine/core";
-import { useToggle } from "@mantine/hooks";
-import { useState } from "react";
 import {
   BsChatRightText,
   BsFillHeartFill,
-  BsFillPersonFill,
 } from "react-icons/bs";
-import ForumChatWindow from "./ForumChatWindow";
+import { useToggle } from "@mantine/hooks";
 
-function TrendingForumPanel() {
-  const [value, toggle] = useToggle(["", "red"]);
-  const [opened, setOpened] = useState(false);
+function ForumPanel() {
+  const [value, toggle] = useToggle(["#FFF", "red"]);
 
   return (
     <>
@@ -30,8 +25,10 @@ function TrendingForumPanel() {
               <Table fontSize={"md"}>
                 <tbody>
                   <tr>
-                    <td style={{ width: 50 }}>
-                      <BsFillPersonFill />
+                    <td style={{ width: 70 }}>
+                      <Avatar color="cyan" radius="xl" mr="auto">
+                        MPP
+                      </Avatar>
                     </td>
                     <td>
                       <Text td="underline">MPP UTM</Text>
@@ -42,7 +39,7 @@ function TrendingForumPanel() {
               <Table fontSize={"md"}>
                 <tbody>
                   <tr>
-                    <td style={{ width: 50 }}></td>
+                    <td style={{ width: 70}}></td>
                     <td>
                       <Text fw={550}>
                         Group Discussion : 15th General Election
@@ -54,17 +51,8 @@ function TrendingForumPanel() {
               <Table fontSize={"md"}>
                 <tbody>
                   <tr>
-                    <td style={{ width: 50 }}></td>
+                    <td style={{ width: 70 }}></td>
                     <td>
-                      <Drawer
-                        opened={opened}
-                        onClose={() => setOpened(false)}
-                        size="800px"
-                      >
-                        <BackgroundImage src="https://w0.peakpx.com/wallpaper/154/372/HD-wallpaper-telegram-background-whatsapp-creative-android-pattern-texture-abstract.jpg">
-                          <ForumChatWindow />
-                        </BackgroundImage>
-                      </Drawer>
                       <Group grow>
                         <Button onClick={() => toggle()}>
                           <BsFillHeartFill color={value} size={20} />
@@ -73,7 +61,8 @@ function TrendingForumPanel() {
                           </Text>
                         </Button>
                         <Button
-                          onClick={() => setOpened(true)}
+                          component="a"
+                          href="/forum/id"
                           leftIcon={<BsChatRightText size={20} />}
                         >
                           Enter Chat
@@ -92,11 +81,13 @@ function TrendingForumPanel() {
               <Table fontSize={"md"}>
                 <tbody>
                   <tr>
-                    <td style={{ width: 50 }}>
-                      <BsFillPersonFill />
+                    <td style={{ width: 70 }}>
+                      <Avatar color="cyan" radius="xl" mr="auto">
+                        MPP
+                      </Avatar>
                     </td>
                     <td>
-                        <Text td="underline">MPP UTM</Text>
+                      <Text td="underline">MPP UTM</Text>
                     </td>
                   </tr>
                 </tbody>
@@ -104,7 +95,7 @@ function TrendingForumPanel() {
               <Table fontSize={"md"}>
                 <tbody>
                   <tr>
-                    <td style={{ width: 50 }}></td>
+                    <td style={{ width: 70 }}></td>
                     <td>
                       <Text fw={550}>
                         Group Discussion : Festival Convocation 2022
@@ -116,7 +107,7 @@ function TrendingForumPanel() {
               <Table fontSize={"md"}>
                 <tbody>
                   <tr>
-                    <td style={{ width: 50 }}></td>
+                    <td style={{ width: 70 }}></td>
                     <td>
                       <Group grow>
                         <Button onClick={() => toggle()}>
@@ -126,7 +117,6 @@ function TrendingForumPanel() {
                           </Text>
                         </Button>
                         <Button
-                          onClick={() => setOpened(true)}
                           leftIcon={<BsChatRightText size={20} />}
                         >
                           Enter Chat
@@ -144,4 +134,4 @@ function TrendingForumPanel() {
   );
 }
 
-export default TrendingForumPanel;
+export default ForumPanel;

@@ -14,9 +14,10 @@ import {
 } from "@mantine/core";
 import { useWindowScroll } from "@mantine/hooks";
 import React, { useState } from "react";
+import { BiFilterAlt, BiNavigation, BiPlusCircle } from "react-icons/bi";
 import { TbArrowUp, TbPlus } from "react-icons/tb";
 import CreateForum from "./CreateForum";
-import NewForumPanel from "./NewForumPanel";
+import ForumPanel from "./ForumPanel";
 
 function ForumTab() {
   const [scroll, scrollTo] = useWindowScroll();
@@ -34,24 +35,25 @@ function ForumTab() {
       </Modal>
       <Group mx={"md"}>
         <Button
-          leftIcon={<TbPlus size={16} />}
+          leftIcon={<BiPlusCircle size={20} />}
           onClick={() => setOpened(true)}
+          py="auto"
         >
           Start New Topic
         </Button>
         <Menu shadow="md" width={200}>
           <Menu.Target>
-            <Button>Personal Navigator</Button>
+            <Button leftIcon={<BiNavigation size={20}/>} py="auto">Personal Navigator</Button>
           </Menu.Target>
           <Menu.Dropdown>
-            <Menu.Item>My Question</Menu.Item>
-            <Menu.Item>My Answer</Menu.Item>
+            <Menu.Item>My Forum</Menu.Item>
+            <Menu.Item>My Messages</Menu.Item>
             <Menu.Item>My Likes</Menu.Item>
           </Menu.Dropdown>
         </Menu>
-        <Menu shadow="md" width={200}>
+        <Menu shadow="md" width={200} position="bottom-end" withArrow>
           <Menu.Target>
-            <Button ml="auto">Sort By</Button>
+            <Button ml="auto" leftIcon={<BiFilterAlt size={20}/>} py="auto">Sort By</Button>
           </Menu.Target>
           <Menu.Dropdown>
             <Menu.Item>Recently Added</Menu.Item>
@@ -63,7 +65,7 @@ function ForumTab() {
         </Menu>
       </Group>
       <ScrollArea style={{ height: 390 }}>
-        <NewForumPanel />
+        <ForumPanel />
             <Affix position={{ bottom: 20, right: 20 }}>
               <Transition transition="slide-up" mounted={scroll.y > 500}>
                 {(transitionStyles) => (

@@ -1,4 +1,4 @@
-import { Stack, Title, createStyles, Group, Button } from "@mantine/core";
+import { Stack, Title, createStyles } from "@mantine/core";
 import React from "react";
 import getServerSideProps from "../../utils/protectedRoute";
 import ForumTab from "../../components/Forum/ForumTab";
