@@ -33,10 +33,8 @@ const useDeleteEvent = () => {
           message: `${data.title} successfully deleted`,
           icon: <TbCheck />,
           color: "teal",
-          onClose: () => {
-            handleModalProcess(false);
-          },
         });
+        handleModalProcess(false);
       },
       onError: ({ message }) => {
         const data = JSON.parse(message);

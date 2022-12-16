@@ -27,14 +27,9 @@ const useStyles = createStyles((theme) => ({
   tableContainer: {
     fontWeight: 500,
     color: theme.colors.dark[9],
-    background: theme.colors.background?.[0],
+    background: theme.colors.gray[2],
+    border: `solid 5px ${theme.colors.gray[2]}`,
     //boxShadow: `${theme.colors.secondary?.[9]} 0px 8px 24px`,
-
-    thead: {
-      tr: {
-        background: theme.colors.gray[1],
-      },
-    },
   },
   overWrappingText: {
     wordBreak: "break-all",
@@ -144,13 +139,12 @@ function MyEventPanel() {
             </Stack>
           </Modal>
 
-          <Stack m="xl" spacing="xl">
+          <Stack mx="5vw" my="xl">
             <Table
+              striped
               className={classes.tableContainer}
-              verticalSpacing="lg"
-              horizontalSpacing="lg"
-              withColumnBorders={true}
-              withBorder={true}
+              verticalSpacing="md"
+              horizontalSpacing="md"
             >
               <thead>
                 <tr>

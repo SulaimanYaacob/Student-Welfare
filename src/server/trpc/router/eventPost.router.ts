@@ -1,3 +1,4 @@
+import { EventPost } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 import { createEventPostSchema } from "../../../schema/eventPost.schema";
@@ -8,7 +9,7 @@ export const eventPost = router({
     .input(createEventPostSchema)
     .mutation(async ({ ctx, input }) => {
       try {
-        const posts = await ctx.prisma.eventPost.create({
+        const posts: EventPost = await ctx.prisma.eventPost.create({
           data: {
             ...input,
             author: {
@@ -41,6 +42,6 @@ export const eventPost = router({
     });
   }),
   getAll: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.eventPost.findMany();
+    return ctx.prisma.eventPost.findMany({ orderBy: [{ createdAt: "desc" }] });
   }),
 });
