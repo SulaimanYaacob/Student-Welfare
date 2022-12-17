@@ -59,7 +59,13 @@ const useDeleteEvent = () => {
       });
   };
 
-  return { deleteEvent, disable, setOpened, opened, isSuccess };
+  return {
+    deleteEvent,
+    disable,
+    setOpened,
+    opened,
+    isSuccess,
+  };
 };
 
 export default useDeleteEvent;
