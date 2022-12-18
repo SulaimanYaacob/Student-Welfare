@@ -9,6 +9,7 @@ import {
   Button,
   ScrollArea,
 } from "@mantine/core";
+import { EventPost } from "@prisma/client";
 import Image from "next/image";
 import React, { Dispatch, SetStateAction } from "react";
 import { defaultEventImage } from "../../types/constant";
@@ -27,27 +28,13 @@ const useStyle = createStyles((theme) => ({
 type Props = {
   setOpened: Dispatch<SetStateAction<boolean>>;
   opened: boolean;
-  title: string;
-  venue: string;
-  description: string | null;
-  image: string | null;
-  date: Date;
-  timeStart: Date;
-  timeEnd: Date;
+  event: EventPost;
 };
 
-function EventDetailModal({
-  title,
-  opened,
-  setOpened,
-  description,
-  date,
-  timeStart,
-  timeEnd,
-  venue,
-  image,
-}: Props) {
+function EventDetailModal({ event, opened, setOpened }: Props) {
   const { classes } = useStyle();
+  const { title, description, timeStart, timeEnd, date, image, venue } = event;
+
   return (
     <Modal
       centered
@@ -62,8 +49,8 @@ function EventDetailModal({
         <Image
           priority
           alt={title}
-          width={400}
-          height={400}
+          width="400"
+          height="400"
           src={image ? image : defaultEventImage}
         />
         <Stack spacing={"xs"} justify={"space-between"} sx={{ height: 400 }}>

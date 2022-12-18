@@ -20,13 +20,13 @@ const useCreateEvent = () => {
       venue: (value) => {
         return value ? null : "Venue field is required";
       },
-      date: (value: Date) => {
-        return value
-          ? value > new Date()
-            ? null
-            : "Date must be after today"
-          : "Date field is required";
-      },
+      // date: (value: Date) => {
+      //   return value
+      //     ? value > new Date()
+      //       ? null
+      //       : "Date must be after today"
+      //     : "Date field is required";
+      // },
       timeStart: (value: Date) => {
         return value ? null : "Start time field is required";
       },

@@ -41,7 +41,38 @@ export const eventPost = router({
       where: { authorId: ctx.session?.user?.id },
     });
   }),
-  getAll: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.eventPost.findMany({ orderBy: [{ createdAt: "desc" }] });
-  }),
+  //TODO filter & pagination here
+  getAll: publicProcedure
+    .input(
+      z.object({
+        orderBy: z
+          .object({
+            date: z.union([z.literal("asc"), z.literal("desc")]).optional(),
+            timeEnd: z.union([z.literal("asc"), z.literal("desc")]).optional(),
+          })
+          .optional(),
+        cursor: z.string().nullish(),
+        limit: z.number().min(1).max(100).default(5),
+      })
+    )
+    .query(async ({ ctx, input }) => {
+      const { orderBy, cursor, limit } = input;
+      const events = await ctx.prisma.eventPost.findMany({
+        take: limit + 1,
+        orderBy,
+        cursor: cursor ? { id: cursor } : undefined,
+      });
+
+      let nextCursor: typeof cursor | undefined = undefined;
+
+      // freaking genius + 1 means you pop the next cursor
+      if (events.length > limit) {
+        const nextItem = events.pop() as typeof events[number];
+        nextCursor = nextItem.id;
+      }
+      // TODO pagination & filter
+      console.log({ nextCursor });
+
+      return { events, nextCursor };
+    }),
 });
