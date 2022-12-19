@@ -23,6 +23,7 @@ import useDeleteEvent from "../../hooks/useDeleteEvent";
 import { useState } from "react";
 import { EventPost } from "@prisma/client";
 import Loading from "../Loading";
+import Link from "next/link";
 
 const useStyles = createStyles((theme) => ({
   tableContainer: {
@@ -142,7 +143,7 @@ function MyEventPanel() {
 
           <Stack mx="5vw" my="xl" align="flex-end">
             <Button
-              component="a"
+              component={Link}
               href="/event/create"
               color="teal.6"
               rightIcon={<MdOutlineAdd size="25" />}

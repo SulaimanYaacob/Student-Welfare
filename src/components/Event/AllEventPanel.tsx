@@ -7,6 +7,7 @@ import {
   Button,
   createStyles,
   Badge,
+  Loader,
 } from "@mantine/core";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -15,7 +16,7 @@ import useGetEvents from "../../hooks/useGetEvents";
 import { defaultEventImage } from "../../types/constant";
 import { getDaysLeft } from "../../utils/dateHandler";
 import { useScrollPosition } from "../../utils/scrollPosition";
-import Loading from "../Loading";
+import { Loading, LoadingNextPage } from "../Loading";
 import EventDetailModal from "./EventDetailModal";
 
 const useStyle = createStyles((theme) => ({
@@ -218,6 +219,7 @@ function AllEventPanel() {
           </div>
         );
       })}
+      <LoadingNextPage getNextPage={hasNextPage} />
     </>
   );
 }

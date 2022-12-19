@@ -8,6 +8,7 @@ import {
   TbWriting,
 } from "react-icons/tb";
 import { Slide } from "react-awesome-reveal";
+import Link from "next/link";
 
 const useStyle = createStyles((theme) => ({
   buttonManager: {
@@ -38,7 +39,7 @@ function HomeContent() {
     >
       <Slide direction="left" triggerOnce>
         <Group spacing={"xl"}>
-          <Button component="a" href="/event">
+          <Button component={Link} href="/event">
             <Stack spacing={"xs"} align={"center"}>
               <TbConfetti size={"100px"} />
               <Text>Event</Text>
@@ -61,7 +62,7 @@ function HomeContent() {
 
       <Slide direction="right" triggerOnce>
         <Group spacing={"xl"}>
-          <Button>
+          <Button component={Link} href="/forum">
             <Stack spacing={"xs"} align={"center"}>
               <TbReport size={"100px"} />
               <Text>Complain</Text>
