@@ -2,7 +2,6 @@ import { Stack, Title, createStyles } from "@mantine/core";
 import React from "react";
 import getServerSideProps from "../../utils/protectedRoute";
 import EventTab from "../../components/Event/EventTab";
-import LandingLayout from "../../components/LandingLayout";
 
 const useStyle = createStyles((theme) => ({
   container: {
@@ -12,12 +11,12 @@ const useStyle = createStyles((theme) => ({
       width: "10vw",
       color: theme.colors.background?.[0],
       "&:hover": {
-        background: theme.colors.primary?.[0],
+        backgroundColor: "transparent",
       },
       "&[data-active], &[data-active]:hover": {
         fontWeight: 500,
         color: theme.colors.secondary?.[0],
-        background: theme.colors.primary?.[0],
+        backgroundColor: "transparent",
         borderBottomColor: theme.colors.secondary?.[0],
         borderBottom: "solid 3px",
       },

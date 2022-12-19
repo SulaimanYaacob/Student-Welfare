@@ -9,11 +9,12 @@ import {
   Badge,
 } from "@mantine/core";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import useGetEvents from "../../hooks/useGetEvents";
 import { defaultEventImage } from "../../types/constant";
 import { getDaysLeft } from "../../utils/dateHandler";
-import { trpc } from "../../utils/trpc";
+import { useScrollPosition } from "../../utils/scrollPosition";
 import Loading from "../Loading";
 import EventDetailModal from "./EventDetailModal";
 
@@ -74,24 +75,24 @@ function AllEventPanel() {
   const { classes } = useStyle();
   const [opened, setOpened] = useState(false);
   const [detailEventId, setDetailEventId] = useState<string>();
-  const { data, isLoading, setOrder, fetchNextPage, hasNextPage, isFetching } =
+  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useGetEvents();
-
-  const events = data?.pages.flatMap((item) => item.events) ?? [];
 
   const handleOnClick = (event_id: string) => {
     setDetailEventId(event_id);
     setOpened(true);
   };
 
-  console.log({ hasNextPage });
+  const events = data?.pages.flatMap((item) => item.events) ?? [];
+  const scrollPosition = useScrollPosition();
+  console.log({ scrollPosition, hasNextPage, isFetchingNextPage });
 
   useEffect(() => {
-    if (opened && hasNextPage && !isFetching) {
-      // fetchNextPage();
-      console.log("Working");
+    if (scrollPosition > 90 && hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
+      console.log("working?");
     }
-  }, [opened, hasNextPage, isFetching, fetchNextPage]);
+  }, [scrollPosition, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
   if (isLoading) return <Loading />;
 

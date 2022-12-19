@@ -1,13 +1,4 @@
-import {
-  Affix,
-  Button,
-  Tabs,
-  Transition,
-  createStyles,
-  ActionIcon,
-  HoverCard,
-  Text,
-} from "@mantine/core";
+import { Affix, Button, Tabs, Transition } from "@mantine/core";
 import { useWindowScroll } from "@mantine/hooks";
 import { TbArrowUp, TbPlus } from "react-icons/tb";
 import AllEventPanel from "./AllEventPanel";
@@ -28,10 +19,9 @@ import MyEventPanel from "./MyEventPanel";
 
 function EventTab() {
   const [scroll, scrollTo] = useWindowScroll();
-  // const { classes } = useStyle();
 
   return (
-    <Tabs variant="pills" defaultValue={"allEvent"} color="primary" radius={0}>
+    <Tabs variant="pills" defaultValue={"allEvent"} color="black" radius={0}>
       <Tabs.List mb={"xl"}>
         <Tabs.Tab px="xl" ml={"auto"} value="allEvent">
           ALL EVENT

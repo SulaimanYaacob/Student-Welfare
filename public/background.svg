@@ -1,0 +1,15 @@
+<svg width="5000" height="3500" viewBox="0 0 5000 3500" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="5000" height="3500" fill="#150135"/>
+<rect width="5000" height="3500" fill="url(#paint0_radial_19_329)"/>
+<rect width="5000" height="3500" fill="url(#paint1_radial_19_329)"/>
+<defs>
+<radialGradient id="paint0_radial_19_329" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(5261.75 304.195) rotate(147.093) scale(6267.3 5734.81)">
+<stop stop-color="#FF576E"/>
+<stop offset="1" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint1_radial_19_329" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(-72.1474 3449.5) rotate(-4.45996) scale(4742.55 3340.68)">
+<stop stop-color="#A841F9"/>
+<stop offset="1" stop-color="#C85168" stop-opacity="0"/>
+</radialGradient>
+</defs>
+</svg>

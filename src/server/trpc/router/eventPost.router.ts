@@ -41,7 +41,6 @@ export const eventPost = router({
       where: { authorId: ctx.session?.user?.id },
     });
   }),
-  //TODO filter & pagination here
   getAll: publicProcedure
     .input(
       z.object({
@@ -65,12 +64,12 @@ export const eventPost = router({
 
       let nextCursor: typeof cursor | undefined = undefined;
 
-      // freaking genius + 1 means you pop the next cursor
+      // + 1 means you pop the next cursor
       if (events.length > limit) {
         const nextItem = events.pop() as typeof events[number];
         nextCursor = nextItem.id;
       }
-      // TODO pagination & filter
+      // TODO filter
       console.log({ nextCursor });
 
       return { events, nextCursor };

@@ -1,4 +1,4 @@
-import { AppShell, createStyles } from "@mantine/core";
+import { AppShell, BackgroundImage, createStyles } from "@mantine/core";
 import React, { ReactNode } from "react";
 import Header from "./Header";
 
@@ -15,9 +15,11 @@ const useStyle = createStyles((theme) => ({
 function LandingLayout({ children }: Props) {
   const { classes } = useStyle();
   return (
-    <AppShell className={classes.appShell} header={<Header />}>
-      {children}
-    </AppShell>
+    <BackgroundImage src={"background.svg"}>
+      <AppShell className={classes.appShell} header={<Header />}>
+        {children}
+      </AppShell>
+    </BackgroundImage>
   );
 }
 

@@ -6,18 +6,22 @@ type orderBy = {
   timeEnd?: "asc" | "desc";
 };
 
-//TODO use infiniteQueries
 const useGetEvents = () => {
   const [order, setOrder] = useState<orderBy>({ date: "asc" });
-  const { data, isLoading, fetchNextPage, hasNextPage, isFetching } =
+  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
     trpc.eventPost.getAll.useInfiniteQuery(
-      {
-        orderBy: order,
-      },
+      { orderBy: order },
       { getNextPageParam: (lastPage) => lastPage.nextCursor }
     );
 
-  return { data, isLoading, fetchNextPage, setOrder, hasNextPage, isFetching };
+  return {
+    data,
+    isLoading,
+    fetchNextPage,
+    setOrder,
+    hasNextPage,
+    isFetchingNextPage,
+  };
 };
 
 export default useGetEvents;
