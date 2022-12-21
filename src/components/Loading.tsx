@@ -33,7 +33,7 @@ export function LoadingNextPage({
           w="100%"
         >
           <Title order={3} p="md" align="center">
-            There are no more available events
+            There are no more events available
           </Title>
         </Stack>
       )}

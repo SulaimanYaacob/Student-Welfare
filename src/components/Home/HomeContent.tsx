@@ -38,7 +38,7 @@ function HomeContent() {
       align="center"
     >
       <Slide direction="left" triggerOnce>
-        <Group spacing={"xl"}>
+        <Group spacing={"xl"} noWrap>
           <Button component={Link} href="/event">
             <Stack spacing={"xs"} align={"center"}>
               <TbConfetti size={"100px"} />
@@ -61,7 +61,7 @@ function HomeContent() {
       </Slide>
 
       <Slide direction="right" triggerOnce>
-        <Group spacing={"xl"}>
+        <Group spacing={"xl"} noWrap>
           <Button component={Link} href="/forum">
             <Stack spacing={"xs"} align={"center"}>
               <TbReport size={"100px"} />

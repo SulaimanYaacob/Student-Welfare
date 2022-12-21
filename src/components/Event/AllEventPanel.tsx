@@ -86,7 +86,6 @@ function AllEventPanel() {
 
   const events = data?.pages.flatMap((item) => item.events) ?? [];
   const scrollPosition = useScrollPosition();
-  console.log({ scrollPosition, hasNextPage, isFetchingNextPage });
 
   useEffect(() => {
     if (scrollPosition > 90 && hasNextPage && !isFetchingNextPage) {
