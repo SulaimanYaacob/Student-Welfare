@@ -18,5 +18,5 @@ export const getDaysLeft = (eventDate: Date) => {
     (eventDate.getTime() - currentDate) / (24 * 60 * 60 * 1000)
   );
 
-  return ++daysLeft;
+  return daysLeft;
 };

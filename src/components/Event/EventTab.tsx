@@ -1,6 +1,7 @@
 import { Affix, Button, Tabs, Transition } from "@mantine/core";
 import { useWindowScroll } from "@mantine/hooks";
 import { TbArrowUp, TbPlus } from "react-icons/tb";
+import { LoadingNextPage } from "../Loading";
 import AllEventPanel from "./AllEventPanel";
 import MyEventPanel from "./MyEventPanel";
 

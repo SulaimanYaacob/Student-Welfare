@@ -29,7 +29,7 @@ export const eventPost = router({
         return error;
       }
     }),
-  deleteEvent: publicProcedure
+  deleteEvent: protectedProcedure
     .input(z.object({ id: z.string().cuid() }))
     .mutation(({ ctx, input: { id } }) => {
       return ctx.prisma.eventPost.delete({
@@ -60,7 +60,12 @@ export const eventPost = router({
         take: limit + 1,
         orderBy,
         cursor: cursor ? { id: cursor } : undefined,
+        where: {
+          title: { startsWith: "" },
+        },
       });
+
+      //console.log({ events });
 
       let nextCursor: typeof cursor | undefined = undefined;
 
@@ -69,8 +74,6 @@ export const eventPost = router({
         const nextItem = events.pop() as typeof events[number];
         nextCursor = nextItem.id;
       }
-      // TODO filter
-      console.log({ nextCursor });
 
       return { events, nextCursor };
     }),
