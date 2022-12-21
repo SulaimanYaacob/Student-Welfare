@@ -7,6 +7,7 @@ import {
   Button,
   createStyles,
   Badge,
+  Box,
 } from "@mantine/core";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
@@ -76,14 +77,13 @@ function AllEventPanel() {
   const [detailEventId, setDetailEventId] = useState<string>();
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useGetEvents();
+  const events = data?.pages.flatMap((item) => item.events) ?? [];
+  const scrollPosition = useScrollPosition();
 
   const handleOnClick = (event_id: string) => {
     setDetailEventId(event_id);
     setOpened(true);
   };
-
-  const events = data?.pages.flatMap((item) => item.events) ?? [];
-  const scrollPosition = useScrollPosition();
 
   useEffect(() => {
     if (scrollPosition > 90 && hasNextPage && !isFetchingNextPage)
@@ -93,7 +93,9 @@ function AllEventPanel() {
   if (isLoading) return <Loading />;
 
   return (
-    <div>
+    <Box mx="5vw">
+      {/* Search Bar & Filters Here */}
+
       {events?.map((event, index) => {
         const { id, title, description, image, date } = event;
         const daysLeft = getDaysLeft(date);
@@ -107,8 +109,7 @@ function AllEventPanel() {
                 event={event}
               />
             )}
-
-            <Stack mx="5vw" my="xl" spacing="xl">
+            <Stack my="xl" spacing="xl">
               <Stack className={classes.customDivider}>
                 <Text
                   className={
@@ -195,7 +196,7 @@ function AllEventPanel() {
         );
       })}
       <LoadingNextPage getNextPage={hasNextPage} />
-    </div>
+    </Box>
   );
 }
 

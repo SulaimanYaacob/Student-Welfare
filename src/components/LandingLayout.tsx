@@ -9,6 +9,7 @@ type Props = {
 const useStyle = createStyles((theme) => ({
   appShell: {
     background: theme.colors.primary?.[0],
+    //background: "#674644",
   },
 }));
 
