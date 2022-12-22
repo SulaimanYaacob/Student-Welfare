@@ -1,6 +1,6 @@
 import { Stack } from "@mantine/core";
 import Head from "next/head";
-import React, { useState } from "react";
+import React from "react";
 import EventCarousel from "../components/Home/EventCarousel";
 import HomeContent from "../components/Home/HomeContent";
 import getServerSideProps from "../utils/protectedRoute";

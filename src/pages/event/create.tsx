@@ -11,7 +11,6 @@ function createEvent() {
   const [files, setFiles] = useState<FileWithPath[]>([]);
   const [baseImage, setBaseImage] = useState<unknown | string | undefined>();
   const { submit, getInputProps, values, disable } = useCreateEvent();
-  console.log(values);
 
   files.map(async (file) => {
     const base64 = await fileBase64Conversion(file);

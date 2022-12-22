@@ -14,6 +14,7 @@ import {
   MdPersonOutline,
 } from "react-icons/md";
 import { signOut, useSession } from "next-auth/react";
+import Link from "next/link";
 
 const useStyle = createStyles((theme) => ({
   headerContainer: {
@@ -32,7 +33,7 @@ function HeaderBar() {
       <Group position="apart" align="center" py="md" mx={"xl"}>
         <Title order={3}>STUDENT WELFARE SYSTEM</Title>
         <Group>
-          <ActionIcon component="a" href="/">
+          <ActionIcon component={Link} href="/">
             <MdOutlineHome size={75} />
           </ActionIcon>
           <ActionIcon>

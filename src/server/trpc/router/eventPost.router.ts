@@ -1,23 +1,15 @@
+import { EventPost } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
+import { createEventPostSchema } from "../../../schema/eventPost.schema";
 import { router, protectedProcedure, publicProcedure } from "../trpc";
 
 export const eventPost = router({
   createPost: protectedProcedure
-    .input(
-      z.object({
-        description: z.string().max(1000, "max character is 1000").optional(),
-        image: z.string().optional(),
-        timeEnd: z.date(),
-        timeStart: z.date(),
-        date: z.date(),
-        venue: z.string().min(1, "is missing"),
-        title: z.string().min(1, "is missing").max(50, "is too long!"),
-      })
-    )
+    .input(createEventPostSchema)
     .mutation(async ({ ctx, input }) => {
       try {
-        const posts = await ctx.prisma.eventPost.create({
+        const posts: EventPost = await ctx.prisma.eventPost.create({
           data: {
             ...input,
             author: {
@@ -37,7 +29,7 @@ export const eventPost = router({
         return error;
       }
     }),
-  deleteEvent: publicProcedure
+  deleteEvent: protectedProcedure
     .input(z.object({ id: z.string().cuid() }))
     .mutation(({ ctx, input: { id } }) => {
       return ctx.prisma.eventPost.delete({
@@ -49,7 +41,41 @@ export const eventPost = router({
       where: { authorId: ctx.session?.user?.id },
     });
   }),
-  getAll: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.eventPost.findMany();
-  }),
+  getAll: publicProcedure
+    .input(
+      z.object({
+        orderBy: z
+          .object({
+            date: z.union([z.literal("asc"), z.literal("desc")]).optional(),
+            timeEnd: z.union([z.literal("asc"), z.literal("desc")]).optional(),
+          })
+          .optional(),
+        cursor: z.string().nullish(),
+        limit: z.number().min(1).max(100).default(5),
+        contains: z.string().optional(),
+      })
+    )
+    .query(async ({ ctx, input }) => {
+      const { orderBy, cursor, limit, contains } = input;
+      const events = await ctx.prisma.eventPost.findMany({
+        cursor: cursor ? { id: cursor } : undefined,
+        take: limit + 1,
+        orderBy,
+        where: {
+          title: { contains, mode: "insensitive" },
+        },
+      });
+
+      //console.log({ events });
+
+      let nextCursor: typeof cursor | undefined = undefined;
+
+      // + 1 means you pop the next cursor
+      if (events.length > limit) {
+        const nextItem = events.pop() as typeof events[number];
+        nextCursor = nextItem.id;
+      }
+
+      return { events, nextCursor };
+    }),
 });
