@@ -23,7 +23,7 @@ import MyEventPanel from "./MyEventPanel";
 //TODO Refactor using useGetEvents Here.
 function EventTab() {
   const {
-    data,
+    events,
     isLoading,
     fetchNextPage,
     hasNextPage,
@@ -46,7 +46,16 @@ function EventTab() {
       </Tabs.List>
       <Tabs.Panel value="allEvent">
         <EventFilter search={search} setSearch={setSearch} />
-        {isLoading ? <Loading /> : <AllEventPanel />}
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <AllEventPanel
+            events={events}
+            fetchNextPage={fetchNextPage}
+            hasNextPage={hasNextPage}
+            isFetchingNextPage={isFetchingNextPage}
+          />
+        )}
       </Tabs.Panel>
       <Tabs.Panel value="myEvent">
         <MyEventPanel />

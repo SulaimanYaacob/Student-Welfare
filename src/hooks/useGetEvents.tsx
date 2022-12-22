@@ -21,8 +21,10 @@ const useGetEvents = () => {
     { getNextPageParam: (lastPage) => lastPage.nextCursor }
   );
 
+  const events = data?.pages.flatMap((item) => item.events) ?? [];
+
   return {
-    data,
+    events,
     search,
     refetch,
     setOrder,

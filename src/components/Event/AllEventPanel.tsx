@@ -9,6 +9,9 @@ import {
   Badge,
   Box,
 } from "@mantine/core";
+import { EventPost } from "@prisma/client";
+import { InfiniteQueryObserverResult } from "@tanstack/react-query";
+import { TRPCClientErrorLike } from "@trpc/client";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import useGetEvents from "../../hooks/useGetEvents";
@@ -71,13 +74,22 @@ const useStyle = createStyles((theme) => ({
   },
 }));
 
-function AllEventPanel() {
+type Props = {
+  events: EventPost[];
+  fetchNextPage: any;
+  hasNextPage: boolean | undefined;
+  isFetchingNextPage: boolean;
+};
+
+function AllEventPanel({
+  events,
+  fetchNextPage,
+  hasNextPage,
+  isFetchingNextPage,
+}: Props) {
   const { classes } = useStyle();
   const [opened, setOpened] = useState(false);
   const [detailEventId, setDetailEventId] = useState<string>();
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useGetEvents();
-  const events = data?.pages.flatMap((item) => item.events) ?? [];
   const scrollPosition = useScrollPosition();
 
   const handleOnClick = (event_id: string) => {
