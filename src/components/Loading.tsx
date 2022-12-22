@@ -34,8 +34,8 @@ export function LoadingNextPage({
           w="100%"
         >
           <Stack align="center">
-            <RiEmotionSadLine color="pink" size="135" />
-            <Title order={3} align="center" color="pink.2">
+            <RiEmotionSadLine color="pink" size="80" />
+            <Title order={4} align="center" color="pink.2">
               There are no more events available
             </Title>
           </Stack>

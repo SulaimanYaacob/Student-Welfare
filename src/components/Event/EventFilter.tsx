@@ -8,10 +8,8 @@ import {
   Stack,
   createStyles,
 } from "@mantine/core";
-import { Dispatch, SetStateAction, useEffect } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { MdOutlineFilterList, MdOutlineSearch } from "react-icons/md";
-import useGetEvents from "../../hooks/useGetEvents";
-import { trpc } from "../../utils/trpc";
 
 const useStyle = createStyles((theme) => ({
   Filter: {
@@ -48,26 +46,16 @@ const useStyle = createStyles((theme) => ({
 type Props = {
   search: string;
   setSearch: Dispatch<SetStateAction<string>>;
-  // setOrder: { date: "asc" | "desc"; timeEnd: "asc" | "desc" };
 };
 
 const EventFilter = ({ setSearch, search }: Props) => {
   const { classes } = useStyle();
 
-  const handleOnChange = (e: React.FormEvent<HTMLInputElement>) => {
-    setSearch(e.currentTarget.value);
-    console.log(search);
-  };
-
-  // useEffect(() => {
-  //   refetch();
-  // }, [search]);
-
   return (
     <Group position="center">
       <TextInput
         onChange={(e) => {
-          handleOnChange(e);
+          setSearch(e.currentTarget.value);
         }}
         variant="default"
         icon={<MdOutlineSearch size={20} />}
@@ -79,11 +67,11 @@ const EventFilter = ({ setSearch, search }: Props) => {
         closeOnClickOutside
         withArrow
         offset={5}
-        arrowOffset={12}
+        arrowOffset={13}
       >
         <Menu.Target>
           <ActionIcon color="gray.0" variant="filled" size="lg">
-            <MdOutlineFilterList color="grey" />
+            <MdOutlineFilterList color="grey" size={20} />
           </ActionIcon>
         </Menu.Target>
         <form

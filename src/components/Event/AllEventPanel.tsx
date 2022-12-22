@@ -10,15 +10,12 @@ import {
   Box,
 } from "@mantine/core";
 import { EventPost } from "@prisma/client";
-import { InfiniteQueryObserverResult } from "@tanstack/react-query";
-import { TRPCClientErrorLike } from "@trpc/client";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
-import useGetEvents from "../../hooks/useGetEvents";
 import { defaultEventImage } from "../../types/constant";
 import { getDaysLeft } from "../../utils/dateHandler";
 import { useScrollPosition } from "../../utils/scrollPosition";
-import { Loading, LoadingNextPage } from "../Loading";
+import { LoadingNextPage } from "../Loading";
 import EventDetailModal from "./EventDetailModal";
 
 const useStyle = createStyles((theme) => ({
@@ -104,8 +101,6 @@ function AllEventPanel({
 
   return (
     <Box mx="5vw">
-      {/* Search Bar & Filters Here */}
-
       {events?.map((event, index) => {
         const { id, title, description, image, date } = event;
         const daysLeft = getDaysLeft(date);
