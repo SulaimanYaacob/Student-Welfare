@@ -1,4 +1,5 @@
-import { BackgroundImage, Box, Button, Center, Group ,Stack ,Text, Card ,Image , Badge, Title } from "@mantine/core";
+import {  Button,Stack ,Text,Image , Title } from "@mantine/core";
+import React from "react";
 
 export default function ErrorPage () {
     return (
