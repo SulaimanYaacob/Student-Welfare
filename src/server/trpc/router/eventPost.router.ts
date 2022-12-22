@@ -52,16 +52,17 @@ export const eventPost = router({
           .optional(),
         cursor: z.string().nullish(),
         limit: z.number().min(1).max(100).default(5),
+        contains: z.string().optional(),
       })
     )
     .query(async ({ ctx, input }) => {
-      const { orderBy, cursor, limit } = input;
+      const { orderBy, cursor, limit, contains } = input;
       const events = await ctx.prisma.eventPost.findMany({
+        cursor: cursor ? { id: cursor } : undefined,
         take: limit + 1,
         orderBy,
-        cursor: cursor ? { id: cursor } : undefined,
         where: {
-          title: { startsWith: "" },
+          title: { contains, mode: "insensitive" },
         },
       });
 

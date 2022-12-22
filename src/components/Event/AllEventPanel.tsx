@@ -75,7 +75,7 @@ function AllEventPanel() {
   const { classes } = useStyle();
   const [opened, setOpened] = useState(false);
   const [detailEventId, setDetailEventId] = useState<string>();
-  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useGetEvents();
   const events = data?.pages.flatMap((item) => item.events) ?? [];
   const scrollPosition = useScrollPosition();
@@ -89,8 +89,6 @@ function AllEventPanel() {
     if (scrollPosition > 90 && hasNextPage && !isFetchingNextPage)
       fetchNextPage();
   }, [scrollPosition, hasNextPage, isFetchingNextPage, fetchNextPage]);
-
-  if (isLoading) return <Loading />;
 
   return (
     <Box mx="5vw">

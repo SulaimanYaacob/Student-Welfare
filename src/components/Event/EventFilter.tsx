@@ -8,8 +8,10 @@ import {
   Stack,
   createStyles,
 } from "@mantine/core";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useEffect } from "react";
 import { MdOutlineFilterList, MdOutlineSearch } from "react-icons/md";
+import useGetEvents from "../../hooks/useGetEvents";
+import { trpc } from "../../utils/trpc";
 
 const useStyle = createStyles((theme) => ({
   Filter: {
@@ -43,13 +45,23 @@ const useStyle = createStyles((theme) => ({
   },
 }));
 
-const EventFilter = () => {
+type Props = {
+  search: string;
+  setSearch: Dispatch<SetStateAction<string>>;
+  // setOrder: { date: "asc" | "desc"; timeEnd: "asc" | "desc" };
+};
+
+const EventFilter = ({ setSearch, search }: Props) => {
   const { classes } = useStyle();
-  const [search, setSearch] = useState("");
 
   const handleOnChange = (e: React.FormEvent<HTMLInputElement>) => {
     setSearch(e.currentTarget.value);
+    console.log(search);
   };
+
+  // useEffect(() => {
+  //   refetch();
+  // }, [search]);
 
   return (
     <Group position="center">
@@ -74,27 +86,31 @@ const EventFilter = () => {
             <MdOutlineFilterList color="grey" />
           </ActionIcon>
         </Menu.Target>
-        <form onSubmit={() => {}}>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+          }}
+        >
           <Menu.Dropdown className={classes.Filter}>
             <Menu.Label>
               <Text align="center" mb="xs">
-                Order By
+                Order events by
               </Text>
               <Chip.Group>
                 <Stack align={"center"}>
                   <Chip color="primary.0" value="date: asc" radius="sm">
-                    Upcoming Events
+                    Upcoming
                   </Chip>
                   <Chip color="primary.0" value="2" radius="sm">
-                    Latest Events
+                    Latest
                   </Chip>
                   <Chip color="primary.0" value="3" radius="sm">
-                    Old Events
+                    Old
                   </Chip>
                 </Stack>
               </Chip.Group>
             </Menu.Label>
-            <Menu.Item type="submit">Filter</Menu.Item>
+            <Menu.Item type="submit">Sort</Menu.Item>
           </Menu.Dropdown>
         </form>
       </Menu>
