@@ -1,7 +1,10 @@
 import { Affix, Button, Tabs, Transition } from "@mantine/core";
 import { useWindowScroll } from "@mantine/hooks";
 import { TbArrowUp, TbPlus } from "react-icons/tb";
+import useGetEvents from "../../hooks/useGetEvents";
+import Loading, { LoadingNextPage } from "../Loading";
 import AllEventPanel from "./AllEventPanel";
+import EventFilter from "./EventFilter";
 import MyEventPanel from "./MyEventPanel";
 
 // const useStyle = createStyles((theme) => ({
@@ -17,7 +20,18 @@ import MyEventPanel from "./MyEventPanel";
 //   },
 // }));
 
+//TODO Refactor using useGetEvents Here.
 function EventTab() {
+  const {
+    data,
+    isLoading,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    search,
+    setSearch,
+    setOrder,
+  } = useGetEvents();
   const [scroll, scrollTo] = useWindowScroll();
 
   return (
@@ -31,7 +45,8 @@ function EventTab() {
         </Tabs.Tab>
       </Tabs.List>
       <Tabs.Panel value="allEvent">
-        <AllEventPanel />
+        <EventFilter search={search} setSearch={setSearch} />
+        {isLoading ? <Loading /> : <AllEventPanel />}
       </Tabs.Panel>
       <Tabs.Panel value="myEvent">
         <MyEventPanel />

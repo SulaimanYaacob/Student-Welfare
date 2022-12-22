@@ -8,18 +8,28 @@ type orderBy = {
 
 const useGetEvents = () => {
   const [order, setOrder] = useState<orderBy>({ date: "asc" });
-  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    trpc.eventPost.getAll.useInfiniteQuery(
-      { orderBy: order },
-      { getNextPageParam: (lastPage) => lastPage.nextCursor }
-    );
+  const [search, setSearch] = useState("");
+  const {
+    data,
+    refetch,
+    isLoading,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = trpc.eventPost.getAll.useInfiniteQuery(
+    { orderBy: order, contains: search },
+    { getNextPageParam: (lastPage) => lastPage.nextCursor }
+  );
 
   return {
     data,
-    isLoading,
-    fetchNextPage,
+    search,
+    refetch,
     setOrder,
+    setSearch,
+    isLoading,
     hasNextPage,
+    fetchNextPage,
     isFetchingNextPage,
   };
 };
