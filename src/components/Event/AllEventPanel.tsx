@@ -6,13 +6,16 @@ import {
   Text,
   Button,
   createStyles,
-  Loader,
-  Spoiler,
+  Badge,
+  Box,
 } from "@mantine/core";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
+import useGetEvents from "../../hooks/useGetEvents";
 import { defaultEventImage } from "../../types/constant";
-import { trpc } from "../../utils/trpc";
+import { getDaysLeft } from "../../utils/dateHandler";
+import { useScrollPosition } from "../../utils/scrollPosition";
+import { Loading, LoadingNextPage } from "../Loading";
 import EventDetailModal from "./EventDetailModal";
 
 const useStyle = createStyles((theme) => ({
@@ -44,148 +47,154 @@ const useStyle = createStyles((theme) => ({
   overWrappingText: {
     wordBreak: "break-all",
   },
+  leftEStatus: {
+    position: "relative",
+    width: "340",
+    height: "220",
+    div: {
+      position: "absolute",
+      right: 0,
+      bottom: 0,
+      margin: "10px",
+    },
+  },
+  rightEStatus: {
+    position: "relative",
+    width: "340",
+    height: "220",
+    div: {
+      position: "absolute",
+      left: 0,
+      bottom: 0,
+      margin: "10px",
+    },
+  },
 }));
 
 function AllEventPanel() {
   const { classes } = useStyle();
   const [opened, setOpened] = useState(false);
   const [detailEventId, setDetailEventId] = useState<string>();
-  const { data, isLoading } = trpc.eventPost.getAll.useQuery();
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useGetEvents();
+  const events = data?.pages.flatMap((item) => item.events) ?? [];
+  const scrollPosition = useScrollPosition();
 
   const handleOnClick = (event_id: string) => {
     setDetailEventId(event_id);
     setOpened(true);
   };
 
-  //TODO create a loading component for reusability
-  if (isLoading) {
-    return (
-      <Group position="center" m="10vw">
-        <Loader size={"xl"} variant="oval" color={"gold"} />
-        <Title order={2} color={"gold"}>
-          Loading Events
-        </Title>
-      </Group>
-    );
-  }
+  useEffect(() => {
+    if (scrollPosition > 90 && hasNextPage && !isFetchingNextPage)
+      fetchNextPage();
+  }, [scrollPosition, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
   return (
-    //TODO May need to refactor this code in the future
-    <>
-      {data?.map(
-        (
-          { id, description, title, image, date, timeStart, timeEnd, venue },
-          index
-        ) => {
-          return (
-            <div key={id}>
-              {id === detailEventId ? (
-                <EventDetailModal
-                  setOpened={setOpened}
-                  opened={opened}
-                  title={title}
-                  description={description}
-                  image={image}
-                  venue={venue}
-                  date={date}
-                  timeStart={timeStart}
-                  timeEnd={timeEnd}
-                />
-              ) : (
-                <></>
-              )}
-              <Stack m={"xl"} spacing="xl">
-                {index % 2 === 0 ? (
-                  <>
-                    <Stack className={classes.customDivider}>
-                      <Text className={classes.diamondEdgeLeft}></Text>
-                      <Divider size={"xl"} color={"white"} />
-                    </Stack>
-                    <Group spacing={"xl"} mx="5vw" noWrap>
-                      <Image
-                        src={image ? image : defaultEventImage}
-                        alt={title}
-                        width="340"
-                        height="220"
-                      />
-                      <Stack
-                        justify="space-between"
-                        className={classes.customSize}
-                      >
-                        <Stack>
-                          <Title className={classes.overWrappingText} order={3}>
-                            {title}
-                          </Title>
-                          <Text className={classes.overWrappingText}>
-                            {description
-                              ? description?.length < 400
-                                ? description
-                                : `${description?.substring(0, 400)}...`
-                              : "Description is undefined"}
-                          </Text>
-                        </Stack>
-                        <Button
-                          onClick={() => handleOnClick(id)}
-                          color={"primary.2"}
-                          sx={{ width: "200px" }}
-                        >
-                          LEARN MORE
-                        </Button>
-                      </Stack>
-                    </Group>
-                  </>
-                ) : (
-                  <>
-                    <Stack className={classes.customDivider}>
-                      <Divider size={"xl"} color={"white"} />
-                      <Text className={classes.diamondEdgeRight}></Text>
-                    </Stack>
-                    <Group position="right" mx="5vw" spacing={"xl"} noWrap>
-                      <Stack
-                        justify="space-between"
-                        className={classes.customSize}
-                        align={"flex-end"}
-                      >
-                        <Stack>
-                          <Title
-                            align="end"
-                            className={classes.overWrappingText}
-                            order={3}
-                          >
-                            {title}
-                          </Title>
+    <Box mx="5vw">
+      {/* Search Bar & Filters Here */}
 
-                          <Text className={classes.overWrappingText}>
-                            {description
-                              ? description?.length < 400
-                                ? description
-                                : `${description?.substring(0, 400)}...`
-                              : "Description is undefined"}
-                          </Text>
-                        </Stack>
-                        <Button
-                          onClick={() => handleOnClick(id)}
-                          color={"primary.2"}
-                          sx={{ width: "200px" }}
-                        >
-                          LEARN MORE
-                        </Button>
-                      </Stack>
-                      <Image
-                        src={image ? image : defaultEventImage}
-                        alt={title}
-                        width="340"
-                        height="220"
-                      />
-                    </Group>
-                  </>
-                )}
+      {events?.map((event, index) => {
+        const { id, title, description, image, date } = event;
+        const daysLeft = getDaysLeft(date);
+        const Index = index % 2 === 0;
+        return (
+          <div key={id}>
+            {id === detailEventId && (
+              <EventDetailModal
+                setOpened={setOpened}
+                opened={opened}
+                event={event}
+              />
+            )}
+            <Stack my="xl" spacing="xl">
+              <Stack className={classes.customDivider}>
+                <Text
+                  className={
+                    Index ? classes.diamondEdgeLeft : classes.diamondEdgeRight
+                  }
+                />
+                <Divider size={"xl"} color={"white"} />
               </Stack>
-            </div>
-          );
-        }
-      )}
-    </>
+              <Group mx="xl" spacing={"xl"} noWrap position="center">
+                {Index && (
+                  <div
+                    className={
+                      Index ? classes.leftEStatus : classes.rightEStatus
+                    }
+                  >
+                    <Image
+                      src={image ? image : defaultEventImage}
+                      alt={title}
+                      width="340"
+                      height="220"
+                    />
+                    {daysLeft >= 0 ? (
+                      daysLeft === 0 ? (
+                        <Badge color="teal">LIVE</Badge>
+                      ) : (
+                        <Badge color="indigo">{daysLeft} Days Left</Badge>
+                      )
+                    ) : (
+                      <Badge color="red">EVENT ENDED</Badge>
+                    )}
+                  </div>
+                )}
+                <Stack
+                  justify="space-between"
+                  className={classes.customSize}
+                  align={Index ? "flex-start" : "flex-end"}
+                >
+                  <Stack className={classes.overWrappingText}>
+                    <Title order={3} align={Index ? "start" : "end"}>
+                      {title}
+                    </Title>
+                    <Text>
+                      {description
+                        ? description?.length < 350
+                          ? description
+                          : `${description?.substring(0, 350)}...`
+                        : "Description is undefined"}
+                    </Text>
+                  </Stack>
+                  <Button
+                    onClick={() => handleOnClick(id)}
+                    color={"primary.2"}
+                    sx={{ width: "200px" }}
+                  >
+                    LEARN MORE
+                  </Button>
+                </Stack>
+                {!Index && (
+                  <div
+                    className={
+                      Index ? classes.leftEStatus : classes.rightEStatus
+                    }
+                  >
+                    <Image
+                      src={image ? image : defaultEventImage}
+                      alt={title}
+                      width="340"
+                      height="220"
+                    />
+                    {daysLeft >= 0 ? (
+                      daysLeft === 0 ? (
+                        <Badge color="teal">LIVE</Badge>
+                      ) : (
+                        <Badge color="indigo">{daysLeft} Days Left</Badge>
+                      )
+                    ) : (
+                      <Badge color="red">EVENT ENDED</Badge>
+                    )}
+                  </div>
+                )}
+              </Group>
+            </Stack>
+          </div>
+        );
+      })}
+      <LoadingNextPage getNextPage={hasNextPage} />
+    </Box>
   );
 }
 

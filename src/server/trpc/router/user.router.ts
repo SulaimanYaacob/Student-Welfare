@@ -1,6 +1,6 @@
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime";
 import { TRPCError } from "@trpc/server";
-import { string, z } from "zod";
+import { z } from "zod";
 import { CreateUserInput } from "../../../types/user.type";
 
 import { router, publicProcedure } from "../trpc";

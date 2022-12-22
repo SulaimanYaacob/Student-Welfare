@@ -5,51 +5,57 @@ import {
   createStyles,
   Group,
   ActionIcon,
-  Loader,
   Title,
+  Modal,
+  Button,
 } from "@mantine/core";
-import { getDuration, getFormattedDate } from "../../utils/timeFormatter";
+import { getDuration, getFormattedDate } from "../../utils/dateHandler";
 import { trpc } from "../../utils/trpc";
-import { MdEdit, MdOutlineDelete } from "react-icons/md";
+import {
+  MdEdit,
+  MdOutlineDelete,
+  MdSentimentDissatisfied,
+  MdOutlineAdd,
+} from "react-icons/md";
 import Image from "next/image";
 import { defaultEventImage } from "../../types/constant";
+import useDeleteEvent from "../../hooks/useDeleteEvent";
+import { useState } from "react";
+import { EventPost } from "@prisma/client";
+import Loading from "../Loading";
+import Link from "next/link";
 
 const useStyles = createStyles((theme) => ({
   tableContainer: {
     fontWeight: 500,
     color: theme.colors.dark[9],
-    background: theme.colors.background?.[0],
-    boxShadow: `${theme.colors.secondary?.[9]} 0px 8px 24px`,
-
-    thead: {
-      tr: {
-        background: theme.colors.gray[1],
-        th: {
-          color: theme.colors.primary?.[0],
-        },
-      },
-    },
+    background: theme.colors.gray[2],
+    border: `solid 5px ${theme.colors.gray[2]}`,
+    //boxShadow: `${theme.colors.secondary?.[9]} 0px 8px 24px`,
+  },
+  overWrappingText: {
+    wordBreak: "break-all",
   },
 }));
 
 function MyEventPanel() {
   const { classes } = useStyles();
-  const { data, isLoading } = trpc.eventPost.getMyEvent.useQuery();
+  const { data, isLoading, isRefetching } =
+    trpc.eventPost.getMyEvent.useQuery();
+  const [eventDetail, setDetailEvent] = useState<EventPost>();
+  const { deleteEvent, disable, opened, setOpened } = useDeleteEvent();
 
-  if (isLoading) {
-    return (
-      <Group position="center" m="10vw">
-        <Loader size={"xl"} variant="oval" color={"gold"} />
-        <Title order={2} color={"gold"}>
-          Loading Events
-        </Title>
-      </Group>
-    );
-  }
+  const handleOnClick = (eventDetail: EventPost) => {
+    setOpened(true);
+    setDetailEvent(eventDetail);
+  };
+
+  //! Always uncomment after finishing the changes
+  if (isLoading || isRefetching) return <Loading />;
 
   const rows = data?.map((event, index) => {
     return (
-      <tr key={event.id}>
+      <tr key={event.id} className={classes.overWrappingText}>
         <td>
           <Text align="center">{++index}</Text>
         </td>
@@ -77,7 +83,11 @@ function MyEventPanel() {
             <ActionIcon variant="transparent" color="green">
               <MdEdit size={50} />
             </ActionIcon>
-            <ActionIcon variant="transparent" color="red">
+            <ActionIcon
+              onClick={() => handleOnClick(event)}
+              variant="transparent"
+              color="red"
+            >
               <MdOutlineDelete size={50} />
             </ActionIcon>
           </Group>
@@ -88,29 +98,91 @@ function MyEventPanel() {
 
   return (
     <>
-      <Stack m={"xl"} spacing="xl">
-        <Table
-          className={classes.tableContainer}
-          verticalSpacing="lg"
-          horizontalSpacing="lg"
-          withColumnBorders={true}
-          withBorder={true}
-        >
-          <thead>
-            <tr>
-              <th>Index</th>
-              <th>Sample Image</th>
-              <th>Title</th>
-              <th>Description</th>
-              <th>Venue</th>
-              <th>Date</th>
-              <th>Time</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>{rows}</tbody>
-        </Table>
-      </Stack>
+      {data && data.length ? (
+        <>
+          <Modal
+            centered
+            opened={opened}
+            withCloseButton={false}
+            onClose={() => setOpened(false)}
+          >
+            <Stack align="center">
+              <Image
+                src={eventDetail?.image ? eventDetail?.image : ""}
+                alt={""}
+                width="340"
+                height="220"
+              />
+              <Title order={2} align="center">
+                {eventDetail?.title}
+              </Title>
+              <Text weight={500} align="center">
+                Are you sure you want to delete this event?
+              </Text>
+              <Group position="center">
+                {eventDetail && (
+                  <Button
+                    onClick={() => deleteEvent(eventDetail.id)}
+                    disabled={disable}
+                    color="red"
+                  >
+                    Yes
+                  </Button>
+                )}
+
+                <Button
+                  onClick={() => setOpened(false)}
+                  disabled={disable}
+                  color="gray"
+                >
+                  Cancel
+                </Button>
+              </Group>
+            </Stack>
+          </Modal>
+
+          <Stack mx="5vw" my="xl" align="flex-end">
+            <Button
+              component={Link}
+              href="/event/create"
+              color="teal.6"
+              rightIcon={<MdOutlineAdd size="25" />}
+            >
+              Create Event
+            </Button>
+            <Table
+              striped
+              className={classes.tableContainer}
+              verticalSpacing="md"
+              horizontalSpacing="md"
+            >
+              <thead>
+                <tr>
+                  <th>Index</th>
+                  <th>Sample Image</th>
+                  <th>Title</th>
+                  <th>Description</th>
+                  <th>Venue</th>
+                  <th>Date</th>
+                  <th>Time</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>{rows}</tbody>
+            </Table>
+          </Stack>
+        </>
+      ) : (
+        <Stack m="auto" w="35%" spacing="xl" p="3vw" align="center">
+          <MdSentimentDissatisfied color="pink" size={"250"} />
+          <Title color="pink.2" order={2} align="center">
+            Uh Oh, It seems you don't have any events running at the moment.
+          </Title>
+          <Button component="a" href="/event/create" color="teal.6">
+            Let's Create One!
+          </Button>
+        </Stack>
+      )}
     </>
   );
 }
