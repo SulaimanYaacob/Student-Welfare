@@ -47,7 +47,9 @@ export const eventPost = router({
         orderBy: z
           .object({
             date: z.union([z.literal("asc"), z.literal("desc")]).optional(),
-            timeEnd: z.union([z.literal("asc"), z.literal("desc")]).optional(),
+            createdAt: z
+              .union([z.literal("asc"), z.literal("desc")])
+              .optional(),
           })
           .optional(),
         cursor: z.string().nullish(),

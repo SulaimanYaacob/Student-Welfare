@@ -10,6 +10,7 @@ import {
 } from "@mantine/core";
 import { Dispatch, SetStateAction } from "react";
 import { MdOutlineFilterList, MdOutlineSearch } from "react-icons/md";
+import { orderBy } from "../../hooks/useGetEvents";
 
 const useStyle = createStyles((theme) => ({
   Filter: {
@@ -44,12 +45,29 @@ const useStyle = createStyles((theme) => ({
 }));
 
 type Props = {
-  search: string;
   setSearch: Dispatch<SetStateAction<string>>;
+  setOrder: Dispatch<SetStateAction<orderBy>>;
 };
 
-const EventFilter = ({ setSearch, search }: Props) => {
+const EventFilter = ({ setSearch, setOrder }: Props) => {
   const { classes } = useStyle();
+
+  const handleOnSort = (e: any) => {
+    switch (e.target.value) {
+      case "ascDate":
+        setOrder({ date: "asc" });
+        break;
+      case "descDate":
+        setOrder({ date: "desc" });
+        break;
+      case "descCreated":
+        setOrder({ createdAt: "desc" });
+        break;
+      case "ascCreated":
+        setOrder({ createdAt: "asc" });
+        break;
+    }
+  };
 
   return (
     <Group position="center">
@@ -63,7 +81,7 @@ const EventFilter = ({ setSearch, search }: Props) => {
         w="30vw"
       />
       <Menu
-        position="bottom-end"
+        position="right-start"
         closeOnClickOutside
         withArrow
         offset={5}
@@ -81,24 +99,47 @@ const EventFilter = ({ setSearch, search }: Props) => {
         >
           <Menu.Dropdown className={classes.Filter}>
             <Menu.Label>
-              <Text align="center" mb="xs">
+              <Text size="sm" align="center" mb="xs">
                 Order events by
               </Text>
+              <Menu.Divider />
               <Chip.Group>
                 <Stack align={"center"}>
-                  <Chip color="primary.0" value="date: asc" radius="sm">
+                  <Chip
+                    radius="sm"
+                    value="ascDate"
+                    color="primary.0"
+                    onClick={(e) => handleOnSort(e)}
+                  >
                     Upcoming
                   </Chip>
-                  <Chip color="primary.0" value="2" radius="sm">
-                    Latest
+                  <Chip
+                    radius="sm"
+                    value="descDate"
+                    color="primary.0"
+                    onClick={(e) => handleOnSort(e)}
+                  >
+                    Future
                   </Chip>
-                  <Chip color="primary.0" value="3" radius="sm">
-                    Old
+                  <Chip
+                    color="primary.0"
+                    value="descCreated"
+                    radius="sm"
+                    onClick={(e) => handleOnSort(e)}
+                  >
+                    Newest
+                  </Chip>
+                  <Chip
+                    color="primary.0"
+                    value="ascCreated"
+                    radius="sm"
+                    onClick={(e) => handleOnSort(e)}
+                  >
+                    Oldest
                   </Chip>
                 </Stack>
               </Chip.Group>
             </Menu.Label>
-            <Menu.Item type="submit">Sort</Menu.Item>
           </Menu.Dropdown>
         </form>
       </Menu>

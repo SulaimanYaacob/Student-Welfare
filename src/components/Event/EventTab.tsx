@@ -21,17 +21,16 @@ import MyEventPanel from "./MyEventPanel";
 // }));
 
 function EventTab() {
+  const [scroll, scrollTo] = useWindowScroll();
   const {
     events,
     isLoading,
-    fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-    search,
-    setSearch,
     setOrder,
+    setSearch,
+    fetchNextPage,
   } = useGetEvents();
-  const [scroll, scrollTo] = useWindowScroll();
 
   return (
     <Tabs variant="pills" defaultValue={"allEvent"} color="black" radius={0}>
@@ -44,15 +43,15 @@ function EventTab() {
         </Tabs.Tab>
       </Tabs.List>
       <Tabs.Panel value="allEvent">
-        <EventFilter search={search} setSearch={setSearch} />
+        <EventFilter setSearch={setSearch} setOrder={setOrder} />
         {isLoading ? (
           <Loading />
         ) : events.length ? (
           <AllEventPanel
             events={events}
-            fetchNextPage={fetchNextPage}
             hasNextPage={hasNextPage}
             isFetchingNextPage={isFetchingNextPage}
+            fetchNextPage={fetchNextPage}
           />
         ) : (
           <Stack spacing="xl" h="60vh" justify="center" align="center">

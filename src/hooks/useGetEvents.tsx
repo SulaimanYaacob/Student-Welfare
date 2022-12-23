@@ -1,9 +1,10 @@
+import { useForm } from "@mantine/form";
 import { useState } from "react";
 import { trpc } from "../utils/trpc";
 
-type orderBy = {
+export type orderBy = {
   date?: "asc" | "desc";
-  timeEnd?: "asc" | "desc";
+  createdAt?: "asc" | "desc";
 };
 
 const useGetEvents = () => {
@@ -11,11 +12,11 @@ const useGetEvents = () => {
   const [search, setSearch] = useState("");
   const {
     data,
-    refetch,
     isLoading,
-    fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
+    refetch,
+    fetchNextPage,
   } = trpc.eventPost.getAll.useInfiniteQuery(
     { orderBy: order, contains: search },
     { getNextPageParam: (lastPage) => lastPage.nextCursor }
@@ -25,14 +26,13 @@ const useGetEvents = () => {
 
   return {
     events,
-    search,
+    isLoading,
+    hasNextPage,
+    isFetchingNextPage,
     refetch,
     setOrder,
     setSearch,
-    isLoading,
-    hasNextPage,
     fetchNextPage,
-    isFetchingNextPage,
   };
 };
 
