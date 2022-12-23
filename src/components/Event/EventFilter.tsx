@@ -11,6 +11,8 @@ import {
 import { Dispatch, SetStateAction } from "react";
 import { MdOutlineFilterList, MdOutlineSearch } from "react-icons/md";
 import { orderBy } from "../../hooks/useGetEvents";
+import { useState } from "react";
+import { boolean } from "zod";
 
 const useStyle = createStyles((theme) => ({
   Filter: {
@@ -50,20 +52,25 @@ type Props = {
 };
 
 const EventFilter = ({ setSearch, setOrder }: Props) => {
+  const [active, setActive] = useState<string>();
   const { classes } = useStyle();
 
   const handleOnSort = (e: any) => {
     switch (e.target.value) {
       case "ascDate":
+        setActive("ascDate");
         setOrder({ date: "asc" });
         break;
       case "descDate":
+        setActive("descDate");
         setOrder({ date: "desc" });
         break;
       case "descCreated":
+        setActive("descCreated");
         setOrder({ createdAt: "desc" });
         break;
       case "ascCreated":
+        setActive("ascCreated");
         setOrder({ createdAt: "asc" });
         break;
     }
@@ -109,6 +116,7 @@ const EventFilter = ({ setSearch, setOrder }: Props) => {
                     radius="sm"
                     value="ascDate"
                     color="primary.0"
+                    checked={active === "ascDate"}
                     onClick={(e) => handleOnSort(e)}
                   >
                     Upcoming
@@ -117,6 +125,7 @@ const EventFilter = ({ setSearch, setOrder }: Props) => {
                     radius="sm"
                     value="descDate"
                     color="primary.0"
+                    checked={active === "descDate"}
                     onClick={(e) => handleOnSort(e)}
                   >
                     Future
@@ -125,6 +134,7 @@ const EventFilter = ({ setSearch, setOrder }: Props) => {
                     color="primary.0"
                     value="descCreated"
                     radius="sm"
+                    checked={active === "descCreated"}
                     onClick={(e) => handleOnSort(e)}
                   >
                     Newest
@@ -133,6 +143,7 @@ const EventFilter = ({ setSearch, setOrder }: Props) => {
                     color="primary.0"
                     value="ascCreated"
                     radius="sm"
+                    checked={active === "ascCreated"}
                     onClick={(e) => handleOnSort(e)}
                   >
                     Oldest
