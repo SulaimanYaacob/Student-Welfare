@@ -13,7 +13,11 @@ import { EventPost } from "@prisma/client";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import { defaultEventImage } from "../../types/constant";
-import { getDaysLeft } from "../../utils/dateHandler";
+import {
+  getCreatedAt,
+  getDaysLeft,
+  getFormattedDate,
+} from "../../utils/dateHandler";
 import { useScrollPosition } from "../../utils/scrollPosition";
 import { LoadingNextPage } from "../Loading";
 import EventDetailModal from "./EventDetailModal";
@@ -69,6 +73,11 @@ const useStyle = createStyles((theme) => ({
       margin: "10px",
     },
   },
+  image: {
+    boxShadow: `${theme.colors.gray?.[5]} 3px 3px, ${theme.colors.gray?.[6]} 6px 6px`,
+    border: `${theme.colors.gray?.[4]} solid 4px`,
+    borderRadius: "10px",
+  },
 }));
 
 type Props = {
@@ -99,12 +108,11 @@ function AllEventPanel({
       fetchNextPage();
   }, [scrollPosition, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
-  console.log(events.length);
-
   return (
     <Box mx="5vw">
       {events?.map((event, index) => {
-        const { id, title, description, image, date } = event;
+        const { id, title, description, image, date, createdAt } = event;
+        const createdSince = getCreatedAt(createdAt);
         const daysLeft = getDaysLeft(date);
         const Index = index % 2 === 0;
         return (
@@ -134,6 +142,7 @@ function AllEventPanel({
                   >
                     <Image
                       src={image ? image : defaultEventImage}
+                      className={classes.image}
                       alt={title}
                       width="340"
                       height="220"
@@ -155,9 +164,12 @@ function AllEventPanel({
                   align={Index ? "flex-start" : "flex-end"}
                 >
                   <Stack className={classes.overWrappingText}>
-                    <Title order={3} align={Index ? "start" : "end"}>
-                      {title}
-                    </Title>
+                    <Group spacing="xs" position={Index ? "left" : "right"}>
+                      <Title order={3}>{title}</Title>
+                      <Text size="xs" color="gray.4" opacity="0.8">
+                        - {createdSince} ago
+                      </Text>
+                    </Group>
                     <Text>
                       {description
                         ? description?.length < 350
@@ -182,6 +194,7 @@ function AllEventPanel({
                   >
                     <Image
                       src={image ? image : defaultEventImage}
+                      className={classes.image}
                       alt={title}
                       width="340"
                       height="220"

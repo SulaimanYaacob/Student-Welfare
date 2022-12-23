@@ -179,7 +179,7 @@ function MyEventPanel() {
           <Title color="pink.2" order={3} align="center">
             Uh Oh, It seems you don't have any events running at the moment.
           </Title>
-          <Button component="a" href="/event/create" color="teal.6">
+          <Button component={Link} href="/event/create" color="teal.6">
             Let's Create One!
           </Button>
         </Stack>

@@ -27,7 +27,6 @@ const useStyle = createStyles((theme) => ({
     backgroundColor: theme.colors.primary?.[2],
   },
   innerContainer: {
-    borderRadius: "10px",
     background: theme.colors.background?.[0],
   },
 }));
@@ -52,11 +51,11 @@ function CreateEvent({ setFiles, submit, getInputProps, disable }: Props) {
   const { classes } = useStyle();
 
   return (
-    <Paper shadow={"xs"} p={"xl"} className={classes.container}>
+    <Paper shadow="xs" p="xs" className={classes.container}>
       <form onSubmit={submit()}>
         <Stack
           p="md"
-          spacing={"xs"}
+          spacing="xs"
           justify="center"
           className={classes.innerContainer}
         >
@@ -71,6 +70,7 @@ function CreateEvent({ setFiles, submit, getInputProps, disable }: Props) {
           <Textarea
             label={"Description"}
             placeholder="Explain what's it about."
+            minRows={3}
             {...getInputProps("description")}
           />
           <Group grow>
@@ -98,7 +98,7 @@ function CreateEvent({ setFiles, submit, getInputProps, disable }: Props) {
 
           <Group grow>
             <TimeInput
-              label={"Start"}
+              label="Start"
               format="12"
               amLabel="am"
               pmLabel="pm"
@@ -109,7 +109,7 @@ function CreateEvent({ setFiles, submit, getInputProps, disable }: Props) {
               onChange={(e) => {
                 console.log(e.getHours());
               }}
-              label={"End"}
+              label="End"
               format="12"
               amLabel="am"
               pmLabel="pm"

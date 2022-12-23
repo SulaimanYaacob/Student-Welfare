@@ -12,7 +12,6 @@ import { Dispatch, SetStateAction } from "react";
 import { MdOutlineFilterList, MdOutlineSearch } from "react-icons/md";
 import { orderBy } from "../../hooks/useGetEvents";
 import { useState } from "react";
-import { boolean } from "zod";
 
 const useStyle = createStyles((theme) => ({
   Filter: {
@@ -52,7 +51,7 @@ type Props = {
 };
 
 const EventFilter = ({ setSearch, setOrder }: Props) => {
-  const [active, setActive] = useState<string>();
+  const [active, setActive] = useState<string>("ascDate");
   const { classes } = useStyle();
 
   const handleOnSort = (e: any) => {

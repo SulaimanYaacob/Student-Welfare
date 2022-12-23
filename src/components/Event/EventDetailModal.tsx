@@ -53,44 +53,49 @@ function EventDetailModal({ event, opened, setOpened }: Props) {
           height="400"
           src={image ? image : defaultEventImage}
         />
-        <Stack spacing={"xs"} justify={"space-between"} sx={{ height: 400 }}>
-          <ScrollArea type="never">
-            <Stack spacing={"xs"}>
+        <Stack
+          spacing={"xs"}
+          justify={"space-between"}
+          pos="relative"
+          h="400px"
+        >
+          <ScrollArea>
+            <Stack spacing={"xs"} h="225px" mr="sm">
               <Title order={2}>{title}</Title>
               <Text>
                 {description
                   ? description
                   : "This person is not creative enough to explain the details of the event. I suggest not to attend this event"}
               </Text>
-
-              <Table
-                sx={{ color: "white" }}
-                withBorder={true}
-                withColumnBorders={true}
-              >
-                <tbody>
-                  <tr>
-                    <td>Venue</td>
-                    <td>{venue}</td>
-                  </tr>
-                  <tr>
-                    <td>Date</td>
-                    <td>{getFormattedDate(date)}</td>
-                  </tr>
-                  <tr>
-                    <td>Time</td>
-                    <td>{getDuration(timeStart, timeEnd)}</td>
-                  </tr>
-                </tbody>
-              </Table>
             </Stack>
           </ScrollArea>
-
+          <Table
+            pos="absolute"
+            bg="primary.1"
+            bottom={55}
+            sx={{ color: "pink", fontWeight: 500, borderRadius: "5px" }}
+            withColumnBorders={true}
+          >
+            <tbody>
+              <tr>
+                <td>Venue</td>
+                <td>{venue}</td>
+              </tr>
+              <tr>
+                <td>Date</td>
+                <td>{getFormattedDate(date)}</td>
+              </tr>
+              <tr>
+                <td>Time</td>
+                <td>{getDuration(timeStart, timeEnd)}</td>
+              </tr>
+            </tbody>
+          </Table>
           <Stack align={"center"}>
             <Button
               onClick={() => setOpened(false)}
               color={"primary.2"}
-              sx={{ width: "150px" }}
+              w="150px"
             >
               Close
             </Button>
