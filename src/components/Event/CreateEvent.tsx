@@ -48,13 +48,7 @@ type Props = {
   disable: boolean;
 };
 
-function CreateEvent({
-  setFiles,
-  submit,
-  getInputProps,
-  values,
-  disable,
-}: Props) {
+function CreateEvent({ setFiles, submit, getInputProps, disable }: Props) {
   const { classes } = useStyle();
 
   return (

@@ -50,7 +50,7 @@ function MyEventPanel() {
     setDetailEvent(eventDetail);
   };
 
-  //! Always uncomment after finishing the changes
+  //! Refactor inside eventTab
   if (isLoading || isRefetching) return <Loading />;
 
   const rows = data?.map((event, index) => {
@@ -144,9 +144,10 @@ function MyEventPanel() {
           <Stack mx="5vw" my="xl" align="flex-end">
             <Button
               component={Link}
+              rightIcon={<MdOutlineAdd size="25" />}
               href="/event/create"
               color="teal.6"
-              rightIcon={<MdOutlineAdd size="25" />}
+              radius="sm"
             >
               Create Event
             </Button>
@@ -174,8 +175,8 @@ function MyEventPanel() {
         </>
       ) : (
         <Stack m="auto" w="35%" spacing="xl" p="3vw" align="center">
-          <MdSentimentDissatisfied color="pink" size={"250"} />
-          <Title color="pink.2" order={2} align="center">
+          <MdSentimentDissatisfied color="pink" size={"225"} />
+          <Title color="pink.2" order={3} align="center">
             Uh Oh, It seems you don't have any events running at the moment.
           </Title>
           <Button component="a" href="/event/create" color="teal.6">

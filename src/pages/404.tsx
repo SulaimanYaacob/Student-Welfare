@@ -9,7 +9,7 @@ export default function ErrorPage() {
         <Image radius="md" src="/404-Error.jpg" alt="Random unsplash image" />
       </Box>
       <Title order={2}>Oops...</Title>
-      <Text>The page you were looking for was not available</Text>
+      <Text>The page you were looking for is not available</Text>
       <Button mt="xl" color="primary.0" component={Link} href="/">
         Go back Home
       </Button>

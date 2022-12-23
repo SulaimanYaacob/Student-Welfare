@@ -27,11 +27,11 @@ export function LoadingNextPage({
       ) : (
         <Stack
           sx={{ borderTop: `solid 3px white` }}
-          bg="primary.2"
           p="xl"
-          pos="absolute"
-          left="0"
           w="100%"
+          left="0"
+          bg="primary.2"
+          pos="absolute"
         >
           <Stack align="center">
             <RiEmotionSadLine color="pink" size="80" />

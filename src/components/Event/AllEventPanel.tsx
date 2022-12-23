@@ -99,6 +99,8 @@ function AllEventPanel({
       fetchNextPage();
   }, [scrollPosition, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
+  console.log(events.length);
+
   return (
     <Box mx="5vw">
       {events?.map((event, index) => {
