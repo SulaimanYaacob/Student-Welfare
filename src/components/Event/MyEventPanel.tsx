@@ -53,6 +53,7 @@ function MyEventPanel() {
   //! Refactor inside eventTab
   if (isLoading || isRefetching) return <Loading />;
 
+  //! Had to hardcode styling to prevent wrapping
   const rows = data?.map((event, index) => {
     return (
       <tr key={event.id} className={classes.overWrappingText}>
@@ -67,15 +68,15 @@ function MyEventPanel() {
             height="100"
           />
         </td>
-        <td>{event.title}</td>
-        <td>
+        <td style={{ maxWidth: "10vw" }}>{event.title}</td>
+        <td style={{ maxWidth: "25vw" }}>
           {event.description ? (
             event.description
           ) : (
             <Text color="red">Description is not available for this event</Text>
           )}
         </td>
-        <td>{event.venue}</td>
+        <td style={{ width: "10vw" }}>{event.venue}</td>
         <td>{getFormattedDate(event.date)}</td>
         <td>{getDuration(event.timeStart, event.timeEnd)}</td>
         <td>

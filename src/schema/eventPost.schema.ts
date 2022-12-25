@@ -13,4 +13,4 @@ export const getSinglePostSchema = z.object({
   eventPostId: z.string().cuid(),
 });
 
-export type CreateEventPostInput = z.TypeOf<typeof createEventPostSchema>;
+//export type CreateEventPostInput = z.TypeOf<typeof createEventPostSchema>;
