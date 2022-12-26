@@ -68,7 +68,7 @@ function MyEventPanel() {
             height="100"
           />
         </td>
-        <td style={{ maxWidth: "10vw" }}>{event.title}</td>
+        <td style={{ maxWidth: "8vw" }}>{event.title}</td>
         <td style={{ maxWidth: "25vw" }}>
           {event.description ? (
             event.description

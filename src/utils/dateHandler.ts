@@ -24,7 +24,7 @@ dayjs.updateLocale("en", {
 });
 
 export const getFormattedDate = (date: Date) => {
-  return dayjs(date).format("D MMMM YYYY");
+  return dayjs(date).format("D MMM YYYY");
 };
 
 export const getDuration = (start: Date, end: Date) => {
@@ -41,7 +41,7 @@ export const getDaysLeft = (eventDate: Date) => {
     (eventDate.getTime() - currentDate) / (24 * 60 * 60 * 1000)
   );
 
-  return daysLeft;
+  return ++daysLeft;
 };
 
 export const getCreatedAt = (createdAt: Date) => {
