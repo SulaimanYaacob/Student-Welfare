@@ -1,20 +1,18 @@
-import {  Button,Stack ,Text,Image , Title } from "@mantine/core";
+import { Button, Stack, Text, Image, Title, Box } from "@mantine/core";
+import Link from "next/link";
 import React from "react";
 
-export default function ErrorPage () {
-    return (
-    <Stack h='100vh' align='center' justify='center'>
-    <div style={{ width: 740, marginLeft: 'auto', marginRight: 'auto' }}>
-      <Image
-        radius="md"
-        src="https://img.freepik.com/free-vector/400-error-bad-request-concept-illustration_114360-1921.jpg?w=996&t=st=1671520873~exp=1671521473~hmac=d247a83179c88cedbf282bacd33389e9532f9085cac5c942499146821cb4249d"
-        alt="Random unsplash image"
-      />
-    </div>
-        <Title>Oops...</Title>
-        <Text>Sorry, the page not found</Text>
-        <Button color="primary.0" component="a" href="/">Go back Home</Button>
+export default function ErrorPage() {
+  return (
+    <Stack spacing={"xs"} h="100vh" align="center" justify="center">
+      <Box sx={{ width: "50vw" }}>
+        <Image radius="md" src="/404-Error.jpg" alt="Random unsplash image" />
+      </Box>
+      <Title order={2}>Oops...</Title>
+      <Text>The page you were looking for is not available</Text>
+      <Button mt="xl" color="primary.0" component={Link} href="/">
+        Go back Home
+      </Button>
     </Stack>
-    // </Center>
-    )
+  );
 }

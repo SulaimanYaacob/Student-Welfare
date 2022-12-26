@@ -7,6 +7,7 @@ import getServerSideProps from "../utils/protectedRoute";
 
 function Home() {
   return (
+    //TODO Redesign HomeContent Using Cards
     <>
       <Head>
         <title>Home Page</title>

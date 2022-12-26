@@ -14,8 +14,8 @@ const ImagePreview = ({ files, baseImage }: Props) => {
         src={baseImage}
         imageProps={{ onLoad: () => URL.revokeObjectURL(baseImage) }}
         fit="fill"
-        width="400px"
-        height="250px"
+        width="500px"
+        height="325px"
       />
     );
   });
@@ -23,8 +23,8 @@ const ImagePreview = ({ files, baseImage }: Props) => {
   return (
     <Box
       sx={{
-        width: "400px",
-        height: "250px",
+        width: "500px",
+        height: "325px",
         border: "3px dotted gray",
         boxSizing: "unset",
       }}

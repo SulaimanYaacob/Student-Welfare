@@ -8,10 +8,10 @@ import {
   Stack,
   createStyles,
 } from "@mantine/core";
-import { Dispatch, SetStateAction, useEffect } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { MdOutlineFilterList, MdOutlineSearch } from "react-icons/md";
-import useGetEvents from "../../hooks/useGetEvents";
-import { trpc } from "../../utils/trpc";
+import { orderBy } from "../../hooks/useGetEvents";
+import { useState } from "react";
 
 const useStyle = createStyles((theme) => ({
   Filter: {
@@ -46,28 +46,40 @@ const useStyle = createStyles((theme) => ({
 }));
 
 type Props = {
-  search: string;
   setSearch: Dispatch<SetStateAction<string>>;
-  // setOrder: { date: "asc" | "desc"; timeEnd: "asc" | "desc" };
+  setOrder: Dispatch<SetStateAction<orderBy>>;
 };
 
-const EventFilter = ({ setSearch, search }: Props) => {
+const EventFilter = ({ setSearch, setOrder }: Props) => {
+  const [active, setActive] = useState<string>("ascDate");
   const { classes } = useStyle();
 
-  const handleOnChange = (e: React.FormEvent<HTMLInputElement>) => {
-    setSearch(e.currentTarget.value);
-    console.log(search);
+  const handleOnSort = (e: any) => {
+    switch (e.target.value) {
+      case "ascDate":
+        setActive("ascDate");
+        setOrder({ date: "asc" });
+        break;
+      case "descDate":
+        setActive("descDate");
+        setOrder({ date: "desc" });
+        break;
+      case "descCreated":
+        setActive("descCreated");
+        setOrder({ createdAt: "desc" });
+        break;
+      case "ascCreated":
+        setActive("ascCreated");
+        setOrder({ createdAt: "asc" });
+        break;
+    }
   };
-
-  // useEffect(() => {
-  //   refetch();
-  // }, [search]);
 
   return (
     <Group position="center">
       <TextInput
         onChange={(e) => {
-          handleOnChange(e);
+          setSearch(e.currentTarget.value);
         }}
         variant="default"
         icon={<MdOutlineSearch size={20} />}
@@ -75,15 +87,15 @@ const EventFilter = ({ setSearch, search }: Props) => {
         w="30vw"
       />
       <Menu
-        position="bottom-end"
+        position="right-start"
         closeOnClickOutside
         withArrow
         offset={5}
-        arrowOffset={12}
+        arrowOffset={13}
       >
         <Menu.Target>
           <ActionIcon color="gray.0" variant="filled" size="lg">
-            <MdOutlineFilterList color="grey" />
+            <MdOutlineFilterList color="grey" size={20} />
           </ActionIcon>
         </Menu.Target>
         <form
@@ -93,24 +105,51 @@ const EventFilter = ({ setSearch, search }: Props) => {
         >
           <Menu.Dropdown className={classes.Filter}>
             <Menu.Label>
-              <Text align="center" mb="xs">
+              <Text size="sm" align="center" mb="xs">
                 Order events by
               </Text>
+              <Menu.Divider />
               <Chip.Group>
                 <Stack align={"center"}>
-                  <Chip color="primary.0" value="date: asc" radius="sm">
+                  <Chip
+                    radius="sm"
+                    value="ascDate"
+                    color="primary.0"
+                    checked={active === "ascDate"}
+                    onClick={(e) => handleOnSort(e)}
+                  >
                     Upcoming
                   </Chip>
-                  <Chip color="primary.0" value="2" radius="sm">
-                    Latest
+                  <Chip
+                    radius="sm"
+                    value="descDate"
+                    color="primary.0"
+                    checked={active === "descDate"}
+                    onClick={(e) => handleOnSort(e)}
+                  >
+                    Future
                   </Chip>
-                  <Chip color="primary.0" value="3" radius="sm">
-                    Old
+                  <Chip
+                    color="primary.0"
+                    value="descCreated"
+                    radius="sm"
+                    checked={active === "descCreated"}
+                    onClick={(e) => handleOnSort(e)}
+                  >
+                    Newest
+                  </Chip>
+                  <Chip
+                    color="primary.0"
+                    value="ascCreated"
+                    radius="sm"
+                    checked={active === "ascCreated"}
+                    onClick={(e) => handleOnSort(e)}
+                  >
+                    Oldest
                   </Chip>
                 </Stack>
               </Chip.Group>
             </Menu.Label>
-            <Menu.Item type="submit">Sort</Menu.Item>
           </Menu.Dropdown>
         </form>
       </Menu>
