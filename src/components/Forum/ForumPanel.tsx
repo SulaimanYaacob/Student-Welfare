@@ -18,8 +18,8 @@ function ForumPanel() {
 
   return (
     <>
-      <Stack>
-        <Paper my={"sm"} mx={"md"} p={"sm"} radius={0}>
+      <Stack align="center">
+        <Paper my={"sm"} mx={"md"} p={"sm"} radius={0} style={{minWidth: 1000}}>
           <Paper p="sm" bg="dark.0" radius={0}>
             <Stack mx="sm">
               <Table fontSize={"md"}>
@@ -41,7 +41,7 @@ function ForumPanel() {
                   <tr>
                     <td style={{ width: 70}}></td>
                     <td>
-                      <Text fw={550}>
+                      <Text fw={550} fz="xl">
                         Group Discussion : 15th General Election
                       </Text>
                     </td>
@@ -65,7 +65,7 @@ function ForumPanel() {
                           href="/forum/id"
                           leftIcon={<BsChatRightText size={20} />}
                         >
-                          Enter Chat
+                          Comment
                         </Button>
                       </Group>
                     </td>
@@ -75,7 +75,7 @@ function ForumPanel() {
             </Stack>
           </Paper>
         </Paper>
-        <Paper my={"sm"} mx={"md"} p={"sm"} radius={0}>
+        <Paper my={"sm"} mx={"md"} p={"sm"} radius={0} style={{minWidth: 1000}}>
           <Paper p="sm" bg="dark.0" radius={0}>
             <Stack mx="sm">
               <Table fontSize={"md"}>
@@ -97,7 +97,7 @@ function ForumPanel() {
                   <tr>
                     <td style={{ width: 70 }}></td>
                     <td>
-                      <Text fw={550}>
+                      <Text fw={550} fz="lg">
                         Group Discussion : Festival Convocation 2022
                       </Text>
                     </td>
@@ -119,7 +119,7 @@ function ForumPanel() {
                         <Button
                           leftIcon={<BsChatRightText size={20} />}
                         >
-                          Enter Chat
+                          Comment
                         </Button>
                       </Group>
                     </td>
