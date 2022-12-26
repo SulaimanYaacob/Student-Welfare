@@ -27,15 +27,15 @@ export function LoadingNextPage({
       ) : (
         <Stack
           sx={{ borderTop: `solid 3px white` }}
-          bg="primary.2"
           p="xl"
-          pos="absolute"
-          left="0"
           w="100%"
+          left="0"
+          bg="primary.2"
+          pos="absolute"
         >
           <Stack align="center">
-            <RiEmotionSadLine color="pink" size="135" />
-            <Title order={3} align="center" color="pink.2">
+            <RiEmotionSadLine color="pink" size="80" />
+            <Title order={4} align="center" color="pink.2">
               There are no more events available
             </Title>
           </Stack>
