@@ -39,6 +39,7 @@ export const eventPost = router({
   getMyEvent: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.eventPost.findMany({
       where: { authorId: ctx.session?.user?.id },
+      orderBy: { createdAt: "desc" },
     });
   }),
   getAll: publicProcedure
