@@ -59,12 +59,16 @@ export const eventPost = router({
     )
     .query(async ({ ctx, input }) => {
       const { orderBy, cursor, limit, contains } = input;
+      var current = new Date();
+      var threeDaysAgo = new Date(current.getTime() - 86400000 * 3);
+
       const events = await ctx.prisma.eventPost.findMany({
         cursor: cursor ? { id: cursor } : undefined,
         take: limit + 1,
         orderBy,
         where: {
           title: { contains, mode: "insensitive" },
+          date: { gte: threeDaysAgo },
         },
       });
 
