@@ -45,13 +45,13 @@ function HomeContent() {
               <Text>Event</Text>
             </Stack>
           </Button>
-          <Button>
+          <Button disabled>
             <Stack spacing={"xs"} align={"center"}>
               <TbPremiumRights size={"100px"} />
               <Text>Sales</Text>
             </Stack>
           </Button>
-          <Button>
+          <Button disabled>
             <Stack spacing={"xs"} align={"center"}>
               <TbSearch size={"100px"} />
               <Text>Lost & Found</Text>
@@ -62,19 +62,19 @@ function HomeContent() {
 
       <Slide direction="right" triggerOnce>
         <Group spacing={"xl"} noWrap>
-          <Button component={Link} href="/forum">
+          <Button disabled component={Link} href="/forum">
             <Stack spacing={"xs"} align={"center"}>
               <TbReport size={"100px"} />
               <Text>Complain</Text>
             </Stack>
           </Button>
-          <Button>
+          <Button disabled>
             <Stack spacing={"xs"} align={"center"}>
               <TbNews size={"100px"} />
               <Text>News</Text>
             </Stack>
           </Button>
-          <Button>
+          <Button disabled>
             <Stack spacing={"xs"} align={"center"}>
               <TbWriting size={"100px"} />
               <Text>Survey</Text>

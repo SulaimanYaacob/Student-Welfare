@@ -3,13 +3,13 @@ import { showNotification, updateNotification } from "@mantine/notifications";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { TbCheck, TbX } from "react-icons/tb";
-import { CreateEventPostInput } from "../schema/eventPost.schema";
+import { EventPostInput } from "../schema/eventPost.schema";
 import { trpc } from "../utils/trpc";
 
 const useCreateEvent = () => {
   const [disable, setDisable] = useState(false);
   const { push } = useRouter();
-  const { getInputProps, onSubmit, values } = useForm<CreateEventPostInput>({
+  const { getInputProps, onSubmit, values } = useForm<EventPostInput>({
     validate: {
       title: (value: string) =>
         value

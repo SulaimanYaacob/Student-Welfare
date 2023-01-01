@@ -1,12 +1,12 @@
 import { EventPost } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
-import { createEventPostSchema } from "../../../schema/eventPost.schema";
+import { EventPostSchema } from "../../../schema/eventPost.schema";
 import { router, protectedProcedure, publicProcedure } from "../trpc";
 
 export const eventPost = router({
   createPost: protectedProcedure
-    .input(createEventPostSchema)
+    .input(EventPostSchema)
     .mutation(async ({ ctx, input }) => {
       try {
         const posts: EventPost = await ctx.prisma.eventPost.create({
@@ -29,6 +29,24 @@ export const eventPost = router({
         return error;
       }
     }),
+  updateEvent: protectedProcedure
+    .input(EventPostSchema)
+    .mutation(async ({ ctx, input: { id, ...rest } }) => {
+      try {
+        const updateEvent: EventPost = await ctx.prisma.eventPost.update({
+          data: { ...rest },
+          where: { id },
+        });
+        return updateEvent;
+      } catch (error: any) {
+        if (!ctx.session?.user)
+          throw new TRPCError({
+            message: "Unauthorized to update",
+            code: "FORBIDDEN",
+          });
+        return error;
+      }
+    }),
   deleteEvent: protectedProcedure
     .input(z.object({ id: z.string().cuid() }))
     .mutation(({ ctx, input: { id } }) => {
@@ -36,7 +54,14 @@ export const eventPost = router({
         where: { id },
       });
     }),
-  getMyEvent: publicProcedure.query(({ ctx }) => {
+  getSingleEvent: protectedProcedure
+    .input(z.object({ id: z.string().cuid() }))
+    .query(({ ctx, input: { id } }) => {
+      return ctx.prisma.eventPost.findFirst({
+        where: { id },
+      });
+    }),
+  getMyEvents: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.eventPost.findMany({
       where: { authorId: ctx.session?.user?.id },
       orderBy: { createdAt: "desc" },
