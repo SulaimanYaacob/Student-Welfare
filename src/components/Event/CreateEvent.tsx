@@ -9,13 +9,14 @@ import {
   Button,
   Divider,
   Paper,
+  ScrollArea,
 } from "@mantine/core";
 import { DatePicker, TimeInput } from "@mantine/dates";
 import { FileWithPath } from "@mantine/dropzone";
 import { GetInputProps } from "@mantine/form/lib/types";
 import React, { Dispatch, FormEventHandler, SetStateAction } from "react";
 import { allVenues } from "../../data/venues";
-import { CreateEventPostInput } from "../../schema/eventPost.schema";
+import { EventPostInput } from "../../schema/eventPost.schema";
 import FileDropzone from "./Dropzone";
 
 const useStyle = createStyles((theme) => ({
@@ -43,7 +44,7 @@ type Props = {
     timeEnd: Date;
   }>;
   submit: () => FormEventHandler<HTMLFormElement> | undefined;
-  values: CreateEventPostInput;
+  values: EventPostInput;
   disable: boolean;
 };
 
@@ -119,7 +120,7 @@ function CreateEvent({ setFiles, submit, getInputProps, disable }: Props) {
           </Group>
           <FileDropzone setFiles={setFiles} />
           <Button type="submit" color={"primary.0"} disabled={disable}>
-            Create Event
+            Submit Event
           </Button>
         </Stack>
       </form>
