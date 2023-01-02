@@ -96,6 +96,7 @@ export const eventPost = router({
           title: { contains, mode: "insensitive" },
           date: { gte: threeDaysAgo },
         },
+        include: { author: true },
       });
 
       //console.log({ events });

@@ -9,10 +9,11 @@ import {
   Button,
   ScrollArea,
 } from "@mantine/core";
-import { EventPost } from "@prisma/client";
 import Image from "next/image";
+import Link from "next/link";
 import React, { Dispatch, SetStateAction } from "react";
 import { defaultEventImage } from "../../types/constant";
+import { EventData } from "../../types/event.type";
 import { getDuration, getFormattedDate } from "../../utils/dateHandler";
 
 const useStyle = createStyles((theme) => ({
@@ -23,22 +24,45 @@ const useStyle = createStyles((theme) => ({
       border: `solid 2px ${theme.colors.background?.[0]}`,
     },
   },
+  modalImage: {
+    boxShadow: `${theme.colors.gray?.[5]} 3px 3px, ${theme.colors.gray?.[6]} 6px 6px`,
+    border: `${theme.colors.gray?.[4]} solid 4px`,
+    backgroundColor: theme.colors.gray?.[3],
+    borderRadius: "10px",
+  },
+  linkToProfile: {
+    textDecoration: "none",
+    color: theme.colors.yellow[5],
+    "&: hover": {
+      color: theme.colors.yellow[3],
+    },
+  },
 }));
 
 type Props = {
   setOpened: Dispatch<SetStateAction<boolean>>;
   opened: boolean;
-  event: EventPost;
+  event: EventData;
 };
 
 function EventDetailModal({ event, opened, setOpened }: Props) {
   const { classes } = useStyle();
-  const { title, description, timeStart, timeEnd, date, image, venue } = event;
+  const {
+    title,
+    description,
+    timeStart,
+    timeEnd,
+    date,
+    image,
+    venue,
+    author,
+    authorId,
+  } = event;
 
   return (
     <Modal
       centered
-      size={"70%"}
+      size={"85%"}
       opened={opened}
       lockScroll={false}
       withCloseButton={false}
@@ -47,20 +71,21 @@ function EventDetailModal({ event, opened, setOpened }: Props) {
     >
       <Group align={"flex-start"} spacing="xl" grow noWrap>
         <Image
+          className={classes.modalImage}
           priority
           alt={title}
-          width="400"
-          height="400"
+          width="450"
+          height="450"
           src={image ? image : defaultEventImage}
         />
         <Stack
           spacing={"xs"}
           justify={"space-between"}
           pos="relative"
-          h="400px"
+          h="450px"
         >
           <ScrollArea>
-            <Stack spacing={"xs"} h="225px" mr="sm">
+            <Stack spacing={"xs"} h="240px" mr="sm">
               <Title order={2}>{title}</Title>
               <Text>
                 {description
@@ -88,6 +113,20 @@ function EventDetailModal({ event, opened, setOpened }: Props) {
               <tr>
                 <td>Time</td>
                 <td>{getDuration(timeStart, timeEnd)}</td>
+              </tr>
+              {/* //TODO Link to profile page (make it clickable) */}
+              <tr>
+                <td>Created by</td>
+                <td>
+                  <Link
+                    href={`/profile/${authorId}`}
+                    className={classes.linkToProfile}
+                  >
+                    {author.name.length < 50
+                      ? author.name
+                      : `${author.name.substring(0, 50)}...`}
+                  </Link>
+                </td>
               </tr>
             </tbody>
           </Table>

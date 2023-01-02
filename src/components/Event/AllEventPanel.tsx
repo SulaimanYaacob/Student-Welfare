@@ -13,11 +13,8 @@ import { EventPost } from "@prisma/client";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import { defaultEventImage } from "../../types/constant";
-import {
-  getCreatedAt,
-  getDaysLeft,
-  getFormattedDate,
-} from "../../utils/dateHandler";
+import { EventData } from "../../types/event.type";
+import { getCreatedAt, getDaysLeft } from "../../utils/dateHandler";
 import { useScrollPosition } from "../../utils/scrollPosition";
 import { LoadingNextPage } from "../Loading";
 import EventDetailModal from "./EventDetailModal";
@@ -76,12 +73,13 @@ const useStyle = createStyles((theme) => ({
   image: {
     boxShadow: `${theme.colors.gray?.[5]} 3px 3px, ${theme.colors.gray?.[6]} 6px 6px`,
     border: `${theme.colors.gray?.[4]} solid 4px`,
+    backgroundColor: theme.colors.gray?.[3],
     borderRadius: "10px",
   },
 }));
 
 type Props = {
-  events: EventPost[];
+  events: EventData[];
   fetchNextPage: any;
   hasNextPage: boolean | undefined;
   isFetchingNextPage: boolean;
@@ -115,6 +113,7 @@ function AllEventPanel({
         const createdSince = getCreatedAt(createdAt);
         const daysLeft = getDaysLeft(date);
         const Index = index % 2 === 0;
+
         return (
           <div key={id}>
             {id === detailEventId && (

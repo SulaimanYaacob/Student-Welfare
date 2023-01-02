@@ -75,7 +75,7 @@ function createEvent() {
           disable={authorizeToEdit ? disableUpdate : disableCreate}
         />
         {/* Add Here Edit Event */}
-        <Stack spacing={"xl"} align={"center"} mx="5vw">
+        <Stack spacing={"xl"} align={"center"} mx="2.5vw">
           <Title color={"background.0"}>Image Preview</Title>
           <ImagePreview baseImage={baseImage as string} />
         </Stack>

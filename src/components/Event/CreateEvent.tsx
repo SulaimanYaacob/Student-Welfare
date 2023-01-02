@@ -52,7 +52,7 @@ function CreateEvent({ setFiles, submit, getInputProps, disable }: Props) {
   const { classes } = useStyle();
 
   return (
-    <Paper shadow="xs" p="xs" className={classes.container}>
+    <Paper shadow="xs" p="xs" miw="25vw" className={classes.container}>
       <form onSubmit={submit()}>
         <Stack
           p="md"
