@@ -16,7 +16,7 @@ const MantineProvider = ({ children }: Props) => {
         primaryShade: { light: 5 },
         colorScheme: "light",
         colors: {
-          background: ["#FFF"],
+          background: ["#FFF", "#000"],
           primary: [
             "#830f3e",
             "#8f2751",
