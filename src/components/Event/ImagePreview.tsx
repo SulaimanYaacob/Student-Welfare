@@ -2,24 +2,10 @@ import { FileWithPath } from "@mantine/dropzone";
 import { Image, Box } from "@mantine/core";
 
 type Props = {
-  files: FileWithPath[];
   baseImage: string;
 };
 
-const ImagePreview = ({ files, baseImage }: Props) => {
-  const previews = files.map((file, index) => {
-    return (
-      <Image
-        key={index}
-        src={baseImage}
-        imageProps={{ onLoad: () => URL.revokeObjectURL(baseImage) }}
-        fit="fill"
-        width="500px"
-        height="325px"
-      />
-    );
-  });
-
+const ImagePreview = ({ baseImage }: Props) => {
   return (
     <Box
       sx={{
@@ -29,7 +15,13 @@ const ImagePreview = ({ files, baseImage }: Props) => {
         boxSizing: "unset",
       }}
     >
-      {previews}
+      <Image
+        src={baseImage}
+        imageProps={{ onLoad: () => URL.revokeObjectURL(baseImage) }}
+        fit="fill"
+        width="500px"
+        height="325px"
+      />
     </Box>
   );
 };

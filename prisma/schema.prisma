@@ -59,6 +59,8 @@ model User {
   accounts      Account[]
   sessions      Session[]
   EventPost     EventPost[]
+  // ForumPost     ForumPost[]
+  // Like          Like[]
 }
 
 model EventPost {
@@ -77,6 +79,32 @@ model EventPost {
   author   User   @relation(fields: [authorId], references: [id])
   authorId String
 }
+
+// //TODO Reconsider model for prisma
+// model ForumPost {
+//   id          String  @id @default(cuid())
+//   title       String
+//   description String?
+//   likes       Like[]
+
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+//   authorId  String
+//   author    User     @relation(fields: [authorId], references: [id])
+// }
+
+// model Like {
+//   id String @id @default(cuid())
+
+//   forum     ForumPost @relation(fields: [forumId], references: [id])
+//   forumId   String
+//   user      User      @relation(fields: [userId], references: [id])
+//   userId    String
+//   createdAt DateTime  @default(now())
+//   updatedAt DateTime  @updatedAt
+
+//   @@unique([forumId, userId])
+// }
 
 enum Role {
   STUDENT

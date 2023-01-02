@@ -1,6 +1,7 @@
 import z from "zod";
 
-export const createEventPostSchema = z.object({
+export const EventPostSchema = z.object({
+  id: z.string().cuid().optional(),
   description: z.string().max(1000, "max character is 1000").optional(),
   image: z.string().optional(),
   timeEnd: z.date(),
@@ -13,4 +14,4 @@ export const getSinglePostSchema = z.object({
   eventPostId: z.string().cuid(),
 });
 
-export type CreateEventPostInput = z.TypeOf<typeof createEventPostSchema>;
+export type EventPostInput = z.TypeOf<typeof EventPostSchema>;
