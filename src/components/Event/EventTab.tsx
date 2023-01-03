@@ -18,6 +18,7 @@ import MyEventPanel from "./MyEventPanel";
 //   dropdown: {
 //     border: `3px solid ${theme.colors.green?.[5]}`,
 //   },
+
 // }));
 
 function EventTab() {
@@ -32,6 +33,7 @@ function EventTab() {
     fetchNextPage,
   } = useGetEvents();
 
+  //TODO ? Maybe remove this component and put it all in a event page.
   return (
     <Tabs variant="pills" defaultValue={"allEvent"} color="black" radius={0}>
       <Tabs.List mb={"xl"}>

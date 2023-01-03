@@ -9,7 +9,13 @@ export const eventPost = router({
     .input(EventPostSchema)
     .mutation(async ({ ctx, input }) => {
       try {
-        const posts: EventPost = await ctx.prisma.eventPost.create({
+        const eventList = await ctx.prisma.eventPost.count({
+          where: { authorId: ctx.session.user.id },
+        });
+
+        if (eventList > 2) throw new Error("Cannot create more than 2 events");
+
+        const posts = await ctx.prisma.eventPost.create({
           data: {
             ...input,
             author: {
@@ -21,12 +27,10 @@ export const eventPost = router({
         });
         return posts;
       } catch (error: any) {
-        if (!ctx.session?.user)
-          throw new TRPCError({
-            message: "Unauthorized to create",
-            code: "FORBIDDEN",
-          });
-        return error;
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: error.message,
+        });
       }
     }),
   updateEvent: protectedProcedure

@@ -20,6 +20,9 @@ const useCreateEvent = () => {
       venue: (value) => {
         return value ? null : "Venue field is required";
       },
+      description: (value: string) => {
+        return value.length < 1000 ? null : "Max character is 1000";
+      },
       date: (value: Date) => {
         return value
           ? value > new Date()
@@ -59,16 +62,13 @@ const useCreateEvent = () => {
       push("/event");
     },
     onError: ({ message }) => {
-      const data = JSON.parse(message);
-      data.map((item: any) => {
-        updateNotification({
-          id: "create-event",
-          title: "Error Occured",
-          message: `Input ${item.path[0]} ${item.message}`,
-          color: "red",
-          autoClose: 2000,
-          icon: <TbX />,
-        });
+      updateNotification({
+        id: "create-event",
+        title: "Create Event Failed",
+        message,
+        color: "red",
+        autoClose: 2000,
+        icon: <TbX />,
       });
       setDisable(false);
     },

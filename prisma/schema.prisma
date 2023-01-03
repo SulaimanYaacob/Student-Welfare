@@ -50,20 +50,20 @@ model VerificationToken {
 }
 
 model User {
-  id        String     @id @default(cuid())
-  name      String
-  email     String     @unique
-  role      Role       @default(STUDENT)
-  studyMode StudyMode?
-  age       Int?
-  phoneNo   String?
-  bio       String?
+  id    String @id @default(cuid())
+  name  String
+  email String @unique
+  role  Role   @default(STUDENT)
+  // studyMode StudyMode?
+  // age       Int?
+  // phoneNo   String?
+  // bio       String?
 
-  // Education
-  course        String?
-  faculty       String?
-  college       String?
-  image         String?
+  // // Education
+  // course        String?
+  // faculty       String?
+  // college       String?
+  // image         String?
   emailVerified DateTime?
   accounts      Account[]
   sessions      Session[]

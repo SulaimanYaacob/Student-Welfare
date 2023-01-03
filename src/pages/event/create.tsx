@@ -34,6 +34,7 @@ function createEvent() {
 
   files.map(async (file) => {
     const base64 = await fileBase64Conversion(file);
+
     setBaseImage(base64);
 
     authorizeToEdit
