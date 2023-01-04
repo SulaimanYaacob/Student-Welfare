@@ -1,6 +1,6 @@
 import { MantineProvider as Provider } from "@mantine/core";
 import { NotificationsProvider } from "@mantine/notifications";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 type Props = {
   children: ReactNode;

@@ -3,7 +3,7 @@ import { showNotification, updateNotification } from "@mantine/notifications";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { TbCheck, TbX } from "react-icons/tb";
-import { EventPostInput } from "../schema/eventPost.schema";
+import type { EventPostInput } from "../schema/eventPost.schema";
 import { trpc } from "../utils/trpc";
 
 const useCreateEvent = () => {
@@ -21,7 +21,11 @@ const useCreateEvent = () => {
         return value ? null : "Venue field is required";
       },
       description: (value: string) => {
-        return value.length < 1000 ? null : "Max character is 1000";
+        return value
+          ? value.length < 1000
+            ? null
+            : "Max character is 1000"
+          : null;
       },
       date: (value: Date) => {
         return value

@@ -1,4 +1,4 @@
-import { EventPost } from "@prisma/client";
+import type { EventPost } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 import { EventPostSchema } from "../../../schema/eventPost.schema";
@@ -14,7 +14,6 @@ export const eventPost = router({
         });
 
         if (eventList > 2) throw new Error("Cannot create more than 2 events");
-
         const posts = await ctx.prisma.eventPost.create({
           data: {
             ...input,
@@ -89,8 +88,8 @@ export const eventPost = router({
     )
     .query(async ({ ctx, input }) => {
       const { orderBy, cursor, limit, contains } = input;
-      var current = new Date();
-      var threeDaysAgo = new Date(current.getTime() - 86400000 * 3);
+      const current = new Date();
+      const threeDaysAgo = new Date(current.getTime() - 86400000 * 3);
 
       const events = await ctx.prisma.eventPost.findMany({
         cursor: cursor ? { id: cursor } : undefined,

@@ -3,7 +3,7 @@ import { showNotification, updateNotification } from "@mantine/notifications";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { TbCheck, TbX } from "react-icons/tb";
-import { EventPostInput } from "../schema/eventPost.schema";
+import type { EventPostInput } from "../schema/eventPost.schema";
 import { trpc } from "../utils/trpc";
 
 const useUpdateEvent = () => {
