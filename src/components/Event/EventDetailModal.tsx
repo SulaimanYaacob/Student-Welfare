@@ -12,7 +12,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import React, { Dispatch, SetStateAction } from "react";
-import { defaultEventImage } from "../../types/constant";
+import { defaultEventImage } from "../../utils/constant";
 import { EventData } from "../../types/event.type";
 import { getDuration, getFormattedDate } from "../../utils/dateHandler";
 

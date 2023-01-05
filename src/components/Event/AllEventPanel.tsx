@@ -12,7 +12,7 @@ import {
 import { EventPost } from "@prisma/client";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
-import { defaultEventImage } from "../../types/constant";
+import { defaultEventImage } from "../../utils/constant";
 import { EventData } from "../../types/event.type";
 import { getCreatedAt, getDaysLeft } from "../../utils/dateHandler";
 import { useScrollPosition } from "../../utils/scrollPosition";

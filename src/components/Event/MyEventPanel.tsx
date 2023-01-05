@@ -18,10 +18,10 @@ import {
   MdOutlineAdd,
 } from "react-icons/md";
 import Image from "next/image";
-import { defaultEventImage } from "../../types/constant";
+import { defaultEventImage } from "../../utils/constant";
 import useDeleteEvent from "../../hooks/useDeleteEvent";
 import { useState } from "react";
-import { EventPost } from "@prisma/client";
+import type { EventPost } from "@prisma/client";
 import Loading from "../Loading";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -53,7 +53,7 @@ function MyEventPanel() {
   };
 
   //! Refactor inside eventTab
-  if (isLoading || isRefetching) return <Loading />;
+  if (isLoading || isRefetching) return <Loading name="Events" />;
 
   //! Had to hardcode styling to prevent wrapping
   const rows = data?.map((event, index) => {
@@ -186,10 +186,10 @@ function MyEventPanel() {
         <Stack m="auto" w="35%" spacing="xl" p="3vw" align="center">
           <MdSentimentDissatisfied color="pink" size={"225"} />
           <Title color="pink.2" order={3} align="center">
-            Uh Oh, It seems you don't have any events running at the moment.
+            {"Uh Oh, It seems you don't have any events running at the moment"}
           </Title>
           <Button component={Link} href="/event/create" color="teal.6">
-            Let's Create One!
+            {"Let's Create One!"}
           </Button>
         </Stack>
       )}

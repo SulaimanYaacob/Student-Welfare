@@ -47,7 +47,7 @@ function EventTab() {
       <Tabs.Panel value="allEvent">
         <EventFilter setSearch={setSearch} setOrder={setOrder} />
         {isLoading ? (
-          <Loading />
+          <Loading name="Events" />
         ) : events.length ? (
           <AllEventPanel
             events={events}
