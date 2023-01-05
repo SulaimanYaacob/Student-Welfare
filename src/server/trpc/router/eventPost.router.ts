@@ -13,7 +13,7 @@ export const eventPost = router({
           where: { authorId: ctx.session.user.id },
         });
 
-        if (eventList > 2) throw new Error("Cannot create more than 2 events");
+        if (eventList > 2) throw new Error("Cannot create more than 3 events");
         const posts = await ctx.prisma.eventPost.create({
           data: {
             ...input,

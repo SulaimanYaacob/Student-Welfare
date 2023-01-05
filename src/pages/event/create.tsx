@@ -1,8 +1,8 @@
 import { Group, Stack, Title } from "@mantine/core";
-import { FileWithPath } from "@mantine/dropzone";
+import type { FileWithPath } from "@mantine/dropzone";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import CreateEvent from "../../components/Event/CreateEvent";
 import ImagePreview from "../../components/Event/ImagePreview";
 import useCreateEvent from "../../hooks/useCreateEvent";
@@ -11,7 +11,7 @@ import { fileBase64Conversion } from "../../utils/fileConversion";
 import getServerSideProps from "../../utils/protectedRoute";
 import { trpc } from "../../utils/trpc";
 
-function createEvent() {
+function SubmitEvent() {
   const [files, setFiles] = useState<FileWithPath[]>([]);
   const [baseImage, setBaseImage] = useState<unknown | string | undefined>();
   const {
@@ -47,21 +47,22 @@ function createEvent() {
       id: edit as string,
     });
 
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
       if (EventData && authorizeToEdit) {
         setValues({
-          id: EventData.id!,
-          title: EventData.title!,
-          description: EventData.description!,
-          venue: EventData.venue!,
-          date: EventData.date!,
-          timeStart: EventData.timeStart!,
-          timeEnd: EventData.timeEnd!,
-          image: EventData.image! || "",
+          id: EventData.id || undefined,
+          title: EventData.title || undefined,
+          description: EventData.description || undefined,
+          venue: EventData.venue || undefined,
+          date: EventData.date || undefined,
+          timeStart: EventData.timeStart || undefined,
+          timeEnd: EventData.timeEnd || undefined,
+          image: EventData.image || "",
         });
         setBaseImage(EventData.image);
       }
-    }, [EventData, authorizeToEdit]);
+    }, [EventData, authorizeToEdit, setValues]);
   }
 
   return (
@@ -85,6 +86,6 @@ function createEvent() {
   );
 }
 
-export default createEvent;
+export default SubmitEvent;
 
 export { getServerSideProps };
