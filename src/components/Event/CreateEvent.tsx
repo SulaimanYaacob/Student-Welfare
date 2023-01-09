@@ -9,7 +9,6 @@ import {
   Button,
   Divider,
   Paper,
-  ScrollArea,
 } from "@mantine/core";
 import { DatePicker, TimeInput } from "@mantine/dates";
 import type { FileWithPath } from "@mantine/dropzone";

@@ -1,7 +1,7 @@
 import { useForm } from "@mantine/form";
 import { showNotification, updateNotification } from "@mantine/notifications";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { TbCheck, TbX } from "react-icons/tb";
 import type { UserUpdateInputType } from "../types/user.type";
 import { trpc } from "../utils/trpc";
@@ -24,7 +24,7 @@ const useUpdateUser = () => {
         });
         setDisable(true);
       },
-      onSuccess: (data: any) => {
+      onSuccess: () => {
         updateNotification({
           id: "update-profile",
           title: "Update",
@@ -41,7 +41,7 @@ const useUpdateUser = () => {
       onError: ({ message }) => {
         updateNotification({
           id: "update-profile",
-          title: "Error Occured",
+          title: "Error Occurred",
           message,
           color: "red",
           autoClose: 2000,

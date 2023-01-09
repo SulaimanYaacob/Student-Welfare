@@ -19,7 +19,7 @@ import {
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { BsDot, BsFillTelephoneFill } from "react-icons/bs";
-import { FaCheck, FaPen, FaRegCopy, FaShare } from "react-icons/fa";
+import { FaCheck, FaPen, FaRegCopy } from "react-icons/fa";
 import { FiMail } from "react-icons/fi";
 import {
   defaultBackgroundImage,
@@ -40,7 +40,6 @@ import { allCourses } from "../../data/course";
 const UserProfile = () => {
   const {
     query: { id },
-    pathname,
   } = useRouter();
   const [opened, setOpened] = useState(false);
   const { data: session } = useSession();
@@ -167,7 +166,7 @@ const UserProfile = () => {
           </Stack>
         </form>
       </Modal>
-      <Stack spacing="xs">
+      <Stack spacing="xl">
         <Paper mx="auto" pb="xl" radius="md" w="1000px">
           <Image
             src={backgroundImage ? backgroundImage : defaultBackgroundImage}
@@ -202,7 +201,7 @@ const UserProfile = () => {
                         color={copied ? "teal" : "primary.0"}
                         leftIcon={copied ? <FaCheck /> : <FaRegCopy />}
                       >
-                        {copied ? "URL Copied" : "Copy Profile Url"}
+                        {copied ? "URL Copied" : "Copy Profile URL"}
                       </Button>
                     )}
                   </CopyButton>
@@ -210,7 +209,7 @@ const UserProfile = () => {
               )}
             </Group>
             <Title maw="500px" order={4}>
-              {name ? `${name} - ${age}` : "Undefined"}
+              {name ? `${name}` + `${age ? ` - ${age}` : ""}` : "Undefined"}
             </Title>
             <Divider />
             <Stack spacing="md" align="center">
@@ -221,21 +220,20 @@ const UserProfile = () => {
                 <Text
                   sx={{ border: "1px solid black" }}
                   maw="50vw"
-                  mah="20vh"
+                  mah="30vh"
                   p="md"
                   my="md"
                 >
                   {id === "clb4hl1uw0000vcgccfm5492s" ? (
-                    <Link
-                      style={{
-                        textDecoration: "none",
-                        color: "red",
-                        fontWeight: "500",
-                      }}
-                      href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-                    >
-                      <Text align="center">More info about me</Text>
-                    </Link>
+                    <Stack align="center">
+                      <Image
+                        alt="About me"
+                        src={"/Totally_not_a_Rickroll_QR_Code.png"}
+                        width={150}
+                        height={150}
+                      />
+                      <Text>{"Here's a video introduction of me"}</Text>
+                    </Stack>
                   ) : bio ? (
                     bio
                   ) : (
