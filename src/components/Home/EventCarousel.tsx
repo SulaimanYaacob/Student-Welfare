@@ -37,7 +37,6 @@ function EventCarousel() {
         mx="auto"
         slideSize="100%"
         withIndicators
-        loop
       >
         <Carousel.Slide>
           <Stack>

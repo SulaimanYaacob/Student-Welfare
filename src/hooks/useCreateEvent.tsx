@@ -3,7 +3,7 @@ import { showNotification, updateNotification } from "@mantine/notifications";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { TbCheck, TbX } from "react-icons/tb";
-import { EventPostInput } from "../schema/eventPost.schema";
+import type { EventPostInput } from "../schema/eventPost.schema";
 import { trpc } from "../utils/trpc";
 
 const useCreateEvent = () => {
@@ -19,6 +19,13 @@ const useCreateEvent = () => {
           : "Title field is required",
       venue: (value) => {
         return value ? null : "Venue field is required";
+      },
+      description: (value: string) => {
+        return value
+          ? value.length < 1000
+            ? null
+            : "Max character is 1000"
+          : null;
       },
       date: (value: Date) => {
         return value
@@ -59,16 +66,13 @@ const useCreateEvent = () => {
       push("/event");
     },
     onError: ({ message }) => {
-      const data = JSON.parse(message);
-      data.map((item: any) => {
-        updateNotification({
-          id: "create-event",
-          title: "Error Occured",
-          message: `Input ${item.path[0]} ${item.message}`,
-          color: "red",
-          autoClose: 2000,
-          icon: <TbX />,
-        });
+      updateNotification({
+        id: "create-event",
+        title: "Create Event Failed",
+        message,
+        color: "red",
+        autoClose: 2000,
+        icon: <TbX />,
       });
       setDisable(false);
     },

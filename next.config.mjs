@@ -14,7 +14,11 @@ const config = {
     defaultLocale: "en",
   },
   images: {
-    domains: ["t4.ftcdn.net"],
+    domains: [
+      "t4.ftcdn.net",
+      "lh3.googleusercontent.com",
+      "static-cse.canva.com",
+    ],
   },
 };
 export default config;

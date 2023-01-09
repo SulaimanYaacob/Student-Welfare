@@ -1,4 +1,4 @@
-import { EventPost } from "@prisma/client";
+import type { EventPost } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 import { EventPostSchema } from "../../../schema/eventPost.schema";
@@ -9,7 +9,12 @@ export const eventPost = router({
     .input(EventPostSchema)
     .mutation(async ({ ctx, input }) => {
       try {
-        const posts: EventPost = await ctx.prisma.eventPost.create({
+        const eventList = await ctx.prisma.eventPost.count({
+          where: { authorId: ctx.session.user.id },
+        });
+
+        if (eventList > 2) throw new Error("Cannot create more than 3 events");
+        const posts = await ctx.prisma.eventPost.create({
           data: {
             ...input,
             author: {
@@ -21,12 +26,10 @@ export const eventPost = router({
         });
         return posts;
       } catch (error: any) {
-        if (!ctx.session?.user)
-          throw new TRPCError({
-            message: "Unauthorized to create",
-            code: "FORBIDDEN",
-          });
-        return error;
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: error.message,
+        });
       }
     }),
   updateEvent: protectedProcedure
@@ -85,8 +88,8 @@ export const eventPost = router({
     )
     .query(async ({ ctx, input }) => {
       const { orderBy, cursor, limit, contains } = input;
-      var current = new Date();
-      var threeDaysAgo = new Date(current.getTime() - 86400000 * 3);
+      const current = new Date();
+      const threeDaysAgo = new Date(current.getTime() - 86400000 * 3);
 
       const events = await ctx.prisma.eventPost.findMany({
         cursor: cursor ? { id: cursor } : undefined,
@@ -96,6 +99,7 @@ export const eventPost = router({
           title: { contains, mode: "insensitive" },
           date: { gte: threeDaysAgo },
         },
+        include: { author: true },
       });
 
       //console.log({ events });

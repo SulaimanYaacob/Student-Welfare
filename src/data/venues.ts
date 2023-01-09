@@ -3,7 +3,6 @@ export const allVenues = [
     id: 1,
     venue: "Dewan Sri Perdana, Kolej Perdana",
   },
-
   {
     id: 2,
     venue: "Dewan Kuliah L50",

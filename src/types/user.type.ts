@@ -1,4 +1,6 @@
+import { type } from "os";
 import z from "zod";
+import type { RouterInputs, RouterOutputs } from "../utils/trpc";
 
 export const createUserSchema = z.object({
   name: z.string(),
@@ -6,11 +8,11 @@ export const createUserSchema = z.object({
   password: z.string().min(4).max(12).nullable(),
 });
 
-export type CreateUserInput = z.TypeOf<typeof createUserSchema>;
+//Get User
+export type UserInputType = RouterInputs["userRouter"]["getUserById"];
+export type UserOutputType = RouterOutputs["userRouter"]["getUserById"];
 
-// export const requestOtpSchema = z.object({
-//   email: z.string().email(),
-//   redirect: z.string().default("/"),
-// });
-
-// export type requestOtpInput = z.TypeOf<typeof requestOtpSchema>;
+//Update User
+export type UserUpdateInputType = RouterInputs["userRouter"]["updateUserById"];
+export type UserUpdateOutputType =
+  RouterOutputs["userRouter"]["updateUserById"];

@@ -50,15 +50,25 @@ model VerificationToken {
 }
 
 model User {
-  id            String      @id @default(cuid())
-  name          String
-  email         String      @unique
-  role          Role        @default(STUDENT)
-  emailVerified DateTime?
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
-  EventPost     EventPost[]
+  id        String     @id @default(cuid())
+  name      String
+  email     String     @unique
+  role      Role       @default(STUDENT)
+  studyMode StudyMode?
+  age       Int?
+  phoneNo   String?
+  bio       String?
+
+  // Education
+  course          String?
+  faculty         String?
+  college         String?
+  image           String?
+  backgroundImage String?
+  emailVerified   DateTime?
+  accounts        Account[]
+  sessions        Session[]
+  EventPost       EventPost[]
   // ForumPost     ForumPost[]
   // Like          Like[]
 }
@@ -107,6 +117,12 @@ model EventPost {
 // }
 
 enum Role {
-  STUDENT
+  DEVELOPER
   MPP
+  STUDENT
+}
+
+enum StudyMode {
+  FULLTIME
+  PARTTIME
 }

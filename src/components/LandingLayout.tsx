@@ -1,5 +1,6 @@
 import { AppShell, BackgroundImage, createStyles } from "@mantine/core";
-import React, { ReactNode } from "react";
+import type { ReactNode } from "react";
+import React from "react";
 import Header from "./Header";
 
 type Props = {

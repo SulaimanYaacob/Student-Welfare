@@ -9,14 +9,14 @@ import {
   Button,
   Divider,
   Paper,
-  ScrollArea,
 } from "@mantine/core";
 import { DatePicker, TimeInput } from "@mantine/dates";
-import { FileWithPath } from "@mantine/dropzone";
-import { GetInputProps } from "@mantine/form/lib/types";
-import React, { Dispatch, FormEventHandler, SetStateAction } from "react";
+import type { FileWithPath } from "@mantine/dropzone";
+import type { GetInputProps } from "@mantine/form/lib/types";
+import type { Dispatch, FormEventHandler, SetStateAction } from "react";
+import React from "react";
 import { allVenues } from "../../data/venues";
-import { EventPostInput } from "../../schema/eventPost.schema";
+import type { EventPostInput } from "../../schema/eventPost.schema";
 import FileDropzone from "./Dropzone";
 
 const useStyle = createStyles((theme) => ({
@@ -52,7 +52,7 @@ function CreateEvent({ setFiles, submit, getInputProps, disable }: Props) {
   const { classes } = useStyle();
 
   return (
-    <Paper shadow="xs" p="xs" className={classes.container}>
+    <Paper shadow="xs" p="xs" miw="25vw" className={classes.container}>
       <form onSubmit={submit()}>
         <Stack
           p="md"

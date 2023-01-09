@@ -36,7 +36,7 @@ function HeaderBar() {
           <ActionIcon component={Link} href="/">
             <MdOutlineHome size={75} />
           </ActionIcon>
-          <ActionIcon>
+          <ActionIcon component={Link} href={`/profile/${session?.user?.id}`}>
             <MdPersonOutline size={75} />
           </ActionIcon>
           <Menu position="top-start" offset={18} radius={0}>

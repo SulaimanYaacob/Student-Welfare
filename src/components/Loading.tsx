@@ -2,12 +2,12 @@ import { Group, Loader, Stack, Title } from "@mantine/core";
 import React from "react";
 import { RiEmotionSadLine } from "react-icons/ri";
 
-export function Loading() {
+export function Loading({ name }: { name: string }) {
   return (
     <Group position="center" align="center" h="50vh">
       <Loader fill="1" size={"xl"} variant="oval" color={"gold"} />
       <Title order={2} color={"gold"}>
-        Loading Events
+        Loading {name}
       </Title>
     </Group>
   );
