@@ -52,16 +52,16 @@ const UserProfile = () => {
   useEffect(() => {
     if (userData) {
       setValues({
-        name: userData.name || undefined,
+        name: userData.name || "",
         age: userData.age || undefined,
-        bio: userData.bio || undefined,
+        bio: userData.bio || "",
         studyMode: userData.studyMode || "FULLTIME",
-        college: userData.college || undefined,
-        course: userData.course || undefined,
-        faculty: userData.faculty || undefined,
-        phoneNo: userData.phoneNo || undefined,
-        image: userData.image || undefined,
-        backgroundImage: userData.backgroundImage || undefined,
+        college: userData.college || "",
+        course: userData.course || "",
+        faculty: userData.faculty || "",
+        phoneNo: userData.phoneNo || "",
+        image: userData.image || "",
+        backgroundImage: userData.backgroundImage || "",
       });
     }
   }, [setValues, userData]);
