@@ -58,10 +58,10 @@ export const eventPost = router({
       });
     }),
   getSingleEvent: protectedProcedure
-    .input(z.object({ id: z.string().cuid() }))
-    .query(({ ctx, input: { id } }) => {
+    .input(z.object({ EventId: z.string().cuid() }))
+    .query(({ ctx, input: { EventId } }) => {
       return ctx.prisma.eventPost.findFirst({
-        where: { id },
+        where: { id: EventId, authorId: ctx.session?.user?.id },
       });
     }),
   getMyEvents: publicProcedure.query(({ ctx }) => {

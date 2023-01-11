@@ -3,6 +3,8 @@ import { Center, createStyles, Stack, Text, Title } from "@mantine/core";
 import { Fade } from "react-awesome-reveal";
 import React from "react";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
+import { Group } from "@mantine/core";
 
 const useStyles = createStyles((_theme, _params, getRef) => ({
   controls: {
@@ -53,25 +55,34 @@ function EventCarousel() {
         </Carousel.Slide>
         <Carousel.Slide>
           <Center h="100%">
-            <Title align="center" color="yellow.5" mx="xl">
-              Event that passes 3 days after the date of conduct will be remove
-              from the list
-            </Title>
-          </Center>
-        </Carousel.Slide>
-        <Carousel.Slide>
-          <Center h="100%">
-            <Title align="center" color="yellow.5" mx="xl">
-              If you refresh when editing an event, it will redirect you to
-              create page. (To prevent other's editing your events.)
-            </Title>
-          </Center>
-        </Carousel.Slide>
-        <Carousel.Slide>
-          <Center h="100%">
-            <Title align="center" color="yellow.5" mx="xl">
-              Other than that, please enjoy browsing our website!
-            </Title>
+            <Stack align="center">
+              <Title order={2} color="yellow.5">
+                Developed By
+              </Title>
+              <Group spacing="xl">
+                <Text
+                  color="cyan"
+                  component={Link}
+                  href={`/profile/clb4hl1uw0000vcgccfm5492s`}
+                >
+                  Sulaiman
+                </Text>
+                <Text
+                  color="cyan"
+                  component={Link}
+                  href="/profile/clb4owhne0000sstksx7lgw3y"
+                >
+                  Rizdwan
+                </Text>
+                <Text
+                  color="cyan"
+                  component={Link}
+                  href="/profile/clb4ommh00000vgl010juo0lm"
+                >
+                  Eddie
+                </Text>
+              </Group>
+            </Stack>
           </Center>
         </Carousel.Slide>
       </Carousel>

@@ -1,4 +1,3 @@
-import { type } from "os";
 import z from "zod";
 import type { RouterInputs, RouterOutputs } from "../utils/trpc";
 

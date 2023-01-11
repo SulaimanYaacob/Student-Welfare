@@ -1,5 +1,5 @@
-import { EventPost } from "@prisma/client";
-import { RouterInputs, RouterOutputs } from "../utils/trpc";
+import type { EventPost } from "@prisma/client";
+import type { RouterInputs, RouterOutputs } from "../utils/trpc";
 
 export type EventsInputType = RouterInputs["eventPost"]["getAll"];
 export type EventOutputType = RouterOutputs["eventPost"]["getAll"];
