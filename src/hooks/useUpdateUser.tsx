@@ -6,9 +6,14 @@ import { TbCheck, TbX } from "react-icons/tb";
 import type { UserUpdateInputType } from "../types/user.type";
 import { trpc } from "../utils/trpc";
 
-const useUpdateUser = () => {
+type Props = {
+  onMutate?: () => void;
+  onSuccess?: () => void;
+  onError?: () => void;
+};
+
+const useUpdateUser = (props?: Props) => {
   const [disable, setDisable] = useState(false);
-  const { reload } = useRouter();
   const utils = trpc.useContext();
   const { getInputProps, onSubmit, values, setValues } =
     useForm<UserUpdateInputType>({ validate: {} });
@@ -22,6 +27,7 @@ const useUpdateUser = () => {
           message: "Updating your profile",
           loading: true,
         });
+        props?.onMutate?.();
         setDisable(true);
       },
       onSuccess: () => {
@@ -33,10 +39,10 @@ const useUpdateUser = () => {
           color: "teal",
           onClose: () => {
             utils.userRouter.getUserById.invalidate();
-            reload();
           },
         });
-        reload();
+        props?.onSuccess?.();
+        setDisable(false);
       },
       onError: ({ message }) => {
         updateNotification({
@@ -47,13 +53,15 @@ const useUpdateUser = () => {
           autoClose: 2000,
           icon: <TbX />,
         });
+        props?.onError?.();
         setDisable(false);
       },
     }
   );
 
-  const submit = () => {
+  const submit = (imageData?: string) => {
     return onSubmit((values) => {
+      if (imageData) updateMutation({ ...values, image: imageData });
       if (values) updateMutation({ ...values });
     });
   };

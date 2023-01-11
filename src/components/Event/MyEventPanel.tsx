@@ -24,7 +24,6 @@ import { useState } from "react";
 import type { EventPost } from "@prisma/client";
 import Loading from "../Loading";
 import Link from "next/link";
-import { useRouter } from "next/router";
 
 const useStyles = createStyles((theme) => ({
   tableContainer: {
@@ -41,7 +40,6 @@ const useStyles = createStyles((theme) => ({
 
 function MyEventPanel() {
   const { classes } = useStyles();
-  const router = useRouter();
   const { data, isLoading, isRefetching } =
     trpc.eventPost.getMyEvents.useQuery();
   const [eventDetail, setDetailEvent] = useState<EventPost>();
@@ -85,8 +83,7 @@ function MyEventPanel() {
           <Group noWrap>
             <ActionIcon
               component={Link}
-              href={`/event/create?edit=${event.id}&author=${event.authorId}`}
-              as={`/event/create?edit=${event.id}`}
+              href={`/event/create?edit=${event.id}`}
               variant="transparent"
               color="green"
             >

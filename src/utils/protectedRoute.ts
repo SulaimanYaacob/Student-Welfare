@@ -1,4 +1,5 @@
-import { getSession, GetSessionParams } from "next-auth/react";
+import type { GetSessionParams } from "next-auth/react";
+import { getSession } from "next-auth/react";
 
 export default async function getServerSideProps(
   ctx: GetSessionParams | undefined

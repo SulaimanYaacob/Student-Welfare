@@ -1,6 +1,5 @@
 import { Group, Stack, Title } from "@mantine/core";
 import type { FileWithPath } from "@mantine/dropzone";
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import CreateEvent from "../../components/Event/CreateEvent";
@@ -28,28 +27,26 @@ function SubmitEvent() {
     setValues,
   } = useUpdateEvent();
   const router = useRouter();
-  const { edit, author } = router.query;
-  const { data: session } = useSession();
-  const authorizeToEdit = author === session?.user?.id;
+  const { edit } = router.query;
+
+  const { data: EventData } = trpc.eventPost.getSingleEvent.useQuery({
+    EventId: edit as string,
+  });
 
   files.map(async (file) => {
     const base64 = await fileBase64Conversion(file);
 
     setBaseImage(base64);
 
-    authorizeToEdit
+    EventData
       ? (updateValues.image = baseImage as string)
       : (eventValues.image = baseImage as string);
   });
 
-  if (authorizeToEdit) {
-    const { data: EventData } = trpc.eventPost.getSingleEvent.useQuery({
-      id: edit as string,
-    });
-
+  if (edit) {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
-      if (EventData && authorizeToEdit) {
+      if (EventData && edit) {
         setValues({
           id: EventData.id || undefined,
           title: EventData.title || undefined,
@@ -62,7 +59,7 @@ function SubmitEvent() {
         });
         setBaseImage(EventData.image);
       }
-    }, [EventData, authorizeToEdit, setValues]);
+    }, [EventData, edit, setValues]);
   }
 
   return (
@@ -71,10 +68,10 @@ function SubmitEvent() {
       <Group sx={{ height: "100%" }} position="center" spacing={0} grow noWrap>
         <CreateEvent
           setFiles={setFiles}
-          getInputProps={authorizeToEdit ? getUpdateInput : getEventInput}
-          submit={authorizeToEdit ? update : create}
-          values={authorizeToEdit ? updateValues : eventValues}
-          disable={authorizeToEdit ? disableUpdate : disableCreate}
+          getInputProps={EventData ? getUpdateInput : getEventInput}
+          submit={EventData ? update : create}
+          values={EventData ? updateValues : eventValues}
+          disable={EventData ? disableUpdate : disableCreate}
         />
         {/* Add Here Edit Event */}
         <Stack spacing={"xl"} align={"center"} mx="2.5vw">

@@ -34,6 +34,7 @@
     "next-auth": "^4.15.1",
     "react": "18.2.0",
     "react-awesome-reveal": "^4.1.0",
+    "react-cropper": "^2.1.8",
     "react-dom": "18.2.0",
     "react-icons": "^4.6.0",
     "superjson": "1.9.1",
