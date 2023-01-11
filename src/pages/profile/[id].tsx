@@ -134,7 +134,7 @@ const UserProfile = () => {
                       p="md"
                       my="md"
                     >
-                      {id === "clb4hl1uw0000vcgccfm5492s" ? (
+                      {id === "clcrug4c30000vc2wfvvgbj71" ? (
                         <Stack align="center">
                           <Image
                             alt="About me"

@@ -90,7 +90,7 @@ function EventDetailModal({ event, opened, setOpened }: Props) {
               <Text>
                 {description
                   ? description
-                  : "This person is not creative enough to explain the details of the event. I suggest not to attend this event"}
+                  : "This person is not creative enough to explain the details of the event."}
               </Text>
             </Stack>
           </ScrollArea>
