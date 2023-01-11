@@ -63,7 +63,7 @@ function EventCarousel() {
                 <Text
                   color="cyan"
                   component={Link}
-                  href={`/profile/clb4hl1uw0000vcgccfm5492s`}
+                  href={`/profile/clcrug4c30000vc2wfvvgbj71`}
                 >
                   Sulaiman
                 </Text>
@@ -77,7 +77,7 @@ function EventCarousel() {
                 <Text
                   color="cyan"
                   component={Link}
-                  href="/profile/clb4ommh00000vgl010juo0lm"
+                  href="/profile/clcrupczv0002js089249209u"
                 >
                   Eddie
                 </Text>
