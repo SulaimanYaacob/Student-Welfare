@@ -8,7 +8,8 @@ function Unsupported() {
       <AppShell sx={(theme) => ({ background: `${theme.colors.gray[4]}` })}>
         <Stack
           pos="absolute"
-          bottom="50%"
+          top="25%"
+          bottom="25%"
           right="15%"
           left="15%"
           spacing="xl"
