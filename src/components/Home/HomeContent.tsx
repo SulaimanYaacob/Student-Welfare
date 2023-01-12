@@ -42,7 +42,7 @@ function HomeContent() {
           <Button component={Link} href="/event">
             <Stack spacing={"xs"} align={"center"}>
               <TbConfetti size={"100px"} />
-              <Text>Event</Text>
+              <Text>Events</Text>
             </Stack>
           </Button>
           <Button disabled>
@@ -65,7 +65,7 @@ function HomeContent() {
           <Button disabled component={Link} href="/forum">
             <Stack spacing={"xs"} align={"center"}>
               <TbReport size={"100px"} />
-              <Text>Complain</Text>
+              <Text>Complains</Text>
             </Stack>
           </Button>
           <Button disabled>
@@ -77,7 +77,7 @@ function HomeContent() {
           <Button disabled>
             <Stack spacing={"xs"} align={"center"}>
               <TbWriting size={"100px"} />
-              <Text>Survey</Text>
+              <Text>Surveys</Text>
             </Stack>
           </Button>
         </Group>

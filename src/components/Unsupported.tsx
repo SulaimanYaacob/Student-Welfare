@@ -20,7 +20,7 @@ function Unsupported() {
             {"We can't fit everything in your screen."}
           </Title>
           <Text align="center">
-            {"We're sorry to say that some device is not compatible"}
+            {"We're sorry to say that some devices are not compatible"}
           </Text>
         </Stack>
       </AppShell>
