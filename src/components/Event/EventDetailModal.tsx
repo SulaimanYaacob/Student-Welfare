@@ -11,9 +11,10 @@ import {
 } from "@mantine/core";
 import Image from "next/image";
 import Link from "next/link";
-import React, { Dispatch, SetStateAction } from "react";
+import type { Dispatch, SetStateAction } from "react";
+import React from "react";
 import { defaultEventImage } from "../../utils/constant";
-import { EventData } from "../../types/event.type";
+import type { EventData } from "../../types/event.type";
 import { getDuration, getFormattedDate } from "../../utils/dateHandler";
 
 const useStyle = createStyles((theme) => ({

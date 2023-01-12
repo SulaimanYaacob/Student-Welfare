@@ -1,11 +1,15 @@
 import Login from "../../components/Login";
-import { getSession, GetSessionParams } from "next-auth/react";
+import type { GetSessionParams } from "next-auth/react";
+import { getSession } from "next-auth/react";
+import Unsupported from "../../components/Unsupported";
+import { Paper } from "@mantine/core";
 
 const LoginPage = () => {
   return (
     <>
       <title>Login Page</title>
       <Login />
+      <Unsupported />
     </>
   );
 };

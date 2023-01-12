@@ -56,10 +56,14 @@ function EditProfileModal({
         <Stack>
           <Grid>
             <Grid.Col span={8}>
-              <TextInput label="Name" {...getInputProps("name")}></TextInput>
+              <TextInput
+                withAsterisk
+                label="Name"
+                {...getInputProps("name")}
+              ></TextInput>
             </Grid.Col>
             <Grid.Col span={4}>
-              <NumberInput label="Age" {...getInputProps("age")} />
+              <NumberInput withAsterisk label="Age" {...getInputProps("age")} />
             </Grid.Col>
           </Grid>
           <Select
@@ -108,9 +112,11 @@ function EditProfileModal({
             </Grid.Col>
             <Grid.Col span={6}>
               <TextInput
+                withAsterisk
+                maxLength={10}
                 label="Phone Number"
                 {...getInputProps("phoneNo")}
-              ></TextInput>
+              />
             </Grid.Col>
           </Grid>
           <Textarea label="Bio" {...getInputProps("bio")} />

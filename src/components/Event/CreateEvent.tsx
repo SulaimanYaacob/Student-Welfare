@@ -90,9 +90,6 @@ function CreateEvent({ setFiles, submit, getInputProps, disable }: Props) {
             <DatePicker
               label={"Date"}
               withAsterisk
-              onChange={(e) => {
-                console.log(e);
-              }}
               {...getInputProps("date")}
             />
           </Group>
@@ -107,9 +104,6 @@ function CreateEvent({ setFiles, submit, getInputProps, disable }: Props) {
               {...getInputProps("timeStart")}
             />
             <TimeInput
-              onChange={(e) => {
-                console.log(e.getHours());
-              }}
               label="End"
               format="12"
               amLabel="am"
