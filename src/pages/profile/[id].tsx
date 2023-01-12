@@ -27,6 +27,7 @@ import { useSession } from "next-auth/react";
 import Loading from "../../components/Loading";
 import EditProfileModal from "../../components/Profile/EditProfileModal";
 import ImageCropModal from "../../components/Profile/ImageCropModal";
+import Link from "next/link";
 
 const UserProfile = () => {
   const [openedImageEdit, setOpenedImageEdit] = useState(false);
@@ -57,8 +58,8 @@ const UserProfile = () => {
             opened={opened}
           />
           <Stack spacing="xl">
-            <Paper mx="auto" pb="xl" radius="md" w="1000px">
-              <Image
+            <Paper mt="20vh" mx="auto" pb="xl" radius="md" w="1000px">
+              {/* <Image
                 src={
                   userData.backgroundImage
                     ? userData.backgroundImage
@@ -67,7 +68,7 @@ const UserProfile = () => {
                 alt={"name here"}
                 width={1000}
                 height={250}
-              />
+              /> */}
               <Stack mx="lg" spacing="md">
                 <Group
                   position="apart"
@@ -135,15 +136,14 @@ const UserProfile = () => {
                       my="md"
                     >
                       {id === "clcrug4c30000vc2wfvvgbj71" ? (
-                        <Stack align="center">
-                          <Image
-                            alt="About me"
-                            src={"/Totally_not_a_Rickroll_QR_Code.png"}
-                            width={150}
-                            height={150}
-                          />
-                          <Text>{"Here's a development video"}</Text>
-                        </Stack>
+                        <Text
+                          fw="500"
+                          color="yellow.6"
+                          component={Link}
+                          href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab"
+                        >
+                          {"Here's a development video"}
+                        </Text>
                       ) : userData.bio ? (
                         userData.bio
                       ) : (

@@ -47,7 +47,7 @@ function ImageCropModal({ title, opened, setOpened, userData }: Props) {
     if (userData) {
       setValues({
         name: userData.name || "",
-        age: userData.age || undefined,
+        age: userData.age || 0,
         bio: userData.bio || "",
         studyMode: userData.studyMode || "FULLTIME",
         college: userData.college || "",
