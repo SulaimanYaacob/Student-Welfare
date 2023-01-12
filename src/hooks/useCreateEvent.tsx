@@ -20,7 +20,7 @@ const useCreateEvent = () => {
       venue: (value) => {
         return value ? null : "Venue field is required";
       },
-      description: (value: string) => {
+      description: (value?: string) => {
         return value
           ? value.length < 1000
             ? null
