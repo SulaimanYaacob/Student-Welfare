@@ -52,20 +52,20 @@ export const eventPost = router({
     }),
   deleteEvent: protectedProcedure
     .input(z.object({ id: z.string().cuid() }))
-    .mutation(({ ctx, input: { id } }) => {
-      return ctx.prisma.eventPost.delete({
+    .mutation(async ({ ctx, input: { id } }) => {
+      return await ctx.prisma.eventPost.delete({
         where: { id },
       });
     }),
   getSingleEvent: protectedProcedure
     .input(z.object({ EventId: z.string().cuid() }))
-    .query(({ ctx, input: { EventId } }) => {
-      return ctx.prisma.eventPost.findFirst({
+    .query(async ({ ctx, input: { EventId } }) => {
+      return await ctx.prisma.eventPost.findFirst({
         where: { id: EventId, authorId: ctx.session?.user?.id },
       });
     }),
-  getMyEvents: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.eventPost.findMany({
+  getMyEvents: publicProcedure.query(async ({ ctx }) => {
+    return await ctx.prisma.eventPost.findMany({
       where: { authorId: ctx.session?.user?.id },
       orderBy: { createdAt: "desc" },
     });
