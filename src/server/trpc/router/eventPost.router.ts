@@ -82,7 +82,7 @@ export const eventPost = router({
           })
           .optional(),
         cursor: z.string().nullish(),
-        limit: z.number().min(1).max(100).default(5),
+        limit: z.number().min(1).max(10).default(3),
         contains: z.string().optional(),
       })
     )
